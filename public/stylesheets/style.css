@@ -1,11 +1,58 @@
 *{
-  margin:0;
-  padding:0;
+  margin : 0;
+  padding: 0;
 }
+
 header{
-  height:100px;
-  width:100%;
-  padding:0 8%;
-  background: orange;
-  position:relative;
+  position: relative;
+  background-color: orange;
+  padding: 20px;
+
+
+}
+
+
+h1{
+font-size: 30px;
+margin-top: 5px;
+text-align: center;
+}
+
+
+ul{
+  float: right;
+  margin-top: 10px;
+  margin-right: 20px;
+
+
+}
+
+ul li{
+  display: inline-block;
+  list-style-type: none;
+  padding: 10px;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+
+}
+
+a:hover{
+  color: grey;
+}
+
+main{
+  text-align: center;
+  margin-top: 100px ;
+
+
+}
+
+form{
+  margin-top: 20px;
+
 }
