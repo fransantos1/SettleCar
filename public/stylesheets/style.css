@@ -1,33 +1,11 @@
-
 *{
-  margin :0;
-  padding: 0;
+  margin:0;
+  padding:0;
 }
-
-header{ 
-  overflow: hidden;
-  background-color: #f1f1f1;
-  padding: 20px 10px;
-  background-color: rgb(241, 129, 18);
-}
-h1{
-  font: 100px "Lucida Grande", Helvetica, Arial, sans-serif;
-  text-align: center;
-}
-button.login{
-  float:right;
-  cursor: pointer;
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px;
-  line-height: 10px;
-  border-radius: 4px;
-
-}
-button.login:hover{
-  background-color: #ddd;
-  color: black;
+header{
+  height:100px;
+  width:100%;
+  padding:0 8%;
+  background: orange;
+  position:relative;
 }
