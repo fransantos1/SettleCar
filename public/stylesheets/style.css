@@ -1,58 +1,109 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap%22");
+
+
 *{
+  font-family: 'Poppins', sans-serif;
   margin : 0;
   padding: 0;
 }
 
+
 header{
-  position: relative;
+  display: flex;
   background-color: orange;
-  padding: 20px;
-
-
+  padding: 25px; 
+}
+header > .logo{
+  width: 20%;
+  text-align: center;
+  margin: auto;
 }
 
-
-h1{
-font-size: 30px;
-margin-top: 5px;
-text-align: center;
+header > h1{
+  width: 60%;
+  font-size: 40px;
+  text-align: center;
+  margin: auto; 
 }
 
-
-ul{
-  float: right;
-  margin-top: 10px;
-  margin-right: 20px;
-
-
+header > .navbar {
+  width: 20%;
+  margin: auto;
+  text-align:center;
+  word-spacing: 30px;
 }
 
-ul li{
+.navbar li{
   display: inline-block;
   list-style-type: none;
-  padding: 10px;
-  font-size: 20px;
-  margin-top: 10px;
+  font-size: 25px;
 }
 
-a{
+
+
+.navbar a{
   text-decoration: none;
   color: black;
-
 }
 
-a:hover{
-  color: grey;
+
+.navbar a:hover{
+  color: orangered;
 }
 
-main{
-  text-align: center;
-  margin-top: 100px ;
-
-
+h2{
+  text-align: left;
+  margin-top: 50px ;
+  font-size: 30px;
+  margin-left: 20%;
 }
 
 form{
-  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items:end;
+  gap: 10px;
+  position: absolute;
+  right: 20%;
+  left: 20%;
+  background: orange;
+  padding: 20px;
+  border-radius: 0.5rem;
+}
+.box{
+  flex: 1 1 7rem;
+  display: flex;
+  flex-direction:column;
+}
 
+.box label {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.box input{
+  margin-left: 1%;
+  padding: 7px;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 0.5rem;
+  font-size: 20px;
+}
+
+form .btn {
+  padding: 10px 34px;
+  border: none;
+  border-radius: 0.5rem;
+  background: white;
+  color: black;
+  font-weight: 600;
+  font-size: 20px;
+
+
+}
+
+form .btn:hover{
+  background: orangered;
 }

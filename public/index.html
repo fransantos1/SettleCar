@@ -3,51 +3,59 @@
 <head>
   <title>settlecar</title>
   <link rel="stylesheet" href="stylesheets/style.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons%22%3E
-  <script src="./javascripts/utils/verifications.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons%22%3E%22%3E"></link>
+  <script src= "./javascripts/utils/verifications.js"></script>
   <script src="./javascripts/requests/matchesRequests.js"></script>
   <script src="./javascripts/requests/usersRequests.js"></script>
   <script src="./javascripts/login.js"></script>
+
+
 </head>
 
 <body>
   <header>
 
+    <section class="logo">
+      <img src="Images/logo.png" width=120px height=40px>
+    </section>
    <h1>SETTLECAR</h1>
-    <div class="navbar">
+    <section class="navbar">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="#">Login</a></li>
         <li><a href="register.html">Register</a></li>
       </ul>
-    </div>
+    </section>
   </header>
 
   <main>
-        <section>
-            <h2>Find Your Car</h2>
-            <form>
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location">
-                <label for="pickup">Pickup Date:</label>
-                <input type="date" id="pickup" name="pickup">
-                <label for="return">Return Date:</label>
-                <input type="date" id="return" name="return">
-                <input type="submit" value="Search">
-            </form>
+    
+    <section>
+      <h2>Find Your Car:</h2>
+          <form>
+            <section class="box">
+              <label for="location">Location:</label>
+              <input type="search" id="location" name="location" placeholder="Serch Places">
 
-            <div class= "imagens">
-                <img src="imagens/aaaa.jpeg">
-                <img1 src="imagens/aaa.jpeg">
-                <img2 src="imagens/aa.jpeg">
-            </div>
+            </section>
+            <section class="box">
+              <label for="pickup">Pickup Date:</label>
+              <input type="date" id="pickup" name="pickup">
+            </section>
+            <section class="box">
+              <label for="return">Return Date:</label>
+              <input type="date" id="return" name="return">
+            </section>
+            <input type="submit" value="Search" class="btn">
 
-        </section>
-  <main>
-
+          </form>
+          <section class="img">
+            <img src="./Images/car.png" alt="car images">
+          </section>
+          
+    </section>
   </main>
   <footer>
-    <h2></h2>
   </footer>
 </body>
 
