@@ -11,34 +11,52 @@ function dbUserToUser(dbUser)  {
 }
 
 class User {
-    constructor(id, name, pass, token) {
+    constructor(id, name, pass, email, token, usr_type) {
         this.id = id;
         this.name = name;
-        this.pass = pass;
+        this.phone = pass;
+        this.email = email;
         this.token = token;
+        this.user_type = usr_type;
     }
     export() {
         let user=new User();
-        user.name = this.name;
+        user.id = this.name;
         return user; 
     }
-
-
     static async getById(id) {
         try {
-            let dbResult = await pool.query("Select * from appuser where usr_id=$1", [id]);
+            let dbResult = await pool.query("Select * from usr where usr_id=$1", [id]);
             let dbUsers = dbResult.rows;
             if (!dbUsers.length) 
                 return { status: 404, result:{msg: "No user found for that id."} } ;
             let dbUser = dbUsers[0];
             return { status: 200, result: 
-                new User(dbUser.id,dbUser.usr_name,dbUser.usr_pass, dbUser.usr_token)} ;
+                new User(dbUser.usr_id,dbUser.usr_name,dbUser.usr_email, dbUser.usr_token, dbUser.usr_type)} ;
         } catch (err) {
             console.log(err);
             return { status: 500, result: err };
         }  
     }
+    static async getALL() {
+        try {
+            let dbResult = await pool.query("Select * from usr");
+            let dbUsers = dbResult.rows;
+            /*
+            if (!dbUsers.length) 
+                return { status: 404, result:{msg: "No user found for that id."} } ;*/
+                let Results = [];
+                for (let users of dbUsers) {
+                        Results.push(new User(users.usr_id,users.usr_name,users.usr_email,users.usr_token,users.usr_type));
+                    }
+            return { status: 200, result:
+                Results} ;
 
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }  
+    }
     static async register(user) {
         try {
             let dbResult =

@@ -22,6 +22,18 @@ router.get('/auth',auth.verifyAuth,  async function (req, res, next) {
         res.status(500).send(err);
     }
 });
+router.get('/getall',  async function (req, res, next) {
+    try {
+        let result = await User.getALL();
+        if (result.status != 200) 
+            res.status(result.status).send(result.result);
+       
+        res.status(result.status).send(result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 
 router.post('', async function (req, res, next) {
     try {
