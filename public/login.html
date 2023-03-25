@@ -1,11 +1,11 @@
 <html>
 
 <head>
-  <title>Register</title>
+  <title>Login</title>
   <link rel="stylesheet" href="stylesheets/style_register_login.css">
   <link rel="stylesheet" href="stylesheets/style_navbar.css">
   <script src="./javascripts/requests/usersRequests.js"></script>
-  <script src="./javascripts/register.js"></script>
+  <script src="./javascripts/login.js"></script>
 </head>
 
 <body>
@@ -20,32 +20,26 @@
     <div class="navbar">
       <ul>
         <li><a href="index.html">Home</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
       </ul>
     </div>
   </header>
   
   <main>
-    <form action="javascript:register()">
+    <form action="javascript:login()">
       
-      <div class="box">
-        <label for="Name">Name:</label>
-        <input type="text" autocomplete="name" id="name">      
-      </div>
       <div class="box">
         <label for="Email">Email:</label>
         <input type="text" autocomplete="email" id="username" >
       </div>
       <div class="box">
-        <label for="Phone">Phone Number:</label>
-        <input type="text" autocomplete="tel" id="username" >
-      </div>
-      <div class="box">
         <label for="Password">Password:</label>
-        <input type="password" autocomplete= "new-password" id="password">      
+        <input type="password" autocomplete= "current-password" id="password">      
       </div>
       <p id="msg" class="warning"></p>
-      <input type="submit" value="Register" class="btn"/>
-      <p><a href="login.html">Login page</a></p>
+      <input type="submit" value="Login" class="btn"/>
+      <p><a href="register.html">Register page</a></p>
       
       <!--
         <table>
