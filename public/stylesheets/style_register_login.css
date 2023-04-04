@@ -36,6 +36,13 @@ form{
   flex-direction: column;
   
 }
+.box1{
+  
+  display: flex;
+  gap: 10px;
+ 
+  
+}
 
 .box label {
   font-weight: 600;
@@ -72,8 +79,10 @@ form .btn:hover{
 form a{
   text-decoration: none;
   color: black;
+  font-weight: bold;
 }
 
 form a:hover{
   color: orangered;
+  
 }

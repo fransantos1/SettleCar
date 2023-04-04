@@ -11,19 +11,44 @@ function dbUserToUser(dbUser)  {
 }
 
 class User {
-    constructor(id, name, pass, email, token, usr_type) {
+    constructor(id, name, phone, email,pass, token, type) {
         this.id = id;
         this.name = name;
-        this.phone = pass;
+        this.phone = phone;
         this.email = email;
+        this.pass = pass;
         this.token = token;
-        this.user_type = usr_type;
+        this.type = type;
     }
     export() {
         let user=new User();
-        user.id = this.name;
+        user.name = this.name;
         return user; 
     }
+    static async register(user) {
+        try {
+            let dbResult =
+                await pool.query("Select * from usr where usr_email=$1", [user.email]);
+            let dbUsers = dbResult.rows;
+            if (dbUsers.length)
+                return {
+                    status: 400, result: [{
+                        location: "body", param: "email",
+                        msg: "That email is already registered"
+                    }]
+                };
+                
+            let encpass = await bcrypt.hash(user.pass,saltRounds);   
+            dbResult = await pool.query(`Insert into usr (usr_name, usr_phone, usr_email, usr_pass, usr_usrtype_id) values ($1,$2,$3,$4,$5)`,
+                                    [user.name, user.phone, user.email,encpass,user.type]);
+
+            return { status: 200, result: {msg:"Registered! You can now log in."}} ;
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
+
     static async getById(id) {
         try {
             let dbResult = await pool.query("Select * from usr where usr_id=$1", [id]);
@@ -38,48 +63,7 @@ class User {
             return { status: 500, result: err };
         }  
     }
-    static async getALL() {
-        try {
-            let dbResult = await pool.query("Select * from usr");
-            let dbUsers = dbResult.rows;
-            /*
-            if (!dbUsers.length) 
-                return { status: 404, result:{msg: "No user found for that id."} } ;*/
-                let Results = [];
-                for (let users of dbUsers) {
-                        Results.push(new User(users.usr_id,users.usr_name,users.usr_email,users.usr_token,users.usr_type));
-                    }
-            return { status: 200, result:
-                Results} ;
-
-        } catch (err) {
-            console.log(err);
-            return { status: 500, result: err };
-        }  
-    }
-    static async register(user) {
-        try {
-            let dbResult =
-                await pool.query("Select * from appuser where usr_name=$1", [user.name]);
-            let dbUsers = dbResult.rows;
-            if (dbUsers.length)
-                return {
-                    status: 400, result: [{
-                        location: "body", param: "name",
-                        msg: "That name already exists"
-                    }]
-                };
-            let encpass = await bcrypt.hash(user.pass,saltRounds);   
-            dbResult = await pool.query(`Insert into appuser (usr_name, usr_pass)
-                       values ($1,$2)`, [user.name, encpass]);
-            return { status: 200, result: {msg:"Registered! You can now log in."}} ;
-        } catch (err) {
-            console.log(err);
-            return { status: 500, result: err };
-        }
-    }
- 
-
+    
     static async checkLogin(user) {
         try {
             let dbResult =
