@@ -1,4 +1,4 @@
-async function requestRegister(user, pass) {
+async function requestRegister(name, email, phone, pass, check) {
     try {
         const response = await fetch(`/api/users/`, 
         {
@@ -8,8 +8,11 @@ async function requestRegister(user, pass) {
             },
           method: "POST",
           body: JSON.stringify({
-              username: user,
-              password: pass
+              name: name,
+              phone: phone,
+              email: email,
+              pass: pass, 
+              type: check
           })
         });
         // We are not checking for errors (considering the GUI is only allowing correct choices)

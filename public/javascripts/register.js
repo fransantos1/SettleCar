@@ -1,17 +1,38 @@
 async function register() {
-    let msgDOM = document.getElementById("msg");
-    msgDOM.textContent = "";
     try {
         let name = document.getElementById("name").value;
-        let pass = document.getElementById("password").value;
-        let res = await requestRegister(name,pass);
+        let email = document.getElementById("email").value;
+        let phone = document.getElementById("phone").value;
+        let pass = document.getElementById("pass").value;
+        let checkboxes = document.getElementsByName('check');
+        let check = null;
+        checkboxes.forEach((item)=>{
+            if(item.checked == true){
+                check = item.value;
+            }
+        })
+        if(name == '' || email == '' || phone == '' || pass == '' || check == null){
+            window.alert("please complete everything");
+            return;
+        }
+        let res = await requestRegister(name , email , phone , pass , check);
         if (res.successful) {
-            msgDOM.textContent = "Account created. Go to login page";
+            window.location.replace("login.html");
+            window.alert("Account created. Going to LoginPage");
         } else {
-            msgDOM.textContent = "Was not able to register";
+            window.alert("Was not able to register");
         }      
     } catch (err) {
         console.log(err);
         msgDOM.textContent = "An error occurred";   
     }
+}
+
+
+//https://stackoverflow.com/questions/9709209/html-select-only-one-checkbox-in-a-group
+function onlyOne(checkbox) {
+    let checkboxes = document.getElementsByName('check')
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false
+    })
 }
