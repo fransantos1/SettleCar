@@ -1,4 +1,5 @@
 const User = require("../models/usersModel");
+
 // The correct value depends maxAge of the cookie (see index.js)
 const refreshPer =  1440e3; // 1440e3 milliseconds = 1 hour
 

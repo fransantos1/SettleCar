@@ -6,7 +6,6 @@ const auth = require("../middleware/auth");
 const tokenSize = 64;
 
 
-// Get information about the authenticated user (only the name)
 router.get('/auth',auth.verifyAuth,  async function (req, res, next) {
     try {
         console.log("Get authenticated user");
@@ -14,8 +13,11 @@ router.get('/auth',auth.verifyAuth,  async function (req, res, next) {
         if (result.status != 200) 
             res.status(result.status).send(result.result);
         let user = new User();
-        // sendig only the name
+
         user.name = result.result.name;
+        user.phone = result.result.phone;
+        user.email = result.result.email;
+        user.type = result.result.type;
         res.status(result.status).send(user);
     } catch (err) {
         console.log(err);
@@ -61,13 +63,15 @@ router.post('/auth', async function (req, res, next) {
     try {
         console.log("Login user ");
         let user = new User();
-        user.name = req.body.username;
-        user.pass = req.body.password;
+        user.email = req.body.email;
+        user.pass = req.body.pass;
         let result = await User.checkLogin(user);
+
         if (result.status != 200) {
             res.status(result.status).send(result.result);
             return;
         }
+
         // result has the user with the database id
         user = result.result;
         let token = utils.genToken(tokenSize);
