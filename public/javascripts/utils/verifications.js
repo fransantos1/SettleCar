@@ -9,12 +9,13 @@ function changePage(url,msg,verbose) {
 async function checkAuthenticated(verbose) {
     try {
         let result = await requestProfile();
-        if (result.unauthenticated)
-            changePage("index.html","Not authenticated. Going to login page",verbose);
+        console.log(result);
+        if (result.user.msg =="Invalid authentication!")
+            return{successful:true, authenthicated:false}
         else if (!result.successful || result.err) 
             throw err || "Not successful";
         else window.user = result.user;
-        return {successful: true};
+        return {successful: true,authenthicated:true};
     } catch (err) {
         console.log(err);
         return {err:err};
