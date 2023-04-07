@@ -23,6 +23,7 @@ body > header .navbar img {
   height: 60px; 
   padding-left: 10px; 
   border-radius: 50%;
+  object-fit: cover;
 }
 
 main {
@@ -34,22 +35,22 @@ main .page-center {
   margin: auto;
   flex: 1;
   padding-top: 2.5%;
-  width: fit-content;
+  width: 100%;
   height: fit-content;
 }
-
+#remove_link{
+  visibility: hidden;
+}
 main .page-center .main-list {
-  flex: row;
+  display: flex;
+  flex-direction:column;
+  padding-left: 0;
+  width: 15%;
   padding-top: 2.5%;
   font-size: 20px;
   font-weight: normal;
   list-style: none;
 }
-
-main .page-center .main-list a {
-  text-decoration: none;
-}
-
 main .page-center .img-separator img {
   flex: 2;
   width: 3px;
@@ -58,64 +59,97 @@ main .page-center .img-separator img {
   opacity: 15%;
   border-radius: 70%;
 }
-
-main .page-center .services-container {
-  flex: 3;
-  display: flex;
-  grid-template-columns: repeat(auto-fit,minmax(300px,auto));
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-main .page-center .services-container > * div {
-  display: flex;
-  padding-top: 20px;
-  padding-right: 10px;
-}
-
-main .page-center .services-container > * div img {
-  width: 60px; 
-  height: 60px; 
-  padding-right: 10px; 
-  border-radius: 50%;
-}
-
-main .page-center .services-container > * div h3 {
-  font-size: 20px;
-  font-weight: normal;
-}
-
-main .page-center .services-container > * div h4 {
-  font-size: 20px;
-  font-weight: normal;
-  padding: 0px 20px;
-}
-
-.services-container a{
+main .page-center .main-list a {
   text-decoration: none;
-  color: orange;
 }
 
-.services-container .box{
-  padding: 10px;
-  border-radius: 1rem;
-  box-shadow: 1px 4px 41px rgba(0,0,0,0.1)
+#services-container{
+  width: 85%;
+  height: 50px;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  
+} 
+#services-container .item:hover{
+  cursor:pointer;
+  background-color: rgb(187, 187, 187);
+  
+  
+}
+#services-container .item .toggleable{
+  visibility: hidden;
+}
+#services-container > * th {
+  border-bottom-style: outset;
+  font-size: 25px;
 
 }
 
-.services-container .box .box-img{
-  width: 100%;
-  height: 200px;
+#services-container > * td h3 {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+#services-container > * td img {
+  display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30px; 
+    height: 30px;
+}
+.available {
+  height: 20px;
+  width: 20px;
+  background-color: #15ff00;
+  border-radius: 50%;
+  display: inline-block;
+}
+.unavailable {
+  height: 20px;
+  width: 20px;
+  background-color: #e5f503;
+  border-radius: 50%;
+  display: inline-block;
+}
+.worshop {
+  height: 20px;
+  width: 20px;
+  background-color: #ff0000;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 
-.services-container .box .box-img img{
-  width: 100%;
-  height: 100%;
-  border-radius: 1rem;
-  object-fit: cover;
-  object-position: center ;
+/*https://getcssscan.com/css-buttons-examples*/
+#Confirm_delete {
+  visibility: hidden;
+  background-color: #912424;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
-
-
+#Confirm_delete:hover,
+#Confirm_delete:focus {
+  background-color: #ff0000;
+}

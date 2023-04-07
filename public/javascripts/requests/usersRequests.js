@@ -60,6 +60,7 @@ async function requestLogout() {
             },
           method: "DELETE",
         });
+        
         // We are not checking for errors (considering the GUI is only allowing correct choices)
         // We only need to send if the user logged or not since the token will be in the cookie
         return { successful: response.status == 200};

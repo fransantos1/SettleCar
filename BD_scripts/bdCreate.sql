@@ -55,6 +55,7 @@ create table car (
                     car_licenseplate VARCHAR(200),
                     car_brand VARCHAR(200),
                     car_model VARCHAR(200),
+                    car_year VARCHAR(200);
                     car_engine VARCHAR(200),
                     car_fuel VARCHAR(200),
                     car_gearbox VARCHAR(200),--???????

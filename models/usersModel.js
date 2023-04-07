@@ -7,7 +7,9 @@ function dbUserToUser(dbUser)  {
     let user = new User();
     user.id = dbUser.usr_id;
     user.name = dbUser.usr_name;
+    user.phone = dbUser.usr_phone;
     user.email = dbUser.usr_email;
+    user.type = dbUser.usr_usrtype_id;
     return user;
 }
 
@@ -39,10 +41,9 @@ class User {
                     }]
                 };
                 
-            let encpass = await bcrypt.hash(user.pass,saltRounds);   
+            let encpass = await bcrypt.hash(user.pass,saltRounds);      
             dbResult = await pool.query(`Insert into usr (usr_name, usr_phone, usr_email, usr_pass, usr_usrtype_id) values ($1,$2,$3,$4,$5)`,
-                                    [user.name, user.phone, user.email,encpass,user.type]);
-
+            [user.name, user.phone, user.email,encpass,user.type]);
             return { status: 200, result: {msg:"Registered! You can now log in."}} ;
         } catch (err) {
             console.log(err);

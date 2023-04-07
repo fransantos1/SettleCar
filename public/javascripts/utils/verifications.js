@@ -9,7 +9,6 @@ function changePage(url,msg,verbose) {
 async function checkAuthenticated(verbose) {
     try {
         let result = await requestProfile();
-        console.log(result);
         if (result.user.msg =="Invalid authentication!")
             return{successful:true, authenthicated:false}
         else if (!result.successful || result.err) 
@@ -20,4 +19,10 @@ async function checkAuthenticated(verbose) {
         console.log(err);
         return {err:err};
     }
+}
+
+async function logout(){
+    let result = requestLogout();
+    alert("You have logged out! Going to the initial page.");
+    window.location.pathname = "index.html";
 }

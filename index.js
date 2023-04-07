@@ -18,8 +18,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const usersRouter = require("./routes/usersRoutes");
-
+const carRouter = require("./routes/carRoutes")
 app.use("/api/users",usersRouter);
+app.use("/api/car",carRouter);
 
 // when we don't find anything
 app.use((req, res, next) => {

@@ -23,8 +23,3 @@ window.onload = async function () {
 
     }
 }
-async function logout(){
-    let result = requestLogout();
-    alert("You have logged out! Going to the initial page.");
-    window.location.pathname = "index.html";
-}

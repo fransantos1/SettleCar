@@ -16,11 +16,12 @@ async function register() {
             return;
         }
         let res = await requestRegister(name , email , phone , pass , check);
+        console.log(res);
         if (res.successful) {
             window.location.replace("login.html");
             window.alert("Account created. Going to LoginPage");
         } else {
-            window.alert("Was not able to register");
+            window.alert(res.message);
         }      
     } catch (err) {
         console.log(err);
