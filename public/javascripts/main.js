@@ -2,12 +2,12 @@ window.onload = async function () {
     try {
         let result = await checkAuthenticated(true);
         if(result.err) throw result.err;
-
         if(result.successful){
             switch(user.type){
                 case 1:
                     let navbar = document.querySelector('.navbar');
                     navbar.innerHTML = '<ul> <li><a href="index.html">Home</a></li> <li><a href="javascript:logout()">Logout</a></li> </ul>';
+                    document.body.style.display ="block";
                     break;
 
                 case 2:
@@ -18,8 +18,9 @@ window.onload = async function () {
                     break;
             }
         }
-        
      } catch (err) {
-
+        document.body.style.display ="block";
+        console.log(err);
     }
 }
+
