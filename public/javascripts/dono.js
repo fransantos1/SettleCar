@@ -76,7 +76,7 @@ async function populateList() {
                     status.setAttribute("class","unavailable");
                     break;
                 case 3:
-                    status.setAttribute("class","worshop");
+                    status.setAttribute("class","workshop");
                     break;
             }
             STATUS.appendChild(status);
@@ -95,10 +95,17 @@ async function populateList() {
             LOCATION.appendChild(location);
             tr.appendChild(LOCATION);
             LOCATION.onclick =()=>{
+                
             };
 
             carList.appendChild(tr);
             tr.onclick =()=>{
+
+                let x = document.getElementById("Confirm_delete");
+                if(x.style.visibility !== "visible"){
+                    openSpecsheet(car);
+                }
+                
             };
 
             carList.appendChild(tr);
@@ -107,4 +114,8 @@ async function populateList() {
     } catch(err) {
         console.log(err);
     }
+}
+function openSpecsheet(car){
+    sessionStorage.setItem("car",JSON.stringify(car));
+    window.location.pathname = "car_specs.html";
 }

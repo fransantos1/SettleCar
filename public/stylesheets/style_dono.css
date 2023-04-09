@@ -98,28 +98,27 @@ main .page-center .main-list a {
     width: 30px; 
     height: 30px;
 }
-.available {
+span{
   height: 20px;
   width: 20px;
-  background-color: #15ff00;
   border-radius: 50%;
   display: inline-block;
+}
+.available { 
+  background-color: #15ff00;
 }
 .unavailable {
-  height: 20px;
-  width: 20px;
   background-color: #e5f503;
-  border-radius: 50%;
-  display: inline-block;
 }
-.worshop {
-  height: 20px;
-  width: 20px;
+.workshop {
   background-color: #ff0000;
-  border-radius: 50%;
-  display: inline-block;
 }
-
+.subtitle{
+  padding-top: 10px;
+  vertical-align: middle;
+  display: flex;
+  flex-direction: row;
+}
 
 /*https://getcssscan.com/css-buttons-examples*/
 #Confirm_delete {

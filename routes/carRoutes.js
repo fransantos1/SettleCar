@@ -6,7 +6,7 @@ const auth = require("../middleware/auth");
 
 router.get('/auth',auth.verifyAuth,  async function (req, res,next) {
     try {
-        let result = await Car.getCars(req.user.id);
+        let result = await Car.getCars_owner(req.user.id);
         if (result.status != 200) {
             res.status(result.status).send(result.result);
             return;

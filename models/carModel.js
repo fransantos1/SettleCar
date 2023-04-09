@@ -36,7 +36,7 @@ class Car{
         this.car_state = car_state;
         this.user_id = user_id;
     }
-    static async getCars(userid) {
+    static async getCars_owner(userid) {
         try {
             let dbResult = await pool.query("Select * from car where car_usr_id=$1", [userid]);
             let dbCars = dbResult.rows;
@@ -49,8 +49,16 @@ class Car{
                 }
             let cars = [];
             for (let dbCar of dbCars) {
-                cars.push(dbCartocar(dbCar));
-                
+                let beforeImage = dbCartocar(dbCar);
+                let dbImages = await pool.query("Select * from carimage where carimage_car_id=$1", [beforeImage.id]);
+                let dbImage = dbImages.rows;
+                let images = [];
+                for(let imagee of dbImage){
+                   images.push(imagee.carimage_link);
+                }
+                console.log(images);
+                beforeImage.images = images;
+                cars.push(beforeImage);                
             }
             return { status: 200, result: cars} ;
         } catch (err) {
