@@ -30,6 +30,7 @@ class User {
     }
     static async register(user) {
         try {
+            console.log(user);
             let dbResult =
                 await pool.query("Select * from usr where usr_email=$1", [user.email]);
             let dbUsers = dbResult.rows;

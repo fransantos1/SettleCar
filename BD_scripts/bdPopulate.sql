@@ -15,9 +15,9 @@ INSERT INTO carstate VALUES (2,'Unavailable');
 INSERT INTO carstate VALUES (3,'Workshop');
 
 --password:1234
-INSERT INTO usr VALUES (1,'driver','123456', 'atuamaede4@mail.com','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
-INSERT INTO usr VALUES (2,'admin','234512541', 'atuamaede4@mail.com','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'2');
-INSERT INTO usr VALUES (3,'mech','234512541', 'atuamaede4@mail.com','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'3');
+INSERT INTO usr VALUES (1,'driver','123456', 'driver','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr VALUES (2,'admin','234512541', 'admin','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'2');
+INSERT INTO usr VALUES (3,'mech','234512541', 'mech','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'3');
 
 
 INSERT INTO car VALUES (1,'54-23-AV','Volkswagen', 'Passat','1.9TDI','Diesel','5M','FWD','5','5','500L','AC;Heated Seats;Bluetooth Radio','120','1','2');
