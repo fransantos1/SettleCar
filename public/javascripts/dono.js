@@ -37,6 +37,7 @@ async function populateList() {
     let carList = document.getElementById("services-container");
     try {
         let result = await requestCars(user.id);
+        console.log(result);
         if (!result.successful || result.err)
             throw result.err || { err: "Not successfull" }
         document.getElementById("remove_link").style.visibility ="visible";
@@ -67,18 +68,8 @@ async function populateList() {
 
             let STATUS = document.createElement("td");
             let status = document.createElement("span");
-            switch(car.car_state){
-                case 1:
-                    status.setAttribute("class","available");
-                    break;
-                    
-                case 2:
-                    status.setAttribute("class","unavailable");
-                    break;
-                case 3:
-                    status.setAttribute("class","workshop");
-                    break;
-            }
+            status.setAttribute("class",car.car_state);
+              
             STATUS.appendChild(status);
             tr.appendChild(STATUS);
 

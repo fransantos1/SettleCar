@@ -1,6 +1,11 @@
 window.onload = async function () {
     try {
         let result = await checkAuthenticated(true);
+        console.log(result.authenthicated);
+        if(result.authenthicated == false){
+            document.body.style.display ="block";
+            return;
+        }
         if(result.err) throw result.err;
         if(result.successful){
             switch(user.type){
@@ -19,8 +24,12 @@ window.onload = async function () {
             }
         }
      } catch (err) {
-        document.body.style.display ="block";
         console.log(err);
     }
+}
+
+function search(){
+    let x = document.getElementById("pickup").value;    
+    console.log(x);
 }
 

@@ -3,7 +3,7 @@ const auth = require("../config/utils");
 
 
 function dbCartocar(db){
-    return new Car(db.car_id,db.car_licenseplate, db.car_brand, db.car_model, db.car_engine, db.car_fuel,db.car_gearbox, db.car_drivetrain, db.car_doors, db.car_seats,db.car_bootcapacity,db.car_equi_ext, db.car_priceday,db.car_carstate_id,db.car_usr_id);
+    return new Car(db.car_id,db.car_licenseplate, db.car_brand, db.car_model, db.car_engine, db.car_fuel,db.car_gearbox, db.car_drivetrain, db.car_doors, db.car_seats,db.car_bootcapacity,db.car_equi_ext, db.car_priceday,db.carstate_state,db.car_usr_id);
 }
 class repair{
 
@@ -38,7 +38,7 @@ class Car{
     }
     static async getCars_owner(userid) {
         try {
-            let dbResult = await pool.query("Select * from car where car_usr_id=$1", [userid]);
+            let dbResult = await pool.query("Select * from car inner join carstate on car_carstate_id = carstate_id where car_usr_id=$1", [userid]);
             let dbCars = dbResult.rows;
             if (!dbCars.length)
                 return {
@@ -56,7 +56,6 @@ class Car{
                 for(let imagee of dbImage){
                    images.push(imagee.carimage_link);
                 }
-                console.log(images);
                 beforeImage.images = images;
                 cars.push(beforeImage);                
             }
@@ -66,7 +65,27 @@ class Car{
             return { status: 500, result: err };
         }
     }
-    
+    static async ChangecarState() {
+        try {
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
+    static async getByAvaliability() {
+        try {
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
+    static async getBySearch() {
+        try {
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
     static async getByLicensePlate(licenseplate) {
         try {
             let dbResult = await pool.query("Select * from car where car_licenseplate=$1", [licenseplate]);
@@ -91,9 +110,6 @@ class Car{
             let dbResult = await pool.query("Select * from car where car_licenseplate=$1", [LicensePlate]);
             
             let dbCars = dbResult.rows[0];
-            console.log(dbCars.car_usr_id);
-            console.log(usr_id);
-            console.log(dbCars);
             if(dbCars.car_usr_id != usr_id)
                 return {
                     status: 400, result: [{
@@ -109,6 +125,7 @@ class Car{
                         msg: "This car doesnt exist"
                     }]
                 }
+            let Result1 = await pool.query("Delete from carimage carimage where carimage_car_id = $1", [dbCars.car_id]);
             let Result = await pool.query("Delete from car where car_licensePlate =$1", [LicensePlate]);
             console.log(Result);
             return { status: 200} ;

@@ -30,7 +30,6 @@ class User {
     }
     static async register(user) {
         try {
-            console.log(user);
             let dbResult =
                 await pool.query("Select * from usr where usr_email=$1", [user.email]);
             let dbUsers = dbResult.rows;
@@ -107,8 +106,7 @@ class User {
 
     static async getUserByToken(token) {
         try {
-            let dbResult =
-                await pool.query(`Select * from usr where usr_token = $1`,[token]);
+            let dbResult = await pool.query(`Select * from usr where usr_token = $1`,[token]);
             let dbUsers = dbResult.rows;
             if (!dbUsers.length)
                 return { status: 403, result: {msg:"Invalid authentication!"}} ;

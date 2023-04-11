@@ -7,10 +7,11 @@ module.exports.verifyAuth = async function (req, res, next) {
     try {
         let token = req.session.token;
         if (!token) {
-            res.status(401).send({ msg: "Please log in." });
+            res.status(401).send({msg: "Please log in." });
             return;
         }
         let result = await User.getUserByToken(token);
+        console.log(result);
         if (result.status != 200) {
             res.status(result.status).send(result.result);
             return;

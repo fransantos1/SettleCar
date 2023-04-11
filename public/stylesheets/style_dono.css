@@ -107,11 +107,15 @@ span{
 .available { 
   background-color: #15ff00;
 }
-.unavailable {
-  background-color: #e5f503;
+.rented { 
+  background-color: #fffb00;
 }
+
 .workshop {
   background-color: #ff0000;
+}
+.unavailable {
+  background-color: #e100ff;
 }
 .subtitle{
   padding-top: 10px;

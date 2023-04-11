@@ -1,5 +1,26 @@
 
-
+* {
+    font-family: 'Poppins', sans-serif;
+    margin : 0px;
+    padding: 0px;
+    
+  }
+  
+  
+  body > header .navbar {
+    display: flex;
+    align-items: center;
+  }
+  
+  body > header .navbar img {
+    float: right;
+    width: 60px; 
+    height: 60px; 
+    padding-left: 10px; 
+    border-radius: 50%;
+    object-fit: cover;
+  }
+ 
 main {
     display: flex;
     flex-direction: row;
@@ -82,4 +103,7 @@ button:hover{
     z-index: 2;
     cursor: pointer; 
 
+}
+#Unavailable{
+    visibility: hidden;
 }

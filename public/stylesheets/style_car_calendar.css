@@ -1,0 +1,10 @@
+table{
+  width: 15%;
+}
+table, th, td {
+  text-align: center;
+  border: 1px solid;
+}
+tr{
+  width: 50px;
+}

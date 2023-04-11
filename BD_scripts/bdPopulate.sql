@@ -10,9 +10,10 @@ INSERT INTO repairtype VALUES (1,'Paint job');
 INSERT INTO repairtype VALUES (2,'Mechanical');
 INSERT INTO repairtype VALUES (3,'body Work');
 
-INSERT INTO carstate VALUES (1,'Available');
-INSERT INTO carstate VALUES (2,'Unavailable');
-INSERT INTO carstate VALUES (3,'Workshop');
+INSERT INTO carstate VALUES (1,'available');
+INSERT INTO carstate VALUES (2,'rented');
+INSERT INTO carstate VALUES (3,'workshop');
+INSERT INTO carstate VALUES (4,'unavailable');
 
 --password:1234
 INSERT INTO usr VALUES (1,'driver','123456', 'driver','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');

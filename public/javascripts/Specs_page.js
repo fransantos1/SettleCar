@@ -4,7 +4,6 @@ window.onload = async function () {
         changePage("index.html");
     }
         let car = JSON.parse(sessionStorage.getItem("car"));
-        console.log(":3");
         populatePage(car);
 
 }
@@ -22,13 +21,6 @@ function toggleOverlay(){
 
 function populatePage(car){
     try{
-        let carImages = document.getElementById("top");
-        for(let images of car.images){
-            let imgs = document.createElement("img");
-            imgs.setAttribute("src",images);
-            imgs.setAttribute("alt","Car");
-            carImages.appendChild(imgs);
-        }
         let thumbnail = document.getElementById("left");
         let img = document.createElement("img");
         img.setAttribute("src",car.images[0]);
@@ -36,6 +28,24 @@ function populatePage(car){
         img.setAttribute("alt","Car");
         thumbnail.prepend(img);
         
+        if(car.car_state === "available"){
+            let x = document.getElementById("Unavailable");
+            x.style.visibility = "visible";
+        }else if(car.car_state === "unavailable"){
+            let x = document.getElementById("Unavailable");
+            x.textContent("Make Available");
+            x.style.color = "Green";
+        }  
+       
+
+        let carImages = document.getElementById("top");
+        for(let images of car.images){
+            let imgs = document.createElement("img");
+            imgs.setAttribute("src",images);
+            imgs.setAttribute("alt","Car");
+            carImages.appendChild(imgs);
+        }
+
         let specs = document.getElementById("right");
         let ul = document.createElement("ul");
 
