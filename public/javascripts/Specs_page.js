@@ -4,7 +4,14 @@ window.onload = async function () {
     if(!result.authenthicated || user.type !== 2){
         changePage("index.html");
     }
-    car = JSON.parse(sessionStorage.getItem("car"));
+    let carid = sessionStorage.getItem("carid");
+    console.log(carid);
+    try{
+        result = await requestCar(carid);
+    }catch(err){
+        console.log(err);
+    }
+    car = result.cars
     populatePage(car);
 
 }
@@ -20,8 +27,10 @@ function toggleOverlay(){
 
 function populatePage(car){
     try{
+        console.log(car);
         let thumbnail = document.getElementById("left");
         let img = document.createElement("img");
+        console.log(car.images);
         img.setAttribute("src",car.images[0]);
         img.setAttribute("onclick","toggleOverlay()");
         img.setAttribute("alt","Car");
@@ -36,7 +45,6 @@ function populatePage(car){
             x.style.color = "Green";
         }  
        
-
         let carImages = document.getElementById("top");
         for(let images of car.images){
             let imgs = document.createElement("img");

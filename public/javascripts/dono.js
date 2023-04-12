@@ -76,7 +76,7 @@ async function populateList() {
 
             let PRICE = document.createElement("td");
             let price = document.createElement("h3");
-            price.textContent = (car.price_day+"€"); 
+            price.textContent = (car.rent+"€"); 
             PRICE.appendChild(price);
             tr.appendChild(PRICE);
 
@@ -107,6 +107,7 @@ async function populateList() {
     }
 }
 function openSpecsheet(car){
-    sessionStorage.setItem("car",JSON.stringify(car));
+    console.log(car);
+    sessionStorage.setItem("carid",car.id);
     window.location.pathname = "car_specs.html";
 }
