@@ -50,11 +50,21 @@ create table repairtype(
                     primary key (repairtype_id)
 );
 
+create table repairRequest(
+                    repairRequest_id SERIAL not null,
+                    repairRequest_usr_id INT not null,
+                    repairRequest_car_id INT not null,
+                    primary key (repairRequest_id)
+);
+
+
 create table car (
                     car_id SERIAL not null,
                     car_licenseplate VARCHAR(200),
                     car_brand VARCHAR(200),
                     car_model VARCHAR(200),
+                    car_year VARCHAR(200),
+                    car_bhp VARCHAR(200),
                     car_engine VARCHAR(200),
                     car_fuel VARCHAR(200),
                     car_gearbox VARCHAR(200),--???????
@@ -147,4 +157,14 @@ alter table carservices add constraint carservices_fk_car
 --car image with car
 alter table carimage add constraint carimage_fk_car
             foreign key (carimage_car_id) references car(car_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--repairRequest with car
+alter table repairRequest add constraint carRequest_fk_car
+            foreign key (repairRequest_car_id) references car(car_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--repairRequest with usr
+alter table repairRequest add constraint carRequest_fk_usr
+            foreign key (repairRequest_car_id) references usr(usr_id) 
 			ON DELETE NO ACTION ON UPDATE NO ACTION;

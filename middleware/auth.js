@@ -11,7 +11,6 @@ module.exports.verifyAuth = async function (req, res, next) {
             return;
         }
         let result = await User.getUserByToken(token);
-        console.log(result);
         if (result.status != 200) {
             res.status(result.status).send(result.result);
             return;

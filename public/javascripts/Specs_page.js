@@ -1,14 +1,13 @@
+let car;
 window.onload = async function () {
     let result = await checkAuthenticated(true);
     if(!result.authenthicated || user.type !== 2){
         changePage("index.html");
     }
-        let car = JSON.parse(sessionStorage.getItem("car"));
-        populatePage(car);
+    car = JSON.parse(sessionStorage.getItem("car"));
+    populatePage(car);
 
 }
-
-
 function toggleOverlay(){
     var x = document.getElementById("top");
     if (x.style.display === "none" || x.style.display ==="") {
@@ -54,11 +53,11 @@ function populatePage(car){
         ul.appendChild(li);
 
         li = document.createElement("li");
-        li.textContent = "Brand: "+ car.brand;
+        li.textContent = "Car: "+ car.brand+" "+car.model+" ("+car.year+")";
         ul.appendChild(li);
 
         li = document.createElement("li");
-        li.textContent = "Model: "+ car.model;
+        li.textContent = "BHP: "+ car.bhp;
         ul.appendChild(li);
 
         li = document.createElement("li");
@@ -98,87 +97,17 @@ function populatePage(car){
         ul.appendChild(li);
 
         specs.appendChild(ul);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }catch(err){
         console.log(err);
     }
-        /*
-    let tr = document.createElement("tr");
-    tr.setAttribute("class","item");
-    
-    let checkbox = document.createElement("td");
-    let input = document.createElement("input");
-    input.setAttribute("type", "checkbox");
-    input.setAttribute("class", "deletecheck");
-    input.setAttribute("class", "toggleable");
-    input.setAttribute("value", car.licenseplate);
-    checkbox.appendChild(input);
-    tr.appendChild(checkbox);
-    
-    let MODEL = document.createElement("td");
-    let model = document.createElement("h3");
-    model.textContent = (car.brand +" "+car.model); 
-    MODEL.appendChild(model);
-    tr.appendChild(MODEL);
-
-    let LICENSE = document.createElement("td");
-    let license = document.createElement("h3");
-    license.textContent = (car.licenseplate); 
-    LICENSE.appendChild(license);
-    tr.appendChild(LICENSE);
-
-    let STATUS = document.createElement("td");
-    let status = document.createElement("span");
-    switch(car.car_state){
-        case 1:
-            status.setAttribute("class","available");
-            break;
-            
-        case 2:
-            status.setAttribute("class","unavailable");
-            break;
-        case 3:
-            status.setAttribute("class","workshop");
-            break;
-    }
-    STATUS.appendChild(status);
-    tr.appendChild(STATUS);
-
-
-    let PRICE = document.createElement("td");
-    let price = document.createElement("h3");
-    price.textContent = (car.price_day+"€"); 
-    PRICE.appendChild(price);
-    tr.appendChild(PRICE);
-
-    let LOCATION = document.createElement("td");
-    let location = document.createElement("img");
-    location.setAttribute("src", "imagens/googlemaps.png");
-    LOCATION.appendChild(location);
-    tr.appendChild(LOCATION);
-    LOCATION.onclick =()=>{
-        
-    };
-
-    carList.appendChild(tr);
-    tr.onclick =()=>{
-        openSpecsheet(car);
-    };
-
-    carList.appendChild(tr);
-    */
-  
 }
+function stateButton(){
+    window.alert("Making the car unavailable, wont cancel dates already reserved but will prevent users from making other requests")
+ 
+ }   
+ function historyButton(){
+ 
+ }
+ function calendarButton(){
+ 
+ }

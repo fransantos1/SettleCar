@@ -3,7 +3,7 @@ const auth = require("../config/utils");
 
 
 function dbCartocar(db){
-    return new Car(db.car_id,db.car_licenseplate, db.car_brand, db.car_model, db.car_engine, db.car_fuel,db.car_gearbox, db.car_drivetrain, db.car_doors, db.car_seats,db.car_bootcapacity,db.car_equi_ext, db.car_priceday,db.carstate_state,db.car_usr_id);
+    return new Car(db.car_id,db.car_licenseplate, db.car_brand, db.car_model,db.car_year,db.car_bhp, db.car_engine, db.car_fuel,db.car_gearbox, db.car_drivetrain, db.car_doors, db.car_seats,db.car_bootcapacity,db.car_equi_ext, db.car_priceday,db.carstate_state,db.car_usr_id);
 }
 class repair{
 
@@ -19,11 +19,13 @@ class rent{
     }
 }
 class Car{
-    constructor(id, licenseplate, brand, model, engine, fuel, gearbox, drivetrain, doors, seats, bootcapacity, extra_equipment, price_day, car_state, user_id) {
+    constructor(id, licenseplate, brand, model,year,bhp, engine, fuel, gearbox, drivetrain, doors, seats, bootcapacity, extra_equipment, price_day, car_state, user_id) {
         this.id = id;
         this.licenseplate = licenseplate;
         this.brand = brand;
         this.model = model;
+        this.year = year;
+        this.bhp = bhp;
         this.engine = engine;
         this.fuel = fuel;
         this.gearbox = gearbox;
@@ -35,7 +37,10 @@ class Car{
         this.price_day = price_day;
         this.car_state = car_state;
         this.user_id = user_id;
+    }exports(){
+
     }
+
     static async getCars_owner(userid) {
         try {
             let dbResult = await pool.query("Select * from car inner join carstate on car_carstate_id = carstate_id where car_usr_id=$1", [userid]);
@@ -65,6 +70,26 @@ class Car{
             return { status: 500, result: err };
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     static async ChangecarState() {
         try {
         } catch (err) {

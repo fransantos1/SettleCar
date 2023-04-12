@@ -9,7 +9,6 @@ function changePage(url,msg,verbose) {
 async function checkAuthenticated(verbose) {
     try {
         let result = await requestProfile();
-        console.log(result);
         if (result.user.msg =="Invalid authentication!" || result.user.msg =="Please log in.")
             return{successful:true, authenthicated:false}
         else if (!result.successful || result.err) 
