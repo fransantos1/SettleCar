@@ -29,7 +29,24 @@ window.onload = async function () {
 }
 
 function search(){
-    let x = document.getElementById("pickup").value;    
-    console.log(x);
+    let x = document.getElementById("pickup").value;
+    let y = document.getElementById("return").value;
+    
+    if(x === "" && y === ""){
+        sessionStorage.setItem("start",x);
+        sessionStorage.setItem("return",y);
+        window.location.pathname = "cars_list.html";
+    }else if(x === ""|| y===""){
+        window.alert("Please select pickup and return date!!");
+    }else{
+        let start_date = new Date(x);
+        let return_date = new Date(y);
+        if(return_date < start_date){window.alert("Please select the return date to after the pickup date");return;}
+        window.alert("Serching.....");
+        sessionStorage.setItem("start",start_date);
+        sessionStorage.setItem("return",return_date);
+        window.location.pathname = "cars_list.html";
+    }
+    
 }
 

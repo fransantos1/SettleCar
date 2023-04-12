@@ -37,10 +37,16 @@ class Car{
         this.price_day = price_day;
         this.car_state = car_state;
         this.user_id = user_id;
-    }exports(){
-
     }
-
+    static async getImages(carid){
+        try {
+                
+                return { status: 200, result: images} ;
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
     static async getCars_owner(userid) {
         try {
             let dbResult = await pool.query("Select * from car inner join carstate on car_carstate_id = carstate_id where car_usr_id=$1", [userid]);
@@ -61,7 +67,6 @@ class Car{
                 car.licenseplate = dbCar.car_licenseplate;
                 car.car_state = dbCar.carstate_state;
                 car.rent = dbCar.car_priceday;
-                console.log(car);
                 cars.push(car);               
             }
             return { status: 200, result: cars} ;
@@ -70,10 +75,11 @@ class Car{
             return { status: 500, result: err };
         }
     }
+
+
     static async getCar_owner(userid,carid) {
         try {
             let dbResult = await pool.query("Select * from car inner join carstate on car_carstate_id = carstate_id where car_id = $1", [carid]);
-            console.log(carid);
             let dbCar = dbResult.rows[0];
             if(dbCar.car_usr_id !== userid)
                 return {
@@ -98,6 +104,8 @@ class Car{
         }
     }
 
+    
+
     static async ChangecarState(carid,stateid) {
         try {
         } catch (err) {
@@ -107,22 +115,68 @@ class Car{
     }
     static async getByAvaliability() {
         try {
+            let dbResult = await pool.query("Select * from car inner join carstate on carstate_id = car_carstate_id where carstate_state = 'available' ");
+            let dbCars = dbResult.rows;
+            let cars = [];
+            for(let car of dbCars){
+                let ca = new Car();
+                ca.brand = car.car_brand;
+                ca.model = car.car_model;
+                ca.year = car.car_year;
+                ca.rent = car.car_priceday;
+                let dbImages = await pool.query("Select * from carimage where carimage_car_id = $1",[car.car_id]);
+                ca.image = dbImages.rows[0].carimage_link;
+                cars.push(ca);
+            }
+            return{ status:200, result:cars};
         } catch (err) {
             console.log(err);
             return { status: 500, result: err };
         }
     }
-    static async getBySearch() {
+    static async getBySearch(start_date, return_date) {
         try {
+            let dbResult = await pool.query("Select * from rent");
+            let dbrents = dbResult.rows;
+            let removecars_ids = [];
+            if(dbrents.length){
+                for(let rent of dbrents){
+                    let dbstart = new Date(rent.rent_data_inicio);
+                    let dbfinish = new Date(rent.rent_data_final);
+                    if( start_date <= dbstart <= return_date || start_date <= dbfinish <= return_date || start_date >= dbstart >= return_date && start_date >= dbfinish >= return_date ){
+                        continue;
+                    }
+                    removecars_ids.push(rent.rent_car_id);
+                }
+            
+
+
+
+
+
+
+            
+            }else{
+                let dbResult = await pool.query("Select * from car inner join carstate on carstate_id = car_carstate_id where carstate_state = 'available' ");
+                let dbCars = dbResult.rows;
+                let cars = [];
+                for(let car of dbCars){
+                    let ca = new Car();
+                    ca.brand = car.car_brand;
+                    ca.model = car.car_model;
+                    ca.year = car.car_year;
+                    ca.rent = car.car_priceday;
+                    let dbImages = await pool.query("Select * from carimage where carimage_car_id = $1",[car.car_id]);
+                    ca.image = dbImages.rows[0].carimage_link;
+                    cars.push(ca);
+                }
+                return{ status:200, result:cars};
+            }
         } catch (err) {
             console.log(err);
             return { status: 500, result: err };
         }
     }
-
-
-
-
     static async getByLicensePlate(licenseplate) {
         try {
             let dbResult = await pool.query("Select * from car where car_licenseplate=$1", [licenseplate]);

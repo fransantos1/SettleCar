@@ -32,6 +32,19 @@ router.get('/auth/car/:carid',auth.verifyAuth,  async function (req, res,next) {
         res.status(500).send(err);
     }
 });
+router.get('/search/:start_date/:return_date',  async function (req, res,next) {
+    try {
+        let result = await Car.getBySearch(req.params.start_date, req.params.return_date);
+        if (result.status != 200) {
+            res.status(result.status).send(result.result);
+            return;
+        }
+        res.status(result.status).send(result.result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 router.delete('/auth', auth.verifyAuth, async function(req,res,next){
     try{
         let result = await Car.DeleteCar(req.body.licenseplate,req.user.id);
@@ -46,23 +59,15 @@ router.delete('/auth', auth.verifyAuth, async function(req,res,next){
         res.status(500).send(err);
     }
 });
-
-/*
 router.get('',  async function (req, res) {
     try {
-        let result = await car.getById(req.user.id);
+        let result = await Car.getByAvaliability();
         if (result.status != 200) 
             res.status(result.status).send(result.result);
-        let user = new User();
-
-        user.name = result.result.name;
-        user.phone = result.result.phone;
-        user.email = result.result.email;
-        user.type = result.result.type;
-        res.status(result.status).send(user);
+        res.status(result.status).send(result);
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
     }
-});*/
+});
 module.exports = router;

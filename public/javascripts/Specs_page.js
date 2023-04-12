@@ -5,9 +5,8 @@ window.onload = async function () {
         changePage("index.html");
     }
     let carid = sessionStorage.getItem("carid");
-    console.log(carid);
     try{
-        result = await requestCar(carid);
+        result = await requestOwnerCar(carid);
     }catch(err){
         console.log(err);
     }
@@ -27,10 +26,8 @@ function toggleOverlay(){
 
 function populatePage(car){
     try{
-        console.log(car);
         let thumbnail = document.getElementById("left");
         let img = document.createElement("img");
-        console.log(car.images);
         img.setAttribute("src",car.images[0]);
         img.setAttribute("onclick","toggleOverlay()");
         img.setAttribute("alt","Car");
@@ -45,7 +42,7 @@ function populatePage(car){
             x.style.color = "Green";
         }  
        
-        let carImages = document.getElementById("top");
+        let carImages = document.getElementById("center");
         for(let images of car.images){
             let imgs = document.createElement("img");
             imgs.setAttribute("src",images);

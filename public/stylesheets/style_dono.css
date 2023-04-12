@@ -85,6 +85,17 @@ main .page-center .main-list a {
   font-size: 25px;
 
 }
+#services-container tr:nth-child(odd) {
+  background-color: #ffffff;
+
+}
+#services-container tr:nth-child(even) {
+  border-bottom-style: outset;
+  font-size: 25px;
+  background-color: rgb(214, 214, 214);
+
+}
+
 
 #services-container > * td h3 {
   font-size: 20px;

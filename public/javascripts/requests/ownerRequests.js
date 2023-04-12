@@ -1,4 +1,4 @@
-async function requestCars() {
+async function requestOwnerCars() {
     try {
         const response = await fetch(`/api/car/auth`);
         var result = await response.json();
@@ -9,7 +9,7 @@ async function requestCars() {
         return {err: err};
     }
 }
-async function requestCar(carid) {
+async function requestOwnerCar(carid) {
     try {
         const response = await fetch(`/api/car/auth/car/${carid}`);
         var result = await response.json();
@@ -20,6 +20,7 @@ async function requestCar(carid) {
         return {err: err};
     }
 }
+
 async function DeleteCars(license) {
     try {
         const response = await fetch(`/api/car/auth`,

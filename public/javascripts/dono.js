@@ -36,7 +36,7 @@ async function deletecar(){
 async function populateList() {
     let carList = document.getElementById("services-container");
     try {
-        let result = await requestCars(user.id);
+        let result = await requestOwnerCars(user.id);
         console.log(result);
         if (!result.successful || result.err)
             throw result.err || { err: "Not successfull" }
