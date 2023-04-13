@@ -61,7 +61,7 @@ h2{
 #overlay {
   padding: 0px;
   position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
+  display: block; /* Hidden by default */
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
   top: 0;
@@ -137,8 +137,20 @@ h2{
   box-shadow: 6px 5px 8px 0px rgba(0,0,0,0.1);
 }
 #specs{
+  
   padding:0;
   height:80%;
+}
+#specs h1{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 30px;
+}
+#specs li{
+  padding-left: 20px;
+  margin:5px;
+  list-style-type: none;
+  font-size: 20px;
 }
 #button{
   display: grid;

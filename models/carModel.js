@@ -113,6 +113,8 @@ class Car{
             return { status: 500, result: err };
         }
     }
+        //!IN BOTH GETBYSEARCH AND GETBYAVALIABILITY NEEDS TO VERIFY IF THE CARS DONT HAVE ANY SERVICES DUE BEFORE 
+        //TODO GETBYAVALIABILITY NEEDS TO RETURN THE LATEST SOMEONE CAN RENT THE CAR
     static async getByAvaliability() {
         try {
             let dbResult = await pool.query("Select * from car inner join carstate on carstate_id = car_carstate_id where carstate_state = 'available' ");
@@ -134,8 +136,10 @@ class Car{
             return { status: 500, result: err };
         }
     }
+
     static async getBySearch(start_date, return_date) {
         try {
+
             let dbResult = await pool.query("Select * from rent");
             let dbrents = dbResult.rows;
             let removecars_ids = [];
