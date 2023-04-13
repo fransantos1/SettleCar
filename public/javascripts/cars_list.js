@@ -1,3 +1,5 @@
+let start_date;
+let return_date;
 window.onload = async function () {
     let result = await checkAuthenticated(true);
     if(result.authenthicated ){
@@ -14,17 +16,15 @@ window.onload = async function () {
 async function populateList() {
     let result;
     let carList = document.getElementById("result");
-    let start_date = sessionStorage.getItem("start");
-    let return_date = sessionStorage.getItem("return");
+    start_date = sessionStorage.getItem("start");
+    return_date = sessionStorage.getItem("return");
     try {
         if(start_date === ""){
             result = await requestCars();
             if (!result.successful || result.err)
             throw result.err || { err: "Not successfull" }
         }else{
-            console.log(":3");
             result = await requestSearchCars(start_date, return_date);
-            
         }
         for (let car of result.cars) {
             let div = document.createElement("div");
@@ -51,10 +51,22 @@ async function populateList() {
             href.setAttribute("class","btn");
             href.textContent = "Rent Now";
             div.appendChild(href);
+            div.onclick =()=>{
+                turnOnOverlay(car);
+                console.log(car.brand);
+            };
             carList.appendChild(div);
             
         }
     } catch(err) {
         console.log(err);
     }
+}
+async function turnOnOverlay(car){
+    let overlay = document.getElementById("overlay");
+    overlay.style.display = "block";
+}
+async function turnOffOverlay(){
+    let overlay = document.getElementById("overlay");
+    overlay.style.display = "none";
 }

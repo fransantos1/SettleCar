@@ -12,6 +12,14 @@
 body{
   display: none;
 }
+#mainsec{ 
+  width: 100%;
+  height: 747px;
+  background: url("../imagens/car_background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
 h2{
   text-align: center;
   padding: 10px ;
@@ -81,17 +89,10 @@ h3{
 }
 
 
-#mainsec{ 
-  width: 100%;
-  height: 747px;
-  background: url("../imagens/car_background.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
-
-
 footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   background-color: orange;
   display: flex;
   padding: 10px;
