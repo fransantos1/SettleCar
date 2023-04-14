@@ -28,7 +28,7 @@ h2{
   grid-template-columns: repeat(auto-fit,minmax(300px,auto));
   gap: 1rem;
   margin-top: 2rem;
-
+  justify-content: start;
 }
 
 .services-container a{
@@ -37,11 +37,11 @@ h2{
 }
 
 .services-container .box{
+  min-width: 33%;
   cursor: pointer;
   padding: 10px;
   border-radius: 1rem;
   box-shadow: 1px 4px 41px rgba(0,0,0,0.1)
-
 }
 
 .services-container .box .box-img{
@@ -61,7 +61,7 @@ h2{
 #overlay {
   padding: 0px;
   position: fixed; /* Sit on top of the page content */
-  display: block; /* Hidden by default */
+  display: none; /* Hidden by default */
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
   top: 0;

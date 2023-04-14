@@ -69,7 +69,6 @@ async function populateList() {
             let STATUS = document.createElement("td");
             let status = document.createElement("span");
             status.setAttribute("class",car.car_state);
-              
             STATUS.appendChild(status);
             tr.appendChild(STATUS);
 

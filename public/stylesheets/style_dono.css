@@ -118,15 +118,26 @@ span{
 .available { 
   background-color: #15ff00;
 }
+.available:hover { 
+  
+}
 .rented { 
   background-color: #fffb00;
 }
+.rented:hover { 
 
+}
 .workshop {
   background-color: #ff0000;
 }
+.workshop:hover {
+
+}
 .unavailable {
   background-color: #e100ff;
+}
+.unavailable:hover {
+
 }
 .subtitle{
   padding-top: 10px;
@@ -167,3 +178,5 @@ span{
 #Confirm_delete:focus {
   background-color: #ff0000;
 }
+
+

@@ -1,3 +1,4 @@
+
 create table usr (
                     usr_id SERIAL not null,
                     usr_name VARCHAR(255) not null,

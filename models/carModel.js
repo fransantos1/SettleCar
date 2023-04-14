@@ -114,7 +114,7 @@ class Car{
         }
     }
         //!IN BOTH GETBYSEARCH AND GETBYAVALIABILITY NEEDS TO VERIFY IF THE CARS DONT HAVE ANY SERVICES DUE BEFORE 
-        //TODO GETBYAVALIABILITY NEEDS TO RETURN THE LATEST SOMEONE CAN RENT THE CAR
+        //TODO GETBYAVALIABILITY NEEDS TO MAKE SURE NONE OF THE CARS ARE NOT LATE
     static async getByAvaliability() {
         try {
             let dbResult = await pool.query("Select * from car inner join carstate on carstate_id = car_carstate_id where carstate_state = 'available' ");
@@ -139,32 +139,48 @@ class Car{
 
     static async getBySearch(start_date, return_date) {
         try {
-
-            let dbResult = await pool.query("Select * from rent");
+            if(!start_date instanceof Date && !return_date instanceof Date){
+                return{status:500, result: "invalid date"}
+            }
+            let start = new Date(start_date);
+            let finish = new Date(return_date);
+            start_date = start.getFullYear()+"-"+start.getMonth()+"-"+start.getDate();
+            return_date =  finish.getFullYear()+"-"+finish.getMonth()+"-"+finish.getDate();
+            let dbResult = await pool.query("Select * from rent where rent_rentstate_id = 1 or rent_rentstate_id =2");
             let dbrents = dbResult.rows;
-            let removecars_ids = [];
+            let dbcars = [];
             if(dbrents.length){
-                for(let rent of dbrents){
-                    let dbstart = new Date(rent.rent_data_inicio);
-                    let dbfinish = new Date(rent.rent_data_final);
-                    if( start_date <= dbstart <= return_date || start_date <= dbfinish <= return_date || start_date >= dbstart >= return_date && start_date >= dbfinish >= return_date ){
-                        continue;
-                    }
-                    removecars_ids.push(rent.rent_car_id);
-                }
-            
+                let dbResult = await pool.query(`
+                        select * from car where car_id in (
+                            select carservices_car_id from carservices
+                                where carservices_due > $2
+                                group by carservices_car_id) and car_carstate_id = 1 
+                                
+                        intersect 	
+                            select * from car 
+                                except(
+                                    select * from car where car_id in (
+                                        select rent_car_id from rent 
+                                                where 
+                                                $1 <= rent_data_inicio and rent_data_inicio <= $2 or
+                                                $1 <= rent_data_final and rent_data_final <= $2 or
+                                                rent_data_inicio <=$1 and $2 <= rent_data_final))`,[start_date, return_date]);
+                dbcars = dbResult.rows;
+                console.log(start_date, return_date);
 
-
-
-
-
-
-            
             }else{
-                let dbResult = await pool.query("Select * from car inner join carstate on carstate_id = car_carstate_id where carstate_state = 'available' ");
-                let dbCars = dbResult.rows;
-                let cars = [];
-                for(let car of dbCars){
+                let dbResult = await pool.query("Select * from car where car_carstate_id = 1");
+                dbcars = dbResult.rows;
+            }
+            if(!dbcars.length)
+                return {
+                    status: 400, result: [{
+                        location: "body", param: "cars",
+                        msg: "No cars in database"
+                    }]
+                }
+            let cars = [];
+                for(let car of dbcars){
                     let ca = new Car();
                     ca.brand = car.car_brand;
                     ca.model = car.car_model;
@@ -174,8 +190,7 @@ class Car{
                     ca.image = dbImages.rows[0].carimage_link;
                     cars.push(ca);
                 }
-                return{ status:200, result:cars};
-            }
+            return{ status:200, result:cars};
         } catch (err) {
             console.log(err);
             return { status: 500, result: err };

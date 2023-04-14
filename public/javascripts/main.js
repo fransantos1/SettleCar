@@ -41,8 +41,9 @@ function search(){
     }else{
         let start_date = new Date(x);
         let return_date = new Date(y);
+        start_date.setMonth(start_date.getMonth()+1);
+        return_date.setMonth(return_date.getMonth()+1);
         if(return_date < start_date){window.alert("Please select the return date to after the pickup date");return;}
-        window.alert("Serching.....");
         sessionStorage.setItem("start",start_date);
         sessionStorage.setItem("return",return_date);
         window.location.pathname = "cars_list.html";
