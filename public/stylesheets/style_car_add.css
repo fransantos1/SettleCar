@@ -21,36 +21,89 @@ body > header .navbar img {
   border-radius: 50%;
   object-fit: cover;
 }
-
-main .picture .button {
-    display: grid;
-    text-align: left;
-    justify-content: left;
-    margin-top: 5%;
-  }
-
-  .box .button {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5%;
-  }
-
-   
-main .specs {
-    display: grid;
-    justify-content: center;
-    flex-wrap: wrap;
-    
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-  
-main .checkbox{
-    display:inline-flex;
-    flex-direction: row;
-    margin-top: 5%;
-    margin-left: 20%;
-
+form input{
+  text-align: center;
+}
+form *{
+  margin:5px;
+}
+.lp_in{
+  font-size: 25px;
+  text-transform: uppercase;
+  width: 50px;
+}
+.join_inputs{
+  display: flex;
+  flex-direction: row;
+}
+.v_lable{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#car_name{
+  display: flex;
+  flex-direction: row;
 }
 
+#specs{
+  font-size: 15px;
+  display: flex;
+  max-width: 50%;
+  flex-direction: column;
+  align-items: center;
+}
+.num{
+  width: 40px;
+}
+form .add_item{
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+form .add_item button{
+width: 25%;
+}
+#services{
+    width: 40%;
+}
+form .add_list{
+  min-height: 20px;
+  max-height: 20px;
+  width: max-content;
+  overflow: scroll;
+  overflow-x:hidden;
+  width:100%;
+  border-style: double;
+  border-color: rgb(0, 0, 0);
+  min-height: 100px;
+}
+.add_list li{
+  text-align: center;
 
   
+}
+#imageLink{
+  width: 80%;
+}
+#n_gears{
+  width:30px;
+}
+#_add{
+
+  width: 100%;
+}
+#gearbox{
+  display: flex;
+  flex-direction: row;
+}
+#eq_ex {
+  display: grid;
+}
