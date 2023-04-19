@@ -11,7 +11,7 @@ async function requestOwnerCars() {
 }
 async function requestOwnerCar(carid) {
     try {
-        const response = await fetch(`/api/car/auth/car/${carid}`);
+        const response = await fetch(`/api/car/auth/${carid}`);
         var result = await response.json();
         return { successful: response.status == 200,
                  cars: result};

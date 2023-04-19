@@ -17,9 +17,8 @@ router.get('/auth',auth.verifyAuth,  async function (req, res,next) {
         res.status(500).send(err);
     }
 });
-router.get('/auth/car/:carid',auth.verifyAuth,  async function (req, res,next) {
+router.get('/auth/:carid',auth.verifyAuth,  async function (req, res,next) {
     try {
-        console.log(req);
         let result = await Car.getCar_owner(req.user.id, req.params.carid);
         console.log(result);
         if (result.status != 200) {
@@ -45,6 +44,8 @@ router.get('/search/:start_date/:return_date',  async function (req, res,next) {
         res.status(500).send(err);
     }
 });
+
+//! NEED TO VERIFY IF THE CAR HAS ACTIVE RENTS AND WARN THE OWNER BEFORE DELETING AND CAN ONLY DELETE IF THE CAR IS available or unavailable at the time
 router.delete('/auth', auth.verifyAuth, async function(req,res,next){
     try{
         let result = await Car.DeleteCar(req.body.licenseplate,req.user.id);
