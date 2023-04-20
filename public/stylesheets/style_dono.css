@@ -61,6 +61,7 @@ main .page-center .img-separator img {
 }
 main .page-center .main-list a {
   text-decoration: none;
+  color: inherit;
 }
 
 #services-container{
