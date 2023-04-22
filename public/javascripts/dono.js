@@ -36,7 +36,7 @@ async function deletecar(){
 async function populateList() {
     let carList = document.getElementById("services-container");
     try {
-        let result = await requestCars(user.id);
+        let result = await requestOwnerCars(user.id);
         console.log(result);
         if (!result.successful || result.err)
             throw result.err || { err: "Not successfull" }
@@ -69,14 +69,13 @@ async function populateList() {
             let STATUS = document.createElement("td");
             let status = document.createElement("span");
             status.setAttribute("class",car.car_state);
-              
             STATUS.appendChild(status);
             tr.appendChild(STATUS);
 
 
             let PRICE = document.createElement("td");
             let price = document.createElement("h3");
-            price.textContent = (car.price_day+"€"); 
+            price.textContent = (car.rent+"€"); 
             PRICE.appendChild(price);
             tr.appendChild(PRICE);
 
@@ -107,6 +106,7 @@ async function populateList() {
     }
 }
 function openSpecsheet(car){
-    sessionStorage.setItem("car",JSON.stringify(car));
+    console.log(car);
+    sessionStorage.setItem("carid",car.id);
     window.location.pathname = "car_specs.html";
 }

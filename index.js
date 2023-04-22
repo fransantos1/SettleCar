@@ -4,6 +4,10 @@ var path = require('path');
 var cookieSession = require('cookie-session');
 var morgan = require('morgan');
 
+const {verify} = require("./config/updater");
+setInterval(verify,1000);
+
+
 var app = express();
 app.use(cookieSession({
   name: 'session',

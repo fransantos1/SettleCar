@@ -1,3 +1,4 @@
+const pool = require("../config/database");
 module.exports.genToken = function genToken(length) {
    let token = '';
    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -6,4 +7,3 @@ module.exports.genToken = function genToken(length) {
    }
    return token;
 }
-

@@ -61,6 +61,7 @@ main .page-center .img-separator img {
 }
 main .page-center .main-list a {
   text-decoration: none;
+  color: inherit;
 }
 
 #services-container{
@@ -85,6 +86,17 @@ main .page-center .main-list a {
   font-size: 25px;
 
 }
+#services-container tr:nth-child(odd) {
+  background-color: #ffffff;
+
+}
+#services-container tr:nth-child(even) {
+  border-bottom-style: outset;
+  font-size: 25px;
+  background-color: rgb(214, 214, 214);
+
+}
+
 
 #services-container > * td h3 {
   font-size: 20px;
@@ -107,15 +119,26 @@ span{
 .available { 
   background-color: #15ff00;
 }
+.available:hover { 
+  
+}
 .rented { 
   background-color: #fffb00;
 }
+.rented:hover { 
 
+}
 .workshop {
   background-color: #ff0000;
 }
+.workshop:hover {
+
+}
 .unavailable {
   background-color: #e100ff;
+}
+.unavailable:hover {
+
 }
 .subtitle{
   padding-top: 10px;
@@ -156,3 +179,5 @@ span{
 #Confirm_delete:focus {
   background-color: #ff0000;
 }
+
+

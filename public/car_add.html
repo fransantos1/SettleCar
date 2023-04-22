@@ -10,99 +10,156 @@
   <script src="./javascripts/utils/verifications.js"></script>
   <script src="./javascripts/requests/usersRequests.js"></script>
   <script src="./javascripts/requests/ownerRequests.js"></script>
-  <script src="./javascripts/Specs_page.js"></script>
+  <script src="./javascripts/add_car.js"></script>
+
 
 </head>
 
 <body>
   <header>
-    <div class="logo">
-      <img src="imagens/logo.png" width=120px height=40px>
-    </div>
+  <div class="logo">
+    <img src="imagens/logo.png" width=120px height=40px>
+  </div>
    
    <h1>SETTLECAR</h1>
-    
-    <section class="navbar">
-      <ul>
-        <li><a href="javascript:logout()">Logout</a></li>
-        <li><a href="login.html" id="username"></a></li>
-        <img src="imagens/thiago.jpg" alt="User">
-      </ul>
-    </section>
+  
+  <section class="navbar">
+    <ul>
+    <li><a href="javascript:logout()">Logout</a></li>
+    <li><a href="login.html" id="username"></a></li>
+    <img src="imagens/thiago.jpg" alt="User">
+    </ul>
+  </section>
   </header>
 
-  <main>
-    <section class = "picture">
-        <div class="button">
-            <label for="Car Picture">Upload Car Picture</label>
-            <input type="file" autocomplete="carpicture" id="carpicture" >
-          </div>
-    </section>
-    <section class = "specs">
-        <div class="box">
-            <label for="Model">Model:</label>
-            <input type="text" autocomplete="model" id="model" >
-          </div>
-          <div class="box">
-            <label for="License Plate">License Plate:</label>
-            <input type="text" autocomplete= "licenseplate" id="licenseplate">      
-          </div>
-          <div class="box">
-            <label for="Horsepower">Horsepower:</label>
-            <input type="number" autocomplete= "horsepower" id="bhp">      
-          </div>
-          <div class="box">
-            <label for="Fuel Type">Fuel Type:</label>
-            <input type="text" autocomplete= "fueltype" id="fuel">      
-          </div>
-          <div class="box">
-            <label for="Gearbox">Gearbox:</label>
-            <input type="number" autocomplete= "gearbox" id="gearbox">      
-          </div>
-          <div class="box">
-            <label for="Engine">Engine:</label>
-            <input type="number" autocomplete= "engine" id="engine">      
-          </div>
-          <div class="box">
-            <label for="Doors">Doors:</label>
-            <input type="number" autocomplete= "doors" id="doors">      
-          </div>
-          <div class="box">
-            <label for="Seats">Seats:</label>
-            <input type="number" autocomplete= "seats" id="seats">      
-          </div>  
-          <div class="box">
-            <label for="Boot Capacity">Boot Capacity:</label>
-            <input type="number" autocomplete= "bootcapacity" id="bootcapacity">      
-          </div>
-          <div class="box">
-            <label for="Rent (/Day)">Rent (/Day):</label>
-            <input type="number" autocomplete= "price_day" id="price_day"> 
-          </div>
-    </section>
+<main>
+  <section class="section-form">
 
-    </section>         
-          <div class="checkbox">
-            <label for="Heated Seats">Heated Seats</label>
-            <input type="checkbox" autocomplete= "heated_seats" id="heated_seats">      
-          </div>
-          <div class="checkbox">
-            <label for="AC">AC</label>
-            <input type="checkbox" autocomplete= "ac" id="ac">      
-          </div>
-          <div class="checkbox">
-            <label for="Bluetooth Radio">Bluetooth Radio</label>
-            <input type="checkbox" autocomplete= "bluetooth_radio" id="bluetooth_radio">      
-          </div>
-    </section>
+  <form onsubmit = "return false">
+    <div class="background_div">
+      <label for="license_plate">License Plate</label>
+      <section id ="license_plate">
+        <input type="text" id="lp_1" class="lp_in" maxlength="2" placeholder="AA">
+        <input type="text" id="lp_2" class="lp_in" maxlength="2" placeholder="11">
+        <input type="text" id="lp_3" class="lp_in" maxlength="2" placeholder="BB">
+        </section>
+        <section id="car_name">
+        <section class="v_label">
+          <label for="brand">Brand</label>
+          <input type="text" id="brand" name="brand" placeholder="Toyota, Honda, etc...">
+        </section>
+        <section class="v_label">
+          <label for="model">Model</label>
+          <input type="text" id="model" name="model" placeholder="Yaris, Civic, etc...">
+        </section>    
+        <section class="v_label">
+          <label for="year">Year</label>
+          <input type="number" min="1900" max="2099" id="year" name="year" placeholder="YYYY">
+        </section> 
+        </section>
+        <section id="specs">
+        <section class ="join_inputs">
+          <section class="v_label">
+          <label for="bhp">Horsepower</label>
+          <input type="number" id="bhp" name="bhp"placeholder="Bhp (Optional)">
+          </section>
+          <section class="v_label">
+          <label for="engine">Engine</label>
+          <input type="text" id="engine" name="engine"placeholder="TFSI (Optional)">
+          </section>
+          <section class="v_label">
+          <label for="fuel">Fuel</label>
+          <select name="fuel" id="fuel">
+            <option value="Diesel">Diesel</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Eletric">Eletric</option>
+            <option value="Hydrogen">Hydrogen</option>
+          </select>
+          </section>
+        </section>
+        <section class ="join_inputs">
+          <section class="v_label">
+          <label for="gearbox">Gearbox</label>
+          <section id="gearbox">
+            <input type="number" id="n_gears" name="n_gears" min =5 placeholder="#">
+            <select name="gear_type" id="gear_type">
+            <option value="M">Manual</option>
+            <option value="A">Automatic</option>
+            </select>
+          </section>
+          </section>
+          <section class="v_label">
+          <label for="drivetrain">Drivetrain</label>
+          <select name="Drivetrain" id="drivetrain">
+            <option value="FWD">Front Wheel Drive</option>
+            <option value="RWD">Real Wheel Drive</option>
+            <option value="4WD">4 Wheel Drive</option>
+            <option value="AWD">All Wheel Drive</option>
+          </select>
+          </section>
+        </section>
+        <section class ="join_inputs">
+          <section class="v_label">
+          <label for="number of doors">Nº Doors</label>
+          <input class ="num" type="text" id="door_n" name="number of doors" min = 1 placeholder="#">
+          </section>
+          <section class="v_label">
+          <label for="number of seats">Nº Seats</label>
+          <input class ="num" type="text" id="seat_n" name="number of seats" min = 2 placeholder="#">
+          </section>
+          <section class="v_label">
+          <label for="boot_capacity">Boot Capacity(L)</label>
+          <input class ="num" type="text" id="boot_capacity" name="Boot capacity" min = 0 placeholder="Liters">
+          </section>
+          <section class="v_label">
+          <label for="price/day">Price/day(€)</label>
+          <input class ="num" type="text" id="priceday" name="Price/day" placeholder="Euros">
+          </section>
+        </section>
+    
+        <section class ="join_inputs">  
+          <section class="v_label">
+            <label for="inspection">Inspection</label>
+            <input type="date" id="ins_due_date" name="service date">
+          </section>
+          <section class="v_label">
+            <label for="service">Insurance</label>
+            <input type="date" id="insurance_due_date" name="service date">
+          </section>
+        </section>
+    
+          <section id ="eq_ex" class ="add_item" name="eq_extra">
+          <section class="v_label">
+            <label for="eq_extra">AC</label>
+            <input type="checkbox" id="ac" name="ac">
+    
+            <label for="eq_extra">Heated Seats</label>
+            <input type="checkbox" id="heated" name="heated">
+    
+            <label for="eq_extra">Bluetooth</label>
+            <input type="checkbox" id="bluetooth" name="bluetooth">
+    
+            <label for="eq_extra">Cruise Control</label>
+            <input type="checkbox" id="cc" name="cc">
+          </section>
+        </section>
+    
+        <section id ="images" class = "add_images">
+          <section class="v_label">
+          <label for="img">Image Links</label>
+          <input type="link" id="imageLink" name="img" placeholder="Insert Link">
+          </section>
+          <ul id ="images_container" class= "add_list">
+          </ul>
+          <button type ="button" onclick="addImg_list()"> + </button>
+        </section>
+        <input type="button" value="Add Vehicle" class="btn" onclick ="add_car()"/>
+    </div>
+    <a href="dono.html" class="btn">Return</a>
+  </form>
 
-    <section class="box">
-        <div class="button">
-          <input type="submit" value="Submit">
-        </div>
-      </section>
-
-  </main>
+  </section>
+</main>
   
   <footer>
   </footer>

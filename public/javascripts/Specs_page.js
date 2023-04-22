@@ -4,7 +4,13 @@ window.onload = async function () {
     if(!result.authenthicated || user.type !== 2){
         changePage("index.html");
     }
-    car = JSON.parse(sessionStorage.getItem("car"));
+    let carid = sessionStorage.getItem("carid");
+    try{
+        result = await requestOwnerCar(carid);
+    }catch(err){
+        console.log(err);
+    }
+    car = result.cars
     populatePage(car);
 
 }
@@ -37,7 +43,7 @@ function populatePage(car){
         }  
        
 
-        let carImages = document.getElementById("center");
+        let carImages = document.getElementById("top");
         for(let images of car.images){
             let imgs = document.createElement("img");
             imgs.setAttribute("src",images);

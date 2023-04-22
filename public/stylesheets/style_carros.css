@@ -28,7 +28,7 @@ h2{
   grid-template-columns: repeat(auto-fit,minmax(300px,auto));
   gap: 1rem;
   margin-top: 2rem;
-
+  justify-content: start;
 }
 
 .services-container a{
@@ -37,10 +37,11 @@ h2{
 }
 
 .services-container .box{
+  min-width: 33%;
+  cursor: pointer;
   padding: 10px;
   border-radius: 1rem;
   box-shadow: 1px 4px 41px rgba(0,0,0,0.1)
-
 }
 
 .services-container .box .box-img{
@@ -58,5 +59,119 @@ h2{
   object-position: center ;
 }
 
+#overlay {
+  padding: 0px;
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* From https://css.glass */
+  background: rgba(89, 88, 83, 0.27);
+  backdrop-filter: blur(3px);
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+}
 
+#item{
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 75%;
+  width: 35%;
+  display:flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  background-color: rgb(219, 219, 219);
+  box-shadow: 1px 4px 41px rgba(0,0,0,0.1);
+}
 
+#exit{
+  font-size: 35px;
+  margin:5px;
+  position: absolute;
+  top:0;
+  right:0;
+  width:50px;
+  height: 50px;
+  border-radius:50%;
+  background: rgba(83, 83, 83, 0.27);
+  backdrop-filter: blur(3px);
+  border-style: none;
+}
+#exit:hover{
+  cursor:pointer;
+  background: rgba(119, 119, 119, 0.27);
+  backdrop-filter: blur(1px);
+}
+
+#top{
+  padding-top: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+  height:20%;
+  display: flex;
+  flex-direction: row;
+}
+#top img{
+  width: 50%;
+  height: 100%;
+  border-radius: 1rem;
+  margin:5px;
+  object-fit: cover;
+  object-position: center ;
+}
+#bottom{
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  margin: 10px;
+  height: 80%;
+  background-color: rgb(233, 233, 233);
+  border-radius: 1rem;
+  object-fit: cover;
+  object-position: center ;
+  box-shadow: 6px 5px 8px 0px rgba(0,0,0,0.1);
+}
+#specs{
+  
+  padding:0;
+  height:80%;
+}
+#specs h1{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 30px;
+}
+#specs li{
+  padding-left: 20px;
+  margin:5px;
+  list-style-type: none;
+  font-size: 20px;
+}
+#button{
+  display: grid;
+    padding: 0;
+    height: 20%;
+    align-items: center;
+    justify-items: center;
+}
+#button button{
+  margin: 0;
+  border-style: none;
+  border-radius: 1rem;
+  background: rgba(133, 133, 133, 0.27);
+  backdrop-filter: blur(3px);
+  height:50%;
+  width: 40%;
+  box-shadow: 6px 5px 8px 0px rgba(0,0,0,0.1);
+}
+#button button:hover{
+  cursor: pointer;
+  background-color: rgba(116, 116, 116, 0.27);
+  box-shadow: 11px 11px 8px 0px rgba(0,0,0,0.1)
+}
