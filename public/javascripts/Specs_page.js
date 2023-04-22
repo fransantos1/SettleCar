@@ -37,7 +37,7 @@ function populatePage(car){
         }  
        
 
-        let carImages = document.getElementById("top");
+        let carImages = document.getElementById("center");
         for(let images of car.images){
             let imgs = document.createElement("img");
             imgs.setAttribute("src",images);
