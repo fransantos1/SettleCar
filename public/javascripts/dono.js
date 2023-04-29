@@ -40,8 +40,9 @@ async function populateList() {
         console.log(result);
         if (!result.successful || result.err)
             throw result.err || { err: "Not successfull" }
-        document.getElementById("remove_link").style.visibility ="visible";
+        //document.getElementById("remove_link").style.visibility ="visible";
         for (let car of result.cars) {
+            let blockCarView = false;
             let tr = document.createElement("tr");
             tr.setAttribute("class","item");
            
@@ -88,14 +89,29 @@ async function populateList() {
                 
             };
 
+            let DELETE = document.createElement("td");
+            let deletion = document.createElement("img");
+            deletion.setAttribute("src", "imagens/trashcan.png");
+            DELETE.appendChild(deletion);
+            tr.appendChild(DELETE);
+            DELETE.onclick =async ()=>{
+                blockCarView = true;
+                if (window.confirm("Delete this car? (" + car.brand + " " + car.model + ")")) {
+                    let result = await DeleteCars(car.licenseplate);
+                    if (!result.successful || result.err)
+                    throw result.err || { err: "Not successfull" }
+                }
+            };
+
             carList.appendChild(tr);
             tr.onclick =()=>{
 
                 let x = document.getElementById("Confirm_delete");
-                if(x.style.visibility !== "visible"){
+                if(x.style.visibility !== "visible" && !blockCarView){
                     openSpecsheet(car);
                 }
-                
+                blockCarView = false;
+
             };
 
             carList.appendChild(tr);
