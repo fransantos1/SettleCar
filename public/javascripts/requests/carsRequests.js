@@ -20,3 +20,14 @@ async function requestSearchCars(start_date, return_date) {
         return {err: err};
     }
 }
+async function requestCar(id){
+    try {
+        const response = await fetch(`/api/car/${id}`);
+        var result = await response.json();
+        return { successful: response.status == 200,
+                 car: result};
+    } catch (err) {
+        console.log(err);
+        return {err: err};
+    }
+}

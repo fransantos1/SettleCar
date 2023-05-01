@@ -20,7 +20,26 @@ async function requestOwnerCar(carid) {
         return {err: err};
     }
 }
-
+async function AddCar(Car) {
+    try {
+        console.log(Car);
+        const response = await fetch(`/api/car/auth`,{
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+          method: "Post",
+          body: JSON.stringify({
+              car:Car
+          })
+        });
+        let result = await response.json();
+        return { successful: response.status == 200, msg: result};
+    } catch (err) {
+        console.log(err);
+        return {err: err};
+    }
+}
 async function DeleteCars(license) {
     try {
         const response = await fetch(`/api/car/auth`,

@@ -4,6 +4,23 @@ const Car = require("../models/carModel");
 const utils = require("../config/utils");
 const auth = require("../middleware/auth");
 
+
+//post a car
+router.post('/auth',auth.verifyAuth,  async function (req, res,next) {
+    try {
+        let result = await Car.addCar(req.user.id, req.body.car);
+        if (result.status != 200) {
+            res.status(result.status).send(result.result);
+            return;
+        }
+        res.status(result.status).send(result.result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+
 router.get('/auth',auth.verifyAuth,  async function (req, res,next) {
     try {
         let result = await Car.getCars_owner(req.user.id);
@@ -60,6 +77,18 @@ router.delete('/auth', auth.verifyAuth, async function(req,res,next){
         res.status(500).send(err);
     }
 });
+router.get('/:id',  async function (req, res) {
+    try {
+        let result = await Car.getByid(req.params.id);
+        if (result.status != 200) 
+            res.status(result.status).send(result.result);
+        res.status(result.status).send(result.result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+module.exports = router;
 router.get('',  async function (req, res) {
     try {
         let result = await Car.getByAvaliability();

@@ -25,7 +25,6 @@ async function register() {
         }      
     } catch (err) {
         console.log(err);
-        msgDOM.textContent = "An error occurred";   
     }
 }
 
