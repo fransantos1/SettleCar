@@ -114,7 +114,7 @@ async function turnOnOverlay(car){
     let exit = document.createElement("button");
     exit.setAttribute("id","exit");
     exit.setAttribute("onclick","turnOffOverlay()");
-    exit.innerHTML = "&times;";
+    exit.innerText = "&times;";
     item.appendChild(exit);
 
     let top = document.createElement("section");
