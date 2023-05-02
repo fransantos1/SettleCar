@@ -28,7 +28,7 @@ h2{
   grid-template-columns: repeat(auto-fit,minmax(300px,auto));
   gap: 1rem;
   margin-top: 2rem;
-  justify-content: start;
+
 }
 
 .services-container a{
@@ -37,11 +37,11 @@ h2{
 }
 
 .services-container .box{
-  min-width: 33%;
   cursor: pointer;
   padding: 10px;
   border-radius: 1rem;
   box-shadow: 1px 4px 41px rgba(0,0,0,0.1)
+
 }
 
 .services-container .box .box-img{
@@ -150,7 +150,7 @@ h2{
   padding-left: 20px;
   margin:5px;
   list-style-type: none;
-  font-size: 20px;
+  font-size: 15 px;
 }
 #button{
   display: grid;
