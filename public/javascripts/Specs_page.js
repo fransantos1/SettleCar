@@ -42,7 +42,8 @@ function populatePage(car){
             x.style.color = "Green";
         }  
        
-        let carImages = document.getElementById("center");
+
+        let carImages = document.getElementById("top");
         for(let images of car.images){
             let imgs = document.createElement("img");
             imgs.setAttribute("src",images);

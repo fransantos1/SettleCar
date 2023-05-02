@@ -1,5 +1,7 @@
 let olddate;
 let ctr = 0;
+//! VERIFY IF CARS SERVICES ARE NEARBY
+//! VERIFY RENTS 
 async function verify() {
     if(ctr == 0){
         olddate= new Date();

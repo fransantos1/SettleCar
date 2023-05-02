@@ -33,127 +33,133 @@
   </header>
 
 <main>
-  <form onsubmit = "return false">
-    <label for="license_plate">License Plate</label>
-    <section id ="license_plate">
-    <input type="text" id="lp_1" class="lp_in" maxlength="2">
-    <input type="text" id="lp_2" class="lp_in" maxlength="2">
-    <input type="text" id="lp_3" class="lp_in" maxlength="2">
-    </section>
-    <section id="car_name">
-    <section class="v_lable">
-      <label for="brand">Brand</label>
-      <input type="text" id="brand" name="brand">
-    </section>
-    <section class="v_lable">
-      <label for="model">Model</label>
-      <input type="text" id="model" name="model">
-    </section>    
-    <section class="v_lable">
-      <label for="year">Year</label>
-      <input type="number" min="1900" max="2099" id="year" name="year">
-    </section> 
-    </section>
-    <section id="specs">
-    <section class ="join_inputs">
-      <section class="v_lable">
-      <label for="bhp">HorsePower</label>
-      <input type="number" id="bhp" name="bhp">
-      </section>
-      <section class="v_lable">
-      <label for="engine">Engine</label>
-      <input type="text" id="engine" name="engine">
-      </section>
-      <section class="v_lable">
-      <label for="fuel">Fuel</label>
-      <select name="fuel" id="fuel">
-        <option value="Diesel">Diesel</option>
-        <option value="Petrol">Petrol</option>
-        <option value="Eletric">Eletric</option>
-        <option value="Hydrogen">Hydrogen</option>
-      </select>
-      </section>
-    </section>
-    <section class ="join_inputs">
-      <section class="v_lable">
-      <label for="gearbox">Gearbox</label>
-      <section id="gearbox">
-        <input type="number" id="n_gears" name="n_gears" min =5>
-        <select name="gear_type" id="gear_type">
-        <option value="M">Manual</option>
-        <option value="A">Automatic</option>
-        </select>
-      </section>
-      </section>
-      <section class="v_lable">
-      <label for="drivetrain">DriveTrain</label>
-      <select name="Drivetrain" id="drivetrain">
-        <option value="FWD">Front Wheel Drive</option>
-        <option value="RWD">Real Wheel Drive</option>
-        <option value="4WD">4 Wheel Drive</option>
-        <option value="AWD">All Wheel Drive</option>
-      </select>
-      </section>
-    </section>
-    <section class ="join_inputs">
-      <section class="v_lable">
-      <label for="number of doors">nºdoors</label>
-      <input class ="num" type="text" id="door_n" name="number of doors" min = 1>
-      </section>
-      <section class="v_lable">
-      <label for="number of seats">nºseats</label>
-      <input class ="num" type="text" id="seat_n" name="number of seats" min = 2>
-      </section>
-      <section class="v_lable">
-      <label for="boot_capacity">Boot Capacity(L)</label>
-      <input class ="num" type="text" id="boot_capacity" name="Boot capacity" min = 0>
-      </section>
-      <section class="v_lable">
-      <label for="price/day">Price/day(€)</label>
-      <input class ="num" type="text" id="priceday" name="Price/day">
-      </section>
-    </section>
-    <section class ="join_inputs" id = "_add">  
+  <section class="section-form">
 
-      <section id ="eq_ex" class ="add_item" name="eq_extra">
-      <section class="v_lable">
-        <label for="eq_extra">AC</label>
-        <input type="checkbox" id="horns" name="horns">
-      </section>
-      <section class="v_lable">
-        <label for="eq_extra">heated seats</label>
-        <input type="checkbox" id="horns" name="horns">
-      </section>
-      <section class="v_lable">
-        <label for="eq_extra">bluetooth</label>
-        <input type="checkbox" id="horns" name="horns">
-      </section>
-      <section class="v_lable">
-        <label for="eq_extra">Cruise control</label>
-        <input type="checkbox" id="horns" name="horns">
-      </section>
-   
-      <section class="v_lable">
-        <label for="inspection">inspection</label>
-        <input type="date" id="ins_due_date" name="service date">
-      </section>
-        <section class="v_lable">
-          <label for="service">Insurance</label>
-          <input type="date" id="insurance_due_date" name="service date">
+  <form onsubmit = "return false">
+    <div class="background_div">
+      <label for="license_plate">License Plate</label>
+      <section id ="license_plate">
+        <input type="text" id="lp_1" class="lp_in" maxlength="2" placeholder="AA">
+        <input type="text" id="lp_2" class="lp_in" maxlength="2" placeholder="11">
+        <input type="text" id="lp_3" class="lp_in" maxlength="2" placeholder="BB">
         </section>
-      </section>
-    <section id ="images" class ="add_item">
-      <section class="v_lable">
-      <label for="img">Image Links</label>
-      <input type="link" id="imageLink" name="img">
-      </section>
-      <ul id ="images_container" class= "add_list">
-      </ul>
-      <button type ="button" onclick="addImg_list()">+</button>
-    </section>
-    </section>
-    <input type="button" value="Add Vehicle" class="btn" onclick ="add_car()"/>
+        <section id="car_name">
+        <section class="v_label">
+          <label for="brand">Brand</label>
+          <input type="text" id="brand" name="brand" placeholder="Toyota, Honda, etc...">
+        </section>
+        <section class="v_label">
+          <label for="model">Model</label>
+          <input type="text" id="model" name="model" placeholder="Yaris, Civic, etc...">
+        </section>    
+        <section class="v_label">
+          <label for="year">Year</label>
+          <input type="number" min="1900" max="2099" id="year" name="year" placeholder="YYYY">
+        </section> 
+        </section>
+        <section id="specs">
+        <section class ="join_inputs">
+          <section class="v_label">
+          <label for="bhp">Horsepower</label>
+          <input type="number" id="bhp" name="bhp"placeholder="Bhp">
+          </section>
+          <section class="v_label">
+          <label for="engine">Engine</label>
+          <input type="text" id="engine" name="engine"placeholder="TFSI">
+          </section>
+          <section class="v_label">
+          <label for="fuel">Fuel</label>
+          <select name="fuel" id="fuel">
+            <option value="Diesel">Diesel</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Eletric">Eletric</option>
+            <option value="Hydrogen">Hydrogen</option>
+          </select>
+          </section>
+        </section>
+        <section class ="join_inputs">
+          <section class="v_label">
+          <label for="gearbox">Nº Gears</label>
+          <section id="gearbox">
+            <input type="number" id="n_gears" name="n_gears" min =5 placeholder="#">
+            <select name="gear_type" id="gear_type">
+            <option value="M">Manual</option>
+            <option value="A">Automatic</option>
+            </select>
+          </section>
+          </section>
+          <section class="v_label">
+          <label for="drivetrain">Drivetrain</label>
+          <select name="Drivetrain" id="drivetrain">
+            <option value="FWD">Front Wheel Drive</option>
+            <option value="RWD">Rear Wheel Drive</option>
+            <option value="4WD">4 Wheel Drive</option>
+            <option value="AWD">All Wheel Drive</option>
+          </select>
+          </section>
+        </section>
+        <section class ="join_inputs">
+          <section class="v_label">
+          <label for="number of doors">Nº Doors</label>
+          <input class ="num" type="text" id="door_n" name="number of doors" min = 1 placeholder="#">
+          </section>
+          <section class="v_label">
+          <label for="number of seats">Nº Seats</label>
+          <input class ="num" type="text" id="seat_n" name="number of seats" min = 2 placeholder="#">
+          </section>
+          <section class="v_label">
+          <label for="boot_capacity">Boot Capacity</label>
+          <input class ="num" type="text" id="boot_capacity" name="Boot capacity" min = 0 placeholder="Liters">
+          </section>
+          <section class="v_label">
+          <label for="price/day">Price/day</label>
+          <input class ="num" type="text" id="priceday" name="Price/day" placeholder="&euro;">
+          </section>
+        </section>
+    
+        <section class ="join_inputs">  
+          <section class="v_label">
+            <label for="inspection">Inspection</label>
+            <input type="date" id="insp_due_date" name="service date">
+          </section>
+          <section class="v_label">
+            <label for="service">Insurance</label>
+            <input type="date" id="insurance_due_date" name="service date">
+          </section>
+        </section>
+    
+          <section id ="eq_ex" class ="add_item" name="eq_extra">
+            <section class="v_label" id = "extra_equipment">
+              <label for="eq_extra">AC</label>
+              <input type="checkbox" id="ac" name="ac" value = "AC">
+      
+              <label for="eq_extra">Heated Seats</label>
+              <input type="checkbox" id="heated" name="heated" value = "Heated Seats">
+      
+              <label for="eq_extra">Bluetooth</label>
+              <input type="checkbox" id="bluetooth" name="bluetooth" value="Bluetooth radio">
+      
+              <label for="eq_extra">Cruise Control</label>
+              <input type="checkbox" id="cc" name="cc" value = "Cruise Control">
+              
+            </section>
+        </section>
+    
+        <section id ="images" class = "add_images">
+          <section class="v_label">
+          <label for="img">Image Links</label>
+          <input type="link" id="imageLink" name="img" placeholder="Insert Link">
+          </section>
+          <ul id ="images_container" class= "add_list">
+          </ul>
+          <button type ="button" onclick="addImg_list()"> + </button>
+        </section>
+        <input type="button" value="Add Vehicle" class="btn" onclick ="add_car()"/>
+    </div>
+    <a href="dono.html" class="btn">Return</a>
   </form>
+
+  </section>
 </main>
   
   <footer>

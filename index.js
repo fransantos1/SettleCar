@@ -22,7 +22,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const usersRouter = require("./routes/usersRoutes");
-const carRouter = require("./routes/carRoutes")
+const carRouter = require("./routes/carRoutes");
+const rentRouter = require("./routes/rentRoutes");
+app.use("/api/rent",rentRouter);
 app.use("/api/users",usersRouter);
 app.use("/api/car",carRouter);
 
