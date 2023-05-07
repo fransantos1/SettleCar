@@ -1,3 +1,6 @@
+CREATE EXTENSION postgis;
+CREATE EXTENSION postgis_topology;
+
 
 create table usr (
                     usr_id SERIAL not null,
@@ -34,6 +37,35 @@ create table rentstate (
                     primary key (rentstate_id)
 );
 --FALTA O PERCURSO NA RENT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+create table rentroute(
+    rent_route_id SERIAL not null,
+    rr_geom geography not null,
+    rr_time date not null,
+    rr_rent_id INT not null,
+    primary key (rent_route_id)
+);
+--mapa
+create table Allowed_map(
+    am_id SERIAL not null,
+    AM_geom geography(Polygon, 4326) not null,
+    primary key (am_id)
+);
+
+create table no_stopzones(
+   ns_id SERIAL not null,
+   NS_geom geography(Linestring, 4326),
+   primary key (ns_id)
+);
+
+-- Posição do carro
+create table carloc(
+    cl_id Serial not null,
+    cl_geom geography(Point, 4326),
+    cl_car_id int not null,
+    primary key (cl_id)
+);
+
 
 create table repair(
                     repair_id SERIAL not null,
@@ -106,7 +138,15 @@ create table carstate (
                     primary key (carstate_id)
 );
 
+--rent route with rent
+alter table rentroute add constraint rentroute_fk_rent
+            foreign key (rr_rent_id) references rent(rent_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+-- car loc with car
+alter table carloc add constraint carloc_fk_car
+            foreign key (cl_car_id) references car(car_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --usr with usr type
 alter table usr add constraint usr_fk_usrtype

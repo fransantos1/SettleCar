@@ -13,12 +13,23 @@ class rent{
         this.car_id = car_id;
         this.usr_id = usr_id;
         this.rent_state = rent_state;
-    }
-    static async createRent(start_date, return_date, car, usr_id){
+    } 
+    static async getRent(){}
+    static async updateRent(){}
+    static async deleteRent(){}
+
+    static async getAllRentsFromCar_date(){}
+    static async getAllRentsFromCar(){}
+
+
+
+
+
+    static async createRent(start_date, return_date, car, usr){
         try{
             //Verify if the car is available
             //Verify if the user has any other rent
-            let dbResult = await pool.query("SELECT * FROM rent WHERE rent_usr_id =$1 and rent_rentstate_id != 3", [usr_id]);
+            let dbResult = await pool.query("SELECT * FROM rent WHERE rent_usr_id =$1 and rent_rentstate_id != 3", [usr.id]);
             let Result = dbResult.rows;
             if(Result.length){
                 return {
