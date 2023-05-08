@@ -12,9 +12,9 @@
 body{
   display: none;
 }
-#mainsec{ 
+body{ 
   width: 100%;
-  height: 800px;
+  height: 100vh;
   background: url("../imagens/car_background.png");
   background-repeat: no-repeat;
   background-size: cover;

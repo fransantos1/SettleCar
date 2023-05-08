@@ -96,8 +96,8 @@ INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VA
 
 
 --FINISHED RENTS
--- uma rent tem vários pontos em cada dia
---para questão de facilitar 30 min por dia de condução
+-- uma rent tem vários pontos em cada dia,um ponto é inserido a cada 30 segundos
+--para questão de facilitar 10 min por dia de condução
 --rents
 
 --rentroutes

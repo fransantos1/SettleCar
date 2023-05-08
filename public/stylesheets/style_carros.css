@@ -28,6 +28,7 @@ h2{
   grid-template-columns: repeat(auto-fit,minmax(300px,auto));
   gap: 1rem;
   margin-top: 2rem;
+  justify-content: start;
 
 }
 
@@ -151,7 +152,7 @@ h2{
   padding-left: 20px;
   margin:5px;
   list-style-type: none;
-  font-size: 15 px;
+  font-size: 15px;
 }
 #button{
   display: grid;
