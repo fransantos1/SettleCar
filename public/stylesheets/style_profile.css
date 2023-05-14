@@ -8,14 +8,14 @@
 }
  
 
-/* Main styles */
-main{ 
+
+body{ 
     width: 100%;
-    height: 839px;
     background: url("../imagens/car_background1.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    background-position-y: top;
   }
 
 main h2 {
@@ -90,6 +90,3 @@ section li {
     margin: 10px;
     text-align: left;
 }
-
-
-

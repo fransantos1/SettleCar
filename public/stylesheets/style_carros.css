@@ -8,6 +8,15 @@
   
 }
 
+body{
+  width: 100%;
+  background: url("../imagens/car_background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-position-y: top;
+}
+
 section{
   padding: 50px 100px;
 }
@@ -15,12 +24,15 @@ section{
 .heading {
   text-align: center;
   margin-top: 50px;
+  color: white;
+  font-size: 20px;
 }
 
 h2{
   text-align: left;
   margin-top: 50px ;
   font-size: 30px;
+  color: white;
 }
 
 .services-container{
@@ -41,7 +53,13 @@ h2{
   cursor: pointer;
   padding: 10px;
   border-radius: 1rem;
-  box-shadow: 1px 4px 41px rgba(0,0,0,0.1)
+  background-color: white;
+}
+
+.services-container .box:hover{
+  color: #ba5c12;
+  box-shadow: 1px 4px 41px #ba5c12;
+  
 }
 
 .services-container .box .box-img{
@@ -81,12 +99,12 @@ h2{
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 75%;
+  height: 90%;
   width: 35%;
   display:flex;
   flex-direction: column;
   border-radius: 1rem;
-  background-color: rgb(219, 219, 219);
+  background-color: white;
   box-shadow: 1px 4px 41px rgba(0,0,0,0.1);
 }
 
@@ -130,12 +148,13 @@ h2{
   flex-direction: column;
   padding: 0px;
   margin: 10px;
-  height: 80%;
-  background-color: rgb(233, 233, 233);
+  background-color: lightgray;
   border-radius: 1rem;
   object-fit: cover;
   object-position: center ;
   box-shadow: 6px 5px 8px 0px rgba(0,0,0,0.1);
+  overflow-y: scroll; 
+  height:500px;
 }
 #specs{
   
@@ -164,7 +183,7 @@ h2{
   margin: 0;
   border-style: none;
   border-radius: 1rem;
-  background: rgba(133, 133, 133, 0.27);
+  background: rgb(255, 165, 0);
   backdrop-filter: blur(3px);
   height:50%;
   width: 40%;
@@ -172,6 +191,6 @@ h2{
 }
 #button button:hover{
   cursor: pointer;
-  background-color: rgba(116, 116, 116, 0.27);
+  background-color:  #ba5c12;
   box-shadow: 11px 11px 8px 0px rgba(0,0,0,0.1)
 }

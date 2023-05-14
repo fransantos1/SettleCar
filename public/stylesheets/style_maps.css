@@ -1,0 +1,39 @@
+#map {
+  height: 100%;
+}
+html,
+body {
+  height: 95%;
+  margin: 0;
+  padding: 0;
+}
+p{
+  z-index: 2;
+}
+
+
+.controls h1{
+  font-size : 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: orange;
+  padding: 10px;
+  border-radius: 20%;
+}
+.controls button {
+  margin: 5px;
+  font-size : 40px;
+  padding: 10px 34px;
+  border: none;
+  border-radius: 0.5rem;
+  background: rgb(204, 204, 204);
+  color: black;
+  font-weight: 600;
+  font-size: 20px;
+  
+  
+}
+
+.controls button:hover{
+  background: orange;
+}

@@ -11,7 +11,7 @@ window.onload = async function () {
             switch(user.type){
                 case 1:
                     let navbar = document.querySelector('.navbar');
-                    navbar.innerHTML = '<ul> <li><a href="index.html">Home</a></li> <li><a href="javascript:logout()">Logout</a></li> </ul>';
+                    navbar.innerHTML = `<ul> <li><a href="index.html">Home</a></li> <li><a href="profile.html">`+user.name+`</a></li> <li><a href="javascript:logout()">Logout</a></li> </ul>`;
                     document.body.style.display ="block";
                     break;
 

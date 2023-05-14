@@ -22,10 +22,12 @@ create table usrtype (
 
 create table rent (
 					rent_id SERIAL not null,
-					rent_data_inicio date not null,
-					rent_data_final date not null,
+					rent_data_inicio timestamp not null,
+					rent_data_final timestamp not null,
 					rent_car_id INT not null,
 					rent_usr_id INT not null,
+                    rent_price CHAR(10),
+                    rent_penalty CHAR(10),
 					rent_rentstate_id INT not null,
 					
 					primary key (rent_id)
@@ -39,11 +41,11 @@ create table rentstate (
 --FALTA O PERCURSO NA RENT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 create table rentroute(
-    rent_route_id SERIAL not null,
-    rr_geom geography not null,
-    rr_time date not null,
+    rr_id SERIAL not null,
+    rr_geom geography(Point, 4326) not null,
+    rr_time timestamp not null,
     rr_rent_id INT not null,
-    primary key (rent_route_id)
+    primary key (rr_id)
 );
 --mapa
 create table Allowed_map(

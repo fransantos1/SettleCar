@@ -112,6 +112,8 @@ function stateButton(){
  
  }   
  function historyButton(){
+    sessionStorage.setItem("carid",car.id);
+    window.location.pathname = "rent_list.html";
  
  }
  function calendarButton(){

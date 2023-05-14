@@ -28,20 +28,37 @@
     <form action="javascript:register()">
       
       <div class="box">
-        <label for="Name">Name:</label>
-        <input type="text" autocomplete="name" id="name">      
+        <label for="Name"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <circle cx="12" cy="7" r="4" />
+          <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+        </svg> Name:</label>
+        <input type="text" autocomplete="name" id="name" placeholder="Name">      
       </div>
       <div class="box">
-        <label for="Email">Email:</label>
-        <input type="text" autocomplete="email" id="email" >
+        <label for="Email"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <polyline points="3 7 12 13 21 7" />
+        </svg> Email:</label>
+        <input type="text" autocomplete="email" id="email" placeholder="Email" >
       </div>
       <div class="box">
-        <label for="Phone">Phone Number:</label>
-        <input type="text" autocomplete="tel" id="phone" >
+        <label for="Phone"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
+        </svg> Phone Number:</label>
+        <input type="text" autocomplete="tel" id="phone" placeholder="Phone Number">
       </div>
       <div class="box">
-        <label for="Password">Password:</label>
-        <input type="password" autocomplete= "new-password" id="pass">      
+        <label for="Password"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-key" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <circle cx="8" cy="15" r="4" />
+          <line x1="10.85" y1="12.15" x2="19" y2="4" />
+          <line x1="18" y1="5" x2="20" y2="7" />
+          <line x1="15" y1="8" x2="17" y2="10" />
+        </svg>Password:</label>
+        <input type="password" autocomplete= "new-password" id="pass" placeholder="Password">      
       </div>
       <div class="box1">
         <input type="checkbox" name="check" value = 1 onclick="onlyOne(this)"/>Cliente 

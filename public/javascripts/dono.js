@@ -86,7 +86,6 @@ async function populateList() {
             LOCATION.appendChild(location);
             tr.appendChild(LOCATION);
             LOCATION.onclick =()=>{
-                
             };
 
             let DELETE = document.createElement("td");
