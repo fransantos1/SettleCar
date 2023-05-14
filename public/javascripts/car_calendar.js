@@ -5,7 +5,7 @@ const dayOfWeekName = new Date().toLocaleString(
 console.log(dayOfWeekName);
 let year = new Date().getFullYear();
 const month = new Date().getMonth();
-populateCalendar( month+5, year);
+populateCalendar( month, year);
 }
 
 function populateCalendar(month, year){

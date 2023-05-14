@@ -114,7 +114,7 @@ async function turnOnOverlay(car){
     let exit = document.createElement("button");
     exit.setAttribute("id","exit");
     exit.setAttribute("onclick","turnOffOverlay()");
-    exit.innerText = "&times;";
+    exit.innerHTML = "&times;";
     item.appendChild(exit);
 
     let top = document.createElement("section");
@@ -187,7 +187,7 @@ async function turnOnOverlay(car){
     if(start_date == "" ){
         let button = document.createElement("button");
         button.setAttribute("type","button");
-        button.innerText = "See avaliability";
+        button.innerHTML = "See avaliability";
         button_div.appendChild(button);
         button.onclick = ()=>{
             //!SHOW CALENDAR
@@ -196,7 +196,7 @@ async function turnOnOverlay(car){
     }else{
         let button = document.createElement("button");
         button.setAttribute("type","button");
-        button.innerText = "Rent Now";
+        button.innerHTML = "Rent Now";
         button_div.appendChild(button);
         button.onclick = ()=>{
             //!START A RENT A GO TO PROFILE PAGE
