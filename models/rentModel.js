@@ -12,9 +12,9 @@ const Car = require("../models/carModel");
 
 
 class Rent{
-    constructor(id, beggining, end, car, usr, rent_state,price){
+    constructor(id, beginning, end, car, usr, rent_state,price){
         this.id = id;
-        this.beggining = beggining;
+        this.beginning = beginning;
         this.end = end;
         this.car = car;
         this.usr = usr;
@@ -52,12 +52,9 @@ class Rent{
                     where rr_rent_id = $1 and rr_time::date = $2 
                     order by rr_time)));`, [rentId, date]);
         let dbcourse = dbResult.rows;
-        if (!dbcourse.length){
+        if (dbcourse[0].st_asgeojson == null) {
             return {
-                status: 400, result: [{
-                    location: "body", param: "rents",
-                    msg: "This rent has no registered course"
-                }]
+                status: 204
             }
         }
         geojsno_feature.geometry = JSON.parse(dbcourse[0].st_asgeojson);
@@ -201,9 +198,6 @@ class Rent{
             console.log(err);
             return { status: 500, result: err };
         }
-
-
-
     }
 
 
@@ -232,7 +226,7 @@ class Rent{
             for (let dbRent of dbRents){
                 let rent = new Rent();
                 rent.id = dbRent.rent_id;
-                rent.beggining = dbRent.rent_data_inicio;
+                rent.beginning = dbRent.rent_data_inicio;
                 rent.end = dbRent.rent_data_final;
                 rent.usr = dbRent.usr_name;
                 rent.price = dbRent.rent_price+"+"+dbRent.rent_penalty;

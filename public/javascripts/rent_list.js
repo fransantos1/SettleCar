@@ -53,7 +53,7 @@ async function populateList_owner(carid) {
             tr.appendChild(td);
 
             td = document.createElement("td");
-            td.textContent = rent.beggining;
+            td.textContent = rent.beginning;
             tr.appendChild(td);
 
             td = document.createElement("td");
@@ -87,7 +87,6 @@ async function populateList_User() {
     let rentList = document.getElementById("table_body");
     try {
         let result = await requestRentsFromUser(user.id);
-        result.rents = [{teste:"teste"},{teste:"teste"},{teste:"teste"},{teste:"teste"},{teste:"teste"}];
         //if (!result.successful || result.err)
           //  throw result.err || { err: "Not successfull" }
         //document.getElementById("remove_link").style.visibility ="visible";

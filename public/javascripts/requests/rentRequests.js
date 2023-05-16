@@ -1,7 +1,12 @@
 async function requestRentCourseOwner(rentid, day) {
     try {
         const response = await fetch(`/api/rent/auth/getCourseOwner/${rentid}/${day}`);
-        var result = await response.json();
+        console.log(response);
+        if (response.status == 204) 
+        return { successful: response.status == 200,
+                result: "no content"}
+
+        var result = await response.json();       
         return { successful: response.status == 200,
                  result: result};
     } catch (err) {
