@@ -5,6 +5,7 @@
         <title>Profile</title>
         <link rel="stylesheet" href="stylesheets/style_profile.css">
         <link rel="stylesheet" href="stylesheets/style_navbar.css">
+        <script src="./javascripts/utils/verifications.js"></script>
         <script src="./javascripts/requests/usersRequests.js"></script>
         <script src="./javascripts/profile.js"></script>
       </head>
@@ -19,21 +20,15 @@
         
         <div class="navbar">
           <ul>
+            <li><a href="javascript:logout()">Logout</a></li>
             <li><a href="index.html">Home</a></li>
           </ul>
         </div>
       </header>
     <main>
       <h2>My Profile</h2>
-      <section class= "colunas">
-        <section class= box>
-          <h3>Personal Information</h3>
-          <ul>
-            <li><strong>Name:</strong> Driver</li>
-            <li><strong>Email:</strong> driver@gmail.com</li>
-            <li><strong>Phone:</strong> 123123123</li>
-          </ul>
-        </section>
+      <section class= "colunas" id = "coluna">
+
         <section class= box>
           <h3>Rental History</h3>
           <h4>Last Rent:</h4>
