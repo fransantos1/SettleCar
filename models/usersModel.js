@@ -28,6 +28,10 @@ class User {
         user.name = this.name;
         return user; 
     }
+
+    //? NOTIFICATION SYSTEM
+
+    
     static async register(user) {
         try {
             let dbResult =

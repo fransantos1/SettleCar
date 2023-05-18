@@ -21,6 +21,11 @@ class Rent{
         this.rent_state = rent_state;
         this.price = price;
     }
+
+
+    //criar rente
+    //update da localização do carro
+    // acabar rent
     static async getRentCourse_owner(rentId, date,usr){
     //verifications
     try{
@@ -33,9 +38,9 @@ class Rent{
         }
     }
     let geojson = {
-    "type": "FeatureCollection",
-    "features": [
-    ]
+        "type": "FeatureCollection",
+        "features": [
+            ]
     };
     let result = {};
 
@@ -145,7 +150,6 @@ class Rent{
         return { status: 500, result: err };
     }
     }
-
     //Verify rent
     static async verifyRent(rentid){
         try{
@@ -165,7 +169,7 @@ class Rent{
             for(let row of rows){
                 let date = new Date(row.rr_time);
                 //compare if it passed 10 minutes between points
-                if(((date.getTime() - old_date.getTime()) / 1000)/60 > 10){
+                if(((date.getTime() - old_date.getTime())/1000)/60 > 10){
                     //verify if its parked wrong
                     let dbResults = await pool.query(`
                     select ST_Within(rr_geom::geometry, st_buffer(ns_geom,4.5)::geometry)
@@ -181,6 +185,7 @@ class Rent{
                 }
                 old_date = date;
             }
+            //TODO BETTER METHOD
             dbResult = await pool.query(`select st_intersects(
                         (SELECT ST_Makeline(ARRAY(select rr_geom::geometry from rentroute where rr_rent_id = $1
                             order by rr_time))), 
@@ -191,7 +196,7 @@ class Rent{
             }
             if(infractions > 0){
                 dbResult = await pool.query(`update rent set rent_penalty = $1 where rent_id = $2`,[infractions, rentid]);
-                return {status:200, result: dbResult};
+                return {status:200,result:{"msg": "User has to pay an addicionl "+infractions}};
             }
             return {status:200, result:{"msg":"No penaltys found"}};
         }catch(err){
@@ -199,17 +204,10 @@ class Rent{
             return { status: 500, result: err };
         }
     }
-
-
-
-
-
-
-
-
-    static async getRent(){}
-    static async updateRent(){}
+    
     static async deleteRent(){}
+
+
     static async getRentsFromCar(carId) {
         try {
             let dbResult = await pool.query(`select rent_id, rent_data_inicio::date, rent_data_final::date, usr_name, 

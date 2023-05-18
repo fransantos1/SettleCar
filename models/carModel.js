@@ -30,6 +30,8 @@ class Car{
         this.car_state = car_state;
         this.user_id = user_id;
     }
+    //TODO get calendar 
+    //TODO MAKE UNAVAILABLE
     static async getByid(carid) {
         try{
             let dbResult = await pool.query("Select * from car where car_id = $1", [carid]);
