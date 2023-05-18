@@ -1,9 +1,11 @@
 let car;
 window.onload = async function () {
     let result = await checkAuthenticated(true);
-    if(!result.authenthicated || user.type !== 2){
+     if(!result.authenthicated || user.type !== 2){
         changePage("index.html");
     }
+    document.getElementById("profile-link").innerHTML = user.name;
+    document.getElementById("profile-link").href = "profile.html";
     let carid = sessionStorage.getItem("carid");
     try{
         result = await requestOwnerCar(carid);
@@ -109,7 +111,6 @@ function populatePage(car){
 }
 function stateButton(){
     window.alert("Making the car unavailable, wont cancel dates already reserved but will prevent users from making other requests")
- 
  }   
  function historyButton(){
     sessionStorage.setItem("carid",car.id);

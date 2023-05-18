@@ -150,6 +150,10 @@ class Rent{
         return { status: 500, result: err };
     }
     }
+    static async insert_point(){
+        
+    }
+
     //Verify rent
     static async verifyRent(rentid){
         try{
@@ -204,7 +208,22 @@ class Rent{
             return { status: 500, result: err };
         }
     }
-    
+
+    static async createRent(user, rent){
+        try{
+        let occupied = await User.isOccupied(user.id);
+        if (occupied){
+
+        }
+        //insert rent into database
+
+        }catch(err){
+            console.log(err);
+            return{status: 500, result: err}
+        }
+    }
+    static async getRent(){}
+    static async updateRent(){}
     static async deleteRent(){}
 
 
