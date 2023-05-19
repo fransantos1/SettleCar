@@ -1,10 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+
+body {
+  width: 100%;
+  background: url("../imagens/car_background1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-position-y: top;
+}
+
+body>main>div{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  align-items: center;
+  justify-content: space-around;
+}
 table{
-  width: 15%;
+  width: 27%;
+  background-color: orange;
+  border-radius: 10%;
 }
 table, th, td {
   text-align: center;
-  border: 1px solid;
+  table-layout: fixed;
+  padding:10px;
 }
-tr{
-  width: 50px;
+th{
+  width: 40px;
+  padding: 5px;
+}
+td {
+  width:40px;
+  border-radius: 10%;
+  background: white;
+}
+#valid:hover {
+  background-color: greenyellow;
+  cursor: pointer;
+}
+#selected:hover {
+  background-color: red;
+  cursor: pointer;
+}
+#selected {
+  background-color: greenyellow;
+}
+.today{
+  background-color: rgb(255, 0, 0);
+}
+.past{
+  background-color: rgba(148, 148, 148, 1);
 }

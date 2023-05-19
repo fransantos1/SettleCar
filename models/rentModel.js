@@ -284,7 +284,12 @@ class Rent{
         }
     
     }
-        
+    get rentStart() {
+        return this.beginning;
+    }
+    get rentEnd() {
+        return this.end;
+    }
 
 }
 
