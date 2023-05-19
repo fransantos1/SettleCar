@@ -308,8 +308,6 @@ class Rent{
         }
     
     }
-        
-
 }
 
 module.exports = Rent;

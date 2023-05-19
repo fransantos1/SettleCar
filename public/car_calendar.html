@@ -4,26 +4,33 @@
   <title>Settlecar</title>
   <link rel="stylesheet" href="stylesheets/style_navbar.css">
   <link rel="stylesheet" href="stylesheets/style_car_calendar.css">
+  <script src="./javascripts/requests/usersRequests.js"></script>
+  <script src="./javascripts/requests/rentRequests.js"></script>
+  <script src="./javascripts/utils/verifications.js"></script>
   <script src="./javascripts/car_calendar.js"></script>
 </head>
 
 <body>
   <header>
    
+    <div class="logo">
+      <img src="imagens/logo.png" width=120px height=40px>
+    </div>
+   
+   <h1>SETTLECAR</h1>
+    
+    <section class="navbar">
+      <ul>
+        <li><a href="javascript:logout()">Logout</a></li>
+        <li><a href="profile.html" id="username"></a></li>
+      </ul>
+    </section>
   </header>
 
   <main>
-    <table id= "calendar">
-        <tr>
-          <th>M</th>
-          <th>T</th>
-          <th>W</th>
-          <th>T</th>
-          <th>F</th>
-          <th>S</th>
-          <th>S</th>
-        </tr>
-      </table>
+    <div id="calendar">
+
+    </div>
         
   </main>
   <footer>
