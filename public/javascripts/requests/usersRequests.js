@@ -85,3 +85,18 @@ async function requestProfile() {
         return {err: err};
     }
 }
+
+async function isOccupied() {
+    try {
+        const response = await fetch(`/api/users/auth/isOccupied`);
+        var result = await response.json();
+        console.log(result);
+        return { successful: response.status == 200,
+                 unauthenticated: response.status == 401,
+                 user: result};
+    } catch (err) {
+        // Treat 500 errors here
+        console.log(err);
+        return {err: err};
+    }
+}

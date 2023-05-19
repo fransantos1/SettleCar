@@ -13,12 +13,24 @@ router.get('/auth',auth.verifyAuth,  async function (req, res, next) {
         if (result.status != 200) 
             res.status(result.status).send(result.result);
         let user = new User();
-
         user.name = result.result.name;
         user.phone = result.result.phone;
         user.email = result.result.email;
         user.type = result.result.type;
         res.status(result.status).send(user);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+
+router.get('/auth/isoccupied',auth.verifyAuth,  async function (req, res, next) {
+    try {
+        let result = await User.isOccupied(req.user.id);
+        if (result.status != 200) 
+            res.status(result.status).send(result.result);
+        res.status(result.status).send(result.result);
     } catch (err) {
         console.log(err);
         res.status(500).send(err);

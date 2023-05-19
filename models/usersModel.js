@@ -28,6 +28,21 @@ class User {
         user.name = this.name;
         return user; 
     }
+    static async isOccupied(userid){
+        try{
+            let dbResult = await pool.query(`select exists (select * from rent where rent_usr_id = $1
+                                    and rent_rentstate_id  != 3)`,[userid]);
+            return { status: 200, result: {occupied:dbResult.rows[0].exists}};
+        }catch(err){
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }   
+
+
+
+
+    
     static async register(user) {
         try {
             let dbResult =

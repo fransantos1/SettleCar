@@ -119,7 +119,7 @@ function createnontoggleButtons() {
   });
   section.appendChild(roadtoggle);
   let allowdzone = document.createElement("button");
-  allowdzone.textContent = "toggle Prohibited zone";
+  allowdzone.textContent = "toggle Allowed zone";
   allowdzone.addEventListener("click", () => {
     toggleAllowdMap();
   });
@@ -185,6 +185,7 @@ async function populateMap(){
       return;
     }
     geojson = result.result.geojson;  
+    console.log(geojson);
   } catch (err) {
     console.log(err);
     return;

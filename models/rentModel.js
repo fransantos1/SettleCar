@@ -21,6 +21,11 @@ class Rent{
         this.rent_state = rent_state;
         this.price = price;
     }
+
+
+    //criar rente
+    //update da localização do carro
+    // acabar rent
     static async getRentCourse_owner(rentId, date,usr){
     //verifications
     try{
@@ -33,9 +38,9 @@ class Rent{
         }
     }
     let geojson = {
-    "type": "FeatureCollection",
-    "features": [
-    ]
+        "type": "FeatureCollection",
+        "features": [
+            ]
     };
     let result = {};
 
@@ -145,6 +150,9 @@ class Rent{
         return { status: 500, result: err };
     }
     }
+    static async insert_point(){
+        
+    }
 
     //Verify rent
     static async verifyRent(rentid){
@@ -165,7 +173,7 @@ class Rent{
             for(let row of rows){
                 let date = new Date(row.rr_time);
                 //compare if it passed 10 minutes between points
-                if(((date.getTime() - old_date.getTime()) / 1000)/60 > 10){
+                if(((date.getTime() - old_date.getTime())/1000)/60 > 10){
                     //verify if its parked wrong
                     let dbResults = await pool.query(`
                     select ST_Within(rr_geom::geometry, st_buffer(ns_geom,4.5)::geometry)
@@ -181,6 +189,7 @@ class Rent{
                 }
                 old_date = date;
             }
+            //TODO BETTER METHOD
             dbResult = await pool.query(`select st_intersects(
                         (SELECT ST_Makeline(ARRAY(select rr_geom::geometry from rentroute where rr_rent_id = $1
                             order by rr_time))), 
@@ -191,7 +200,7 @@ class Rent{
             }
             if(infractions > 0){
                 dbResult = await pool.query(`update rent set rent_penalty = $1 where rent_id = $2`,[infractions, rentid]);
-                return {status:200, result: dbResult};
+                return {status:200,result:{"msg": "User has to pay an addicionl "+infractions}};
             }
             return {status:200, result:{"msg":"No penaltys found"}};
         }catch(err){
@@ -200,16 +209,31 @@ class Rent{
         }
     }
 
+    static async createRent(user, rent){
+        try{
+        let occupied = await User.isOccupied(user.id);
+        if (occupied){
+            return{status: 400, result:{ "msg": "This user has already a rent planned"}}
+        }
+        //insert rent into database
+        //! calculate rent price here
+        let car = await Car.getByid(rent.car);
+        let days; //calculate days between end and beginning
+        rent.price = days*car.price_day;
 
+        let dbResult = await pool.query(`insert into rent(rent_data_inicio, rent_data_final, rent_car_id, rent_usr_id, rent_price, rent_status_id)
+            values ($1, $2, $3, $4, $5, 1)`, [rent.beginning, rent.end,rent.car,user.id, rent.price]);
+        }catch(err){
+            console.log(err);
+            return{status: 500, result: err}
+        }
+    }
+    static async RentChangeState(state_id){
 
-
-
-
-
-
-    static async getRent(){}
-    static async updateRent(){}
+    }
     static async deleteRent(){}
+
+
     static async getRentsFromCar(carId) {
         try {
             let dbResult = await pool.query(`select rent_id, rent_data_inicio::date, rent_data_final::date, usr_name, 
