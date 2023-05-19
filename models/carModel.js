@@ -247,7 +247,6 @@ class Car{
     static async DeleteCar(LicensePlate, usr_id) {
         try {
             let dbResult = await pool.query("Select * from car where car_licenseplate=$1", [LicensePlate]);
-            
             let dbCars = dbResult.rows[0];
             if(dbCars.car_usr_id != usr_id)
                 return {
@@ -264,6 +263,13 @@ class Car{
                         msg: "This car doesnt exist"
                     }]
                 }
+
+            //dbResult = await pool.query("exists(select * from rent where rent_car_id = $1)", [dbCars.car_id]);
+            ///let dbRent = dbResult.rows[0];
+
+
+
+
             let Result2 = await pool.query("Delete from carservices carservices where carservices_car_id = $1", [dbCars.car_id]);
             let Result1 = await pool.query("Delete from carimage carimage where carimage_car_id = $1", [dbCars.car_id]);
             let Result = await pool.query("Delete from car where car_id =$1", [dbCars.car_id]);

@@ -8,33 +8,18 @@ window.onload = async function () {
     document.body.style.display ="block";
 }
 
-async function toggleDelete(){
-    var x = document.getElementsByClassName("toggleable");
-    for(let y of x){
-        if (y.style.visibility === "hidden" || y.style.visibility === "") {
-        y.style.visibility = "visible";
-        } else {
-            if(y.checked){
-                y.click();
-            }
-        y.style.visibility = "hidden";
-        }
-    }
-}
+//TODO REMOVE CHECKBOXS AND POPULATE AGAIN AFTER DELETING
 
-async function deletecar(){
-    let x = document.getElementsByClassName("toggleable");
-    for(let y of x){
-        if(y.checked){
-            let result = await DeleteCars(y.value);
-            if (!result.successful || result.err)
-            throw result.err || { err: "Not successfull" }
-        }
+async function populateList() { 
+    let carList = document.getElementById("services-data");
+    console.log(carList);
+    while (carList.firstChild) {
+        console.log("deleting");
+        carList.removeChild(carList.firstChild);
     }
-    window.location.reload();
-}
-async function populateList() {
-    let carList = document.getElementById("services-container");
+      
+    carList = document.getElementById("services-container");
+    
     try {
         let result = await requestOwnerCars(user.id);
         console.log(result);
@@ -93,18 +78,12 @@ async function populateList() {
             deletion.setAttribute("src", "imagens/trashcan.png");
             DELETE.appendChild(deletion);
             tr.appendChild(DELETE);
-            DELETE.onclick =async ()=>{
-                blockCarView = true;
-                if (window.confirm("Delete this car? (" + car.brand + " " + car.model + ")")) {
-                    let result = await DeleteCars(car.licenseplate);
-                    if (!result.successful || result.err)
-                    throw result.err || { err: "Not successfull" }
-                }
+            DELETE.onclick = ()=>{
+                deletecar(car);  
             };
 
             carList.appendChild(tr);
             tr.onclick =()=>{
-
                 let x = document.getElementById("Confirm_delete");
                 if(x.style.visibility !== "visible" && !blockCarView){
                     openSpecsheet(car);
@@ -124,4 +103,13 @@ function openSpecsheet(car){
     console.log(car);
     sessionStorage.setItem("carid",car.id);
     window.location.pathname = "car_specs.html";
+}
+async function deletecar(car){
+    blockCarView = true;
+    if (window.confirm("Delete this car? (" + car.brand + " " + car.model + ")")) {
+        let result = await DeleteCars(car.licenseplate);
+        if (!result.successful || result.err)
+        throw result.err || { err: "Not successfull" }
+        populateList();
+    }
 }

@@ -16,7 +16,6 @@ window.onload = async function () {
         populateCalendar(month, year);
     }
 }
-
 async function populateCalendar(month, year){
     let rent = await requestRentsFromCar(1);
     console.log(rent);
@@ -25,9 +24,7 @@ async function populateCalendar(month, year){
     console.log(rentStart, rentEnd);
 
     let currentMonth = new Date().getMonth();
-    let monthNameTemp = new Date(year, month).toLocaleDateString(
-        'en-us', {month: 'long'}
-    )
+    let monthNameTemp = new Date(year, month).toLocaleDateString('en-us',{month: 'long'})
     const monthName = monthNameTemp.charAt(0).toUpperCase() + monthNameTemp.slice(1)
     const today = new Date().getDate();
     const weekDay = new Date(year,month,1).getDay();
