@@ -32,7 +32,6 @@ class User {
         try{
             let dbResult = await pool.query(`select exists (select * from rent where rent_usr_id = $1
                                     and rent_rentstate_id  != 3)`,[userid]);
-                                    console.log(dbResult.rows[0]);
             return { status: 200, result: {occupied:dbResult.rows[0].exists}};
         }catch(err){
             console.log(err);

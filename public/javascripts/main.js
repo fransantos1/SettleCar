@@ -15,7 +15,7 @@ window.onload = async function () {
                     let occupied = await isOccupied();
                     if(occupied.user.occupied) 
                     {
-                        window.location.pathname = "/profile.html";
+                       window.location.pathname = "/profile.html";
                     }
                     let navbar = document.querySelector('.navbar');
                     navbar.innerHTML = `<ul> <li><a href="index.html">Home</a></li> <li><a href="profile.html">`+user.name+`</a></li> <li><a href="javascript:logout()">Logout</a></li> </ul>`;
