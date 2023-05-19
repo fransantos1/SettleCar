@@ -240,6 +240,8 @@ class Car{
     }
 
     //! DELETE CAR SERVICES
+    //TODO this feature is not working at the moment because of spatial tables on data base
+    //TODO when a car is deleted and has rents scheduled, send a notification to the users that have that rent  
     static async DeleteCar(LicensePlate, usr_id) {
         try {
             let dbResult = await pool.query("Select * from car where car_licenseplate=$1", [LicensePlate]);

@@ -207,17 +207,24 @@ class Rent{
         try{
         let occupied = await User.isOccupied(user.id);
         if (occupied){
-
+            return{status: 400, result:{ "msg": "This user has already a rent planned"}}
         }
         //insert rent into database
+        //! calculate rent price here
+        let car = await Car.getByid(rent.car);
+        let days; //calculate days between end and beginning
+        rent.price = days*car.price_day;
 
+        let dbResult = await pool.query(`insert into rent(rent_data_inicio, rent_data_final, rent_car_id, rent_usr_id, rent_price, rent_status_id)
+            values ($1, $2, $3, $4, $5, 1)`, [rent.beginning, rent.end,rent.car,user.id, rent.price]);
         }catch(err){
             console.log(err);
             return{status: 500, result: err}
         }
     }
-    static async getRent(){}
-    static async updateRent(){}
+    static async RentChangeState(state_id){
+
+    }
     static async deleteRent(){}
     static async getRentsFromCar(carId) {
         try {

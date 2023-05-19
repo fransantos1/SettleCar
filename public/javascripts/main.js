@@ -13,7 +13,7 @@ window.onload = async function () {
             switch(user.type){
                 case 1:
                     let occupied = await isOccupied();
-                    if(occupied) 
+                    if(occupied.user.occupied) 
                     {
                         window.location.pathname = "/profile.html";
                     }
