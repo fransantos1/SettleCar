@@ -80,6 +80,9 @@ router.delete('/auth', auth.verifyAuth, async function(req,res,next){
 router.get('/:id',  async function (req, res) {
     try {
         let result = await Car.getByid(req.params.id);
+        result.result.licenseplate = "";
+        result.result.car_state = "";
+        result.result.user_id ="";
         if (result.status != 200) 
             res.status(result.status).send(result.result);
         res.status(result.status).send(result.result);

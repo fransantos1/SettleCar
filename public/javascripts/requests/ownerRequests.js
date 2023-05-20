@@ -53,7 +53,9 @@ async function DeleteCars(license) {
               licenseplate: license
           })
         });
-        return { successful: response.status == 200};
+
+        let msg = await response.json();
+        return { successful: response.status == 200, msg: msg[0].msg};
     } catch (err) {
         console.log(err);
         return {err: err};

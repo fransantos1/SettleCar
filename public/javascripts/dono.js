@@ -7,39 +7,22 @@ window.onload = async function () {
     populateList();
     document.body.style.display ="block";
 }
-
-//TODO REMOVE CHECKBOXS AND POPULATE AGAIN AFTER DELETING
-
+let deleting = false;
 async function populateList() { 
-    let carList = document.getElementById("services-data");
-    console.log(carList);
-    while (carList.firstChild) {
-        console.log("deleting");
+    deleting = false;
+    let carList = document.getElementById("services-items");
+    while (carList.firstChild) {    
         carList.removeChild(carList.firstChild);
-    }
-      
-    carList = document.getElementById("services-container");
-    
+    } 
     try {
         let result = await requestOwnerCars(user.id);
-        console.log(result);
         if (!result.successful || result.err)
             throw result.err || { err: "Not successfull" }
-        //document.getElementById("remove_link").style.visibility ="visible";
         for (let car of result.cars) {
-            let blockCarView = false;
+
             let tr = document.createElement("tr");
             tr.setAttribute("class","item");
-           
-            let checkbox = document.createElement("td");
-            let input = document.createElement("input");
-            input.setAttribute("type", "checkbox");
-            input.setAttribute("class", "deletecheck");
-            input.setAttribute("class", "toggleable");
-            input.setAttribute("value", car.licenseplate);
-            checkbox.appendChild(input);
-            tr.appendChild(checkbox);
-            
+
             let MODEL = document.createElement("td");
             let model = document.createElement("h3");
             model.textContent = (car.brand +" "+car.model); 
@@ -71,43 +54,36 @@ async function populateList() {
             LOCATION.appendChild(location);
             tr.appendChild(LOCATION);
             LOCATION.onclick =()=>{
+                //Open map 
             };
-
             let DELETE = document.createElement("td");
             let deletion = document.createElement("img");
             deletion.setAttribute("src", "imagens/trashcan.png");
             DELETE.appendChild(deletion);
             tr.appendChild(DELETE);
             DELETE.onclick = ()=>{
+                deleting = true;
                 deletecar(car);  
             };
-
-            carList.appendChild(tr);
-            tr.onclick =()=>{
-                let x = document.getElementById("Confirm_delete");
-                if(x.style.visibility !== "visible" && !blockCarView){
-                    openSpecsheet(car);
-                }
-                blockCarView = false;
-
+            tr.onclick =()=>{         
+              openSpecsheet(car);
             };
-
             carList.appendChild(tr);
-            
         }
     } catch(err) {
         console.log(err);
     }
 }
 function openSpecsheet(car){
-    console.log(car);
-    sessionStorage.setItem("carid",car.id);
-    window.location.pathname = "car_specs.html";
+    if(deleting == false){
+        sessionStorage.setItem("carid",car.id);
+        window.location.pathname = "car_specs.html";
+    }
 }
 async function deletecar(car){
-    blockCarView = true;
     if (window.confirm("Delete this car? (" + car.brand + " " + car.model + ")")) {
         let result = await DeleteCars(car.licenseplate);
+        window.alert(result.msg);
         if (!result.successful || result.err)
         throw result.err || { err: "Not successfull" }
         populateList();

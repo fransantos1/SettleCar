@@ -7,7 +7,7 @@ create table usrnotif(
     usrnotif_msg varchar(255) NOT NULL,
 
     primary key (usrnotif_id)
-)
+);
 create table usr (
     usr_id SERIAL not null,
     usr_name VARCHAR(255) not null,
@@ -115,7 +115,7 @@ create table car (
     car_bootcapacity VARCHAR(200),
     car_equi_ext VARCHAR(200),--MIGHT CHANGE TO ANOTHER TABLE  
     car_priceday VARCHAR(200),
-
+    
     car_carstate_id INT not null,
     car_usr_id INT not null,
     primary key (car_id)

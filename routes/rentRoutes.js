@@ -4,6 +4,24 @@ const Rent = require("../models/rentModel");
 const utils = require("../config/utils");
 const auth = require("../middleware/auth");
 
+
+
+router.post('/auth',auth.verifyAuth, async function (req, res, next) {
+    try {
+        let rent = new Rent();
+        rent.beginning = new Date(req.body.beginning);
+        rent.end = new Date(req.body.end);
+        rent.car = req.body.car;
+        let result = await Rent.createRent(req.user, rent);
+        res.status(result.status).send(result.result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+
+
 router.get('/auth/getCourseOwner/:rentId/:date',auth.verifyAuth,  async function (req, res, next) {
     try {
         let result = await Rent.getRentCourse_owner(req.params.rentId, req.params.date,req.user);

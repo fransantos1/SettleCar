@@ -1,7 +1,9 @@
 let start_date;
 let return_date;
+let authenthicated;
 window.onload = async function () {
     let result = await checkAuthenticated(true);
+    authenthicated = result.authenthicated;
     if(result.authenthicated ){
         if(user.type !== 1){
             changePage("index.html");
@@ -43,14 +45,27 @@ async function populateList() {
             h3.textContent = car.brand+" "+car.model+" "+car.year;
             div.appendChild(h3);
             let h4 = document.createElement("h4");
-            h4.textContent = car.rent+"€/day";     
+            if(start_date == "" ){
+                h4.textContent = car.rent+"€/day"; 
+            }else{
+                h4.textContent = car.rent+"€";
+            }
+                
             div.appendChild(h4);
             if(start_date != "" ){
                 let href = document.createElement("a");
                 href.setAttribute("href","#");
                 href.setAttribute("class","btn");
                 href.textContent = "Rent Now";
+                href.onclick =()=>{
+                    if(!authenthicated) {
+                        window.alert("please Login before renting");
+                        return;
+                        }
+                        startrent(car.id);
+                };
                 div.appendChild(href);
+                
             }
             div.onclick =()=>{
                 turnOnOverlay(car);
@@ -199,7 +214,11 @@ async function turnOnOverlay(car){
         button.innerHTML = "Rent Now";
         button_div.appendChild(button);
         button.onclick = ()=>{
-            //!START A RENT A GO TO PROFILE PAGE
+            if(!authenthicated) {
+            window.alert("please Login before renting");
+            return;
+            }
+            startrent(car.id);
         };
     }
     
@@ -215,4 +234,13 @@ async function turnOffOverlay(){
         overlay.removeChild(overlay.firstChild);
     }
     overlay.style.display = "none";
+}
+
+//TODO Dont start the rent right away go to a page where it says info about the rent
+async function startrent(carid){
+    let result = await CreateRent(start_date, return_date, carid);
+    if (!result.successful || result.err)
+    throw result.err || { err: "Not successfull" }
+    changePage("profile.html");
+
 }

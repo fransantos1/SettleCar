@@ -3,15 +3,30 @@ const auth = require("../config/utils");
 const User = require("../models/usersModel");
 
 function dbCartocar(db){
-    return new Car(db.car_id,db.car_licenseplate, db.car_brand, db.car_model,db.car_year,db.car_bhp, db.car_engine, db.car_fuel,db.car_gearbox, db.car_drivetrain, db.car_doors, db.car_seats,db.car_bootcapacity,db.car_equi_ext, db.car_priceday,db.carstate_state,db.car_usr_id);
+    let car = new Car();
+    car.id = db.car_id;
+    car.licenseplate = db.car_licenseplate;
+    car.brand = db.car_brand;
+    car.model = db.car_model;
+    car.year = db.car_year;
+    car.bhp = db.car_bhp;
+    car.engine = db.car_engine;
+    car.fuel = db.car_fuel;
+    car.gearbox = db.car_gearbox;
+    car.drivetrain = db.car_drivetrain;
+    car.doors = db.car_doors;
+    car.seats = db.car_seats;
+    car.bootcapacity = db.car_bootcapacity;
+    car.extra_equipment = db.car_equi_ext;
+    car.price = db.car_priceday;
+    car.state = db.carstate_state;
+    car.user_id = db.car_usr_id;
+    return car;
 }
 
-class repair{
-
-}
 
 class Car{
-    constructor(id, licenseplate, brand, model,year,bhp, engine, fuel, gearbox, drivetrain, doors, seats, bootcapacity, extra_equipment, price_day, car_state, user_id) {
+    constructor(id, licenseplate, brand, model,year,bhp, engine, fuel, gearbox, drivetrain, doors, seats, bootcapacity, extra_equipment, price, state, user_id) {
         this.id = id;
         this.licenseplate = licenseplate;
         this.brand = brand;
@@ -26,15 +41,15 @@ class Car{
         this.seats = seats;
         this.bootcapacity = bootcapacity;
         this.extra_equipment = extra_equipment;
-        this.price_day = price_day;
-        this.car_state = car_state;
+        this.price = price;
+        this.state = state;
         this.user_id = user_id;
     }
     //TODO get calendar 
     //TODO MAKE UNAVAILABLE
     static async getByid(carid) {
         try{
-            let dbResult = await pool.query("Select * from car where car_id = $1", [carid]);
+            let dbResult = await pool.query("select * from car inner join carstate on car_carstate_id = carstate_id where car_id = $1", [carid]);
             let dbCar = dbResult.rows[0];
             if (!dbCar){
                 return {
@@ -45,9 +60,6 @@ class Car{
                 }
             }
             let car = dbCartocar(dbCar);
-            car.licenseplate = "";
-            car.car_state = "";
-            car.user_id ="";
             let dbImages = await pool.query("Select * from carimage where carimage_car_id = $1",[car.id]);
             let iimages = dbImages.rows;
             let images = [];
@@ -173,9 +185,8 @@ class Car{
             return_date =  finish.getFullYear()+"-"+finish.getMonth()+"-"+finish.getDate();
             let dbResult = await pool.query("Select * from rent where rent_rentstate_id = 1 or rent_rentstate_id =2");
             let dbrents = dbResult.rows;
-            let dbcars = [];
-            if(dbrents.length){
-                let dbResult = await pool.query(`
+
+            let dbcars = [];dbResult = await pool.query(`
                         select * from car where car_id in (
                             select carservices_car_id from carservices
                                 where carservices_due > $2
@@ -190,13 +201,11 @@ class Car{
                                                 $1 <= rent_data_inicio and rent_data_inicio <= $2 or
                                                 $1 <= rent_data_final and rent_data_final <= $2 or
                                                 rent_data_inicio <=$1 and $2 <= rent_data_final))`,[start_date, return_date]);
-                dbcars = dbResult.rows;
-                console.log(start_date, return_date);
+            dbcars = dbResult.rows;
+            console.log(start_date, return_date);
 
-            }else{
-                let dbResult = await pool.query("Select * from car where car_carstate_id = 1");
-                dbcars = dbResult.rows;
-            }
+          
+      
             if(!dbcars.length)
                 return {
                     status: 400, result: [{
@@ -204,6 +213,11 @@ class Car{
                         msg: "No cars in database"
                     }]
                 }
+            
+            let difference = new Date(return_date).getTime() - new Date(start_date).getTime();
+            let days = Math.ceil(difference / (1000 * 3600 * 24));
+            
+            console.log(days);
             let cars = [];
                 for(let car of dbcars){
                     let ca = new Car();
@@ -211,7 +225,7 @@ class Car{
                     ca.brand = car.car_brand;
                     ca.model = car.car_model;
                     ca.year = car.car_year;
-                    ca.rent = car.car_priceday;
+                    ca.rent = car.car_priceday*days;
                     let dbImages = await pool.query("Select * from carimage where carimage_car_id = $1",[car.car_id]);
                     ca.image = dbImages.rows[0].carimage_link;
                     cars.push(ca);
@@ -241,9 +255,8 @@ class Car{
         }
     }
 
-    //! DELETE CAR SERVICES
-    //TODO this feature is not working at the moment because of spatial tables on data base
-    //TODO when a car is deleted and has rents scheduled, send a notification to the users that have that rent  
+    //! this feature is not working at the moment because of spatial tables on data base
+    //just deletes everything about that car
     static async DeleteCar(LicensePlate, usr_id) {
         try {
             let dbResult = await pool.query("Select * from car where car_licenseplate=$1", [LicensePlate]);
@@ -264,16 +277,37 @@ class Car{
                     }]
                 }
 
-            //dbResult = await pool.query("exists(select * from rent where rent_car_id = $1)", [dbCars.car_id]);
-            ///let dbRent = dbResult.rows[0];
+            //TODO when this error occurs the car should be made unavailable.
+            //verify if the car is in a current rent
+            dbResult = await pool.query("select exists(select * from rent where rent_car_id = $1 and rent_rentstate_id = 2)",[dbCars.car_id]);
+            if(dbResult.rows[0].exists){  
+                return {
+                    status: 409, result: [{
+                        msg: "Car is in a rent and can't be removed"
+                    }]
+                }
 
+            }
+            //verify if it has any scheduled rents
+            dbResult = await pool.query("select * from rent where rent_car_id = $1 and rent_rentstate_id = 1",[dbCars.car_id]);
+            let dbRent = dbResult.rows;
+            if(dbRent.length){
+                User.putNotifications(dbRent[0].rent_usr_id, 'Your rent was cancelled due to the car being deleted');
+            }
 
-
-
+            //verifies if it has old rents and deletes de routes associated with them
+            dbResult = await pool.query("select * from rent where rent_car_id = $1 and rent_rentstate_id = 3",[dbCars.car_id]);
+            dbRent = dbResult.rows;
+            if(dbRent.length){
+                let result = await pool.query("delete from rentroute where rr_rent_id = $1",[dbRent[0].rent_id]);
+            }
+            let result3 = await pool.query("delete from rent where rent_car_id = $1",[dbCars.car_id]);
             let Result2 = await pool.query("Delete from carservices carservices where carservices_car_id = $1", [dbCars.car_id]);
             let Result1 = await pool.query("Delete from carimage carimage where carimage_car_id = $1", [dbCars.car_id]);
-            let Result = await pool.query("Delete from car where car_id =$1", [dbCars.car_id]);
-            return { status: 200} ;
+            let Result = await pool.query("delete from car where car_id = $1", [dbCars.car_id]);
+            return { status: 200, result: [{
+                msg: "Car removed successfully"
+            }]};
         } catch (err) {
             console.log(err);
             return { status: 500, result: err };

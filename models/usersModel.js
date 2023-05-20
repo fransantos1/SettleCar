@@ -33,13 +33,28 @@ class User {
             let dbResult = await pool.query(`select exists (select * from rent where rent_usr_id = $1
                                     and rent_rentstate_id  != 3)`,[userid]);
             return { status: 200, result: {occupied:dbResult.rows[0].exists}};
-        }catch(err){
+        }catch(err){s
             console.log(err);
             return { status: 500, result: err };
         }
     }   
+//notifications
+static async putNotifications(userid, msg){
+    try {
+        let dbResult = await pool.query("insert into usrnotif(usrnotif_usr_id, usrnotif_msg) values ($1, $2)",[userid, msg]);
+        return { status: 200} ;
+    } catch (err) {
+        console.log(err);
+        return { status: 500, result: err };
+    } 
+}
+    static async getNotifications(userid){
 
+    }
+   
+    static async deleteNotification(){
 
+    }
 
 
     
