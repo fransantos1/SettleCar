@@ -398,21 +398,19 @@ class Rent{
             where rent_usr_id = $1
             and rent_data_inicio = (select Max(rent_data_inicio) from rent where rent_usr_id = $1)`, [userId]);                                            
             let dbRent = dbResult.rows[0];
-            if (!dbRent)
-                return {
-                    status: 404, result: [{
-                        msg: "Something went wrong"
-                    }]
-                }
             let rent = {};
-            rent.vehicle = dbRent.car_brand + " "+ dbRent.car_model + " (" +dbRent.car_year+")";
-            rent.id = dbRent.rent_id;
-            rent.start_date = dbRent.rent_data_inicio;
-            rent.end_date = dbRent.rent_data_final;
-            if(dbRent.rent_penalty == null){
-            rent.price = dbRent.rent_price;}
-            else { rent.price = dbRent.rent_price+"+"+dbRent.rent_penalty}
-            rent.status = dbRent.rentstate_state;
+            if (dbRent){
+                rent.vehicle = dbRent.car_brand + " "+ dbRent.car_model + " (" +dbRent.car_year+")";
+                rent.id = dbRent.rent_id;
+                rent.start_date = dbRent.rent_data_inicio;
+                rent.end_date = dbRent.rent_data_final;
+                if(dbRent.rent_penalty == null){
+                rent.price = dbRent.rent_price;}
+                else { rent.price = dbRent.rent_price+"+"+dbRent.rent_penalty}
+                rent.status = dbRent.rentstate_state;
+                }
+            
+            
             return { status: 200, result: rent} ;
         } catch (err) {
             console.log(err);
