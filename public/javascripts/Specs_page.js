@@ -101,7 +101,7 @@ function populatePage(car){
         ul.appendChild(li);
 
         li = document.createElement("li");
-        li.textContent = "Price a day: "+ car.price_day+"€";
+        li.textContent = "Price a day: "+ car.price+"€";
         ul.appendChild(li);
 
         specs.appendChild(ul);

@@ -204,20 +204,19 @@ class Car{
             dbcars = dbResult.rows;
             console.log(start_date, return_date);
 
-          
+            console.log(dbcars);
       
             if(!dbcars.length)
                 return {
-                    status: 400, result: [{
-                        location: "body", param: "cars",
-                        msg: "No cars in database"
+                    status: 204, result: [{
+                        msg: "No cars available"
                     }]
                 }
             
             let difference = new Date(return_date).getTime() - new Date(start_date).getTime();
             let days = Math.ceil(difference / (1000 * 3600 * 24));
             
-            console.log(days);
+                console.log(days);
             let cars = [];
                 for(let car of dbcars){
                     let ca = new Car();
@@ -492,7 +491,7 @@ class Car{
                     }
                 }
             }
-            //! VERIFY IF THE DATE IS NOT BEFORE TODAY OR BEFORE 15 Days FROM TODAY, AND NO LONGER THAN A YEAR FROM TODAY
+            //todo VERIFY IF THE DATE IS NOT BEFORE TODAY OR BEFORE 15 Days FROM TODAY, AND NO LONGER THAN A YEAR FROM TODAY
             if(car.services.inspection == null || car.services.inspection == "" || car.services.insurance== null || car.services.insurance== ""){
                 return {
                     status: 400,
@@ -503,7 +502,7 @@ class Car{
                     }
                 }
             }
-            //!VERIFY LINK
+            //todo VERIFY LINK
             if(!car.images.length){
                 return {
                     status: 400,

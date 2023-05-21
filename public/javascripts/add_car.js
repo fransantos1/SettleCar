@@ -57,4 +57,8 @@ async function add_car(){
         window.alert(result.msg.msg);
         return;
     }
+    if(result.successful){
+        window.alert("Registado com sucesso!");
+        changePage("index.html");
+    }
 }

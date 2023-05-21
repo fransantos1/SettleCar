@@ -15,6 +15,7 @@ window.onload = async function () {
     populateList();
 
 }
+let rent_bt_selected = false;
 async function populateList() {
     let result;
     let carList = document.getElementById("result");
@@ -27,6 +28,8 @@ async function populateList() {
             throw result.err || { err: "Not successfull" }
         }else{
             result = await requestSearchCars(start_date, return_date);
+            if (!result.successful || result.err)
+            throw result.err || { err: "Not successfull" }
         }
         for (let car of result.cars) {
             let div = document.createElement("div");
@@ -58,6 +61,7 @@ async function populateList() {
                 href.setAttribute("class","btn");
                 href.textContent = "Rent Now";
                 href.onclick =()=>{
+                    rent_bt_selected = true;
                     if(!authenthicated) {
                         window.alert("please Login before renting");
                         return;
@@ -68,7 +72,9 @@ async function populateList() {
                 
             }
             div.onclick =()=>{
-                turnOnOverlay(car);
+                if(!rent_bt_selected) {
+                    turnOnOverlay(car);
+                }
             };
             carList.appendChild(div);
             
@@ -177,9 +183,8 @@ async function turnOnOverlay(car){
     let li_seats = document.createElement("li");
     li_seats.textContent = car.seats;
     ul.appendChild(li_seats);
-
     let li_boot = document.createElement("li");
-    li_boot.textContent = car.boot +"L";
+    li_boot.textContent = car.bootcapacity;
     ul.appendChild(li_boot);
 
     let li_EF = document.createElement("li");
@@ -218,7 +223,7 @@ async function turnOnOverlay(car){
             window.alert("please Login before renting");
             return;
             }
-            startrent(car.id);
+          startrent(car.id);
         };
     }
     

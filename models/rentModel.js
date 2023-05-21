@@ -24,7 +24,6 @@ class Rent{
 
     static async createRent(user, rent){
         try{
-       
         //Verify if the user has any other rent
         let occupied = await User.isOccupied(user.id);
         if (occupied.result.occupied){
@@ -40,15 +39,34 @@ class Rent{
                 }]
             }
         }
-        //insert rent into database
-        //! calculate rent price here
+        let start_date = rent.beginning.getFullYear()+"-"+rent.beginning.getMonth()+"-"+rent.beginning.getDate();
+        let return_date =  rent.end.getFullYear()+"-"+rent.end.getMonth()+"-"+rent.end.getDate();
+        //verify if the car is available at that date
+        let available_cars = await pool.query(`
+        select * from car where car_id in (
+            select carservices_car_id from carservices
+                where carservices_due > $2
+                group by carservices_car_id) and car_carstate_id = 1 and car_id = $3
+                
+        intersect 	
+            select * from car 
+                except(
+                    select * from car where car_id in (
+                        select rent_car_id from rent 
+                                where 
+                                $1 <= rent_data_inicio and rent_data_inicio <= $2 or
+                                $1 <= rent_data_final and rent_data_final <= $2 or
+                                rent_data_inicio <=$1 and $2 <= rent_data_final))`,[start_date, return_date,rent.car]);
+        if(!available_cars.rows.length){
+            return {
+                status: 400, result: [{
+                    msg: "This car isnt available for this date"
+                }]
+            }
+        }
         let difference = new Date(rent.end).getTime() - new Date(rent.beginning).getTime();
         let days = Math.ceil(difference / (1000 * 3600 * 24));
         rent.price = "("+days*car.price+"€)";
-        let start_date = rent.beginning.getFullYear()+"-"+rent.beginning.getMonth()+"-"+rent.beginning.getDate();
-        let return_date =  rent.end.getFullYear()+"-"+rent.end.getMonth()+"-"+rent.end.getDate();
-
-
        let dbResult = await pool.query(`insert into rent(rent_data_inicio, rent_data_final, rent_car_id, rent_usr_id, rent_price, rent_rentstate_id)
             values ($1, $2, $3, $4,$5, 1)`, [start_date, return_date,rent.car,user.id, rent.price]); 
 

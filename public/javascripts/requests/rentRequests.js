@@ -23,12 +23,6 @@ async function CreateRent(beginning, end,car_id) {
         return {err: err};
     }
 }
-
-
-
-
-
-
 async function requestRentCourseOwner(rentid, day) {
     try {
         const response = await fetch(`/api/rent/auth/getCourseOwner/${rentid}/${day}`);

@@ -21,6 +21,11 @@ a {
   font-size: 20px;
 }
 
+.btn:hover {
+  background-color:#ba5c12 ;
+}
+
+
 body > header .navbar {
   display: flex;
   align-items: center;
