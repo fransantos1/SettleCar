@@ -1,5 +1,6 @@
 let year = new Date().getFullYear();
 let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
 
 window.onload = async function () {
     let result = await checkAuthenticated(true);
@@ -23,7 +24,6 @@ async function populateCalendar(month, year){
     let rentEnd = new Date(Date.parse(rent.rents[0].end));
     console.log(rentStart, rentEnd);
 
-    let currentMonth = new Date().getMonth();
     let monthNameTemp = new Date(year, month).toLocaleDateString('en-us',{month: 'long'})
     const monthName = monthNameTemp.charAt(0).toUpperCase() + monthNameTemp.slice(1)
     const today = new Date().getDate();
@@ -62,6 +62,7 @@ async function populateCalendar(month, year){
     weekdayHolder.appendChild(sun);
     monthElement.appendChild(weekdayHolder);
 
+    let loopCurrentDate = new Date(year, month, count-1);
     for(let row = 0; row < 5; row++){
         let tr = document.createElement("tr");
         for(let line = 0; line < 7; line++){
@@ -78,6 +79,8 @@ async function populateCalendar(month, year){
             if(count-1 == today && month == currentMonth) { // Marcar o dia de hoje
                 td.className = "today";
                 td.setAttribute("id", "valid");
+            } else if(rentStart.getTime() < loopCurrentDate.getTime() && loopCurrentDate.getTime() < rentEnd.getTime()) {
+                td.className = "occupied";
             } else if(count-1 < today && month == currentMonth) { // Dias que já passaram no mês atual
                 td.className = "past";
             } else if(count != 1) { // Se não ele marca os primeiros dias do mês em branco como válidos
@@ -86,7 +89,6 @@ async function populateCalendar(month, year){
             td.onclick = () => { // Cria nova função para td
                 selectFunction(td);
             }
-            let monthText = month.toString();
             tr.appendChild(td);   
         }
 
@@ -96,14 +98,31 @@ async function populateCalendar(month, year){
 }
 
 let selectedCounter = 0;
+let savedDay = [];
+let savedMonth = [];
+let savedYear = [];
 function selectFunction(clickedElement) {
     if (clickedElement.getAttribute("id") == "selected") {
         selectedCounter--;
         clickedElement.setAttribute("id", "valid");
+        savedDay[selectedCounter] = null;
+        savedMonth[selectedCounter] = null;
+        savedYear[selectedCounter] = null;
     } else if (clickedElement.getAttribute("id") == "valid" && selectedCounter != 2) {
         selectedCounter++;
         clickedElement.setAttribute("id", "selected");
+        savedDay[selectedCounter] = clickedElement.innerHTML;
+        savedMonth[selectedCounter] = new Date(Date.parse(clickedElement.parentNode.parentNode.getElementsByTagName("h1")[0].innerHTML +" 1, 2023")).getMonth()+1;
+        savedYear[selectedCounter] = currentMonth < (savedMonth-1) && currentYear || currentYear+1;
     }
-    let day = clickedElement.innerHTML;
-    let month = new Date(Date.parse(clickedElement.parentNode.parentNode.getElementsByTagName("h1")[0].innerHTML +" 1, 2023")).getMonth()+1;
+}
+
+function add_rent() {
+    if(!savedDay[1] || !savedMonth[1] || !savedYear[1]) {
+        return;
+    }
+    let startDate = new Date(savedYear[0], savedMonth[0], savedDay[0]).toDateString();
+    let endDate = new Date(savedYear[0], savedMonth[0], savedDay[0]).toDateString();
+    sessionStorage.setItem("startdate",startDate);
+    sessionStorage.setItem("enddate",endDate);
 }

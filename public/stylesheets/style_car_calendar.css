@@ -53,3 +53,20 @@ td {
 .past{
   background-color: rgba(148, 148, 148, 1);
 }
+.occupied{
+  background-color: rgb(255, 137, 137);
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn {
+  padding: 10px 34px;
+  border: none;
+  border-radius: 0.5rem;
+  background: white;
+  color: black;
+  font-weight: 600;
+  font-size: 20px;
+}

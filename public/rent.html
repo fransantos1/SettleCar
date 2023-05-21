@@ -3,11 +3,12 @@
 <head>
   <title>Settlecar</title>
   <link rel="stylesheet" href="stylesheets/style_navbar.css">
-  <link rel="stylesheet" href="stylesheets/style_car_calendar.css">
+  <link rel="stylesheet" href="stylesheets/style_dono.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons%22%3E">
+  <script src="./javascripts/utils/verifications.js"></script>
   <script src="./javascripts/requests/usersRequests.js"></script>
   <script src="./javascripts/requests/rentRequests.js"></script>
-  <script src="./javascripts/utils/verifications.js"></script>
-  <script src="./javascripts/car_calendar.js"></script>
+  <script src="./javascripts/rent.js"></script>
 </head>
 
 <body>
@@ -28,14 +29,18 @@
   </header>
 
   <main>
-    <div id="calendar">
+        <section class="page-center" id="page-center">
+          <section class="main-list">
+            <h1>All Rents</h1>
 
-    </div>
+          </section>
 
-    <section id="buttons">
-      <a href="index.html" class="btn">Return</a>
-      <input type="button" value="Rent Vehicle" class="btn" onclick ="add_rent()"/>
-    </section>
+          <table id="services-container">
+            <section id="services-data">
+            </section>
+          </table>
+        </section>
+       
         
   </main>
   <footer>
@@ -44,5 +49,3 @@
 </body>
 
 </html>
-
-
