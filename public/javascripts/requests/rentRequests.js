@@ -94,3 +94,14 @@ async function requestRentsFromCar(carid) {
         return {err: err};
     }
 }
+async function getScheduledRent() {
+    try {
+        const response = await fetch(`/api/rent/auth/getScheduled/`);
+        var result = await response.json();
+        return { successful: response.status == 200,
+                 rents: result};
+    } catch (err) {
+        console.log(err);
+        return {err: err};
+    }
+}

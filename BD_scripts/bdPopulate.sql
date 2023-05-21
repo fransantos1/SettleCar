@@ -20,14 +20,14 @@ INSERT INTO carstate VALUES (3,'workshop');
 INSERT INTO carstate VALUES (4,'unavailable');
 
 --password:1234
-INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id) VALUES ('driver','123456', 'driver','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
-INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id) VALUES ('admin','234512541', 'admin','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'2');
-INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id) VALUES ('mech','234512541', 'mech','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'3');
-INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id)  VALUES ('rent0','234512541', 'rent0','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
-INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id)  VALUES ('rent1','234512541', 'rent1','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
-INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id)  VALUES ('rent2','234512541', 'rent2','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
-INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id)  VALUES ('rent3','234512541', 'rent3','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
-INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id)  VALUES ('rent4','234512541', 'rent4','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_usrtype_id) VALUES ('driver','123456', 'driver','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_usrtype_id) VALUES ('admin','234512541', 'admin','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'2');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_usrtype_id) VALUES ('mech','234512541', 'mech','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'3');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_usrtype_id)  VALUES ('rent0','234512541', 'rent0','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_usrtype_id)  VALUES ('rent1','234512541', 'rent1','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_usrtype_id)  VALUES ('rent2','234512541', 'rent2','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_usrtype_id)  VALUES ('rent3','234512541', 'rent3','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_usrtype_id)  VALUES ('rent4','234512541', 'rent4','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
 --car & images
 INSERT INTO car (car_licenseplate, car_brand, car_model, car_year, car_bhp, car_engine, car_fuel, car_gearbox, car_drivetrain, car_doors, car_seats, car_bootcapacity, car_equi_ext, car_priceday, car_carstate_id, car_usr_id)
 VALUES ('54-23-AV','Volkswagen', 'Passat','2001','130hp','1.9TDI','Diesel','5M','FWD','5','5','495L','AC;Heated Seats;Bluetooth Radio','120','1','2');
@@ -37,7 +37,7 @@ INSERT INTO carimage (carimage_link, carimage_car_id) VALUES ('https://media.dis
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('inspection','2023-12-04',1);
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('insurance','2023-12-25',1);
 
-INSERT INTO rent(rent_data_inicio, rent_data_final, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-08-3','2023-08-12',1,4,1);
+INSERT INTO rent(rent_data_inicio, rent_data_final,rent_price, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-08-3','2023-08-12','(1080€)',1,4,1);
 
 
 INSERT INTO car (car_licenseplate, car_brand, car_model, car_year, car_bhp, car_engine, car_fuel, car_gearbox, car_drivetrain, car_doors, car_seats, car_bootcapacity, car_equi_ext, car_priceday, car_carstate_id, car_usr_id)
@@ -48,7 +48,7 @@ INSERT INTO carimage (carimage_link, carimage_car_id) VALUES ('https://media.dis
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('inspection','2024-04-13',2);
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('insurance','2024-03-25',2);
 
-INSERT INTO rent(rent_data_inicio, rent_data_final, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-07-20','2023-08-5',2,5,1);
+INSERT INTO rent(rent_data_inicio, rent_data_final,rent_price, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-07-20','2023-08-5','(4000€)',2,5,1);
 
 INSERT INTO car (car_licenseplate, car_brand, car_model, car_year, car_bhp, car_engine, car_fuel, car_gearbox, car_drivetrain, car_doors, car_seats, car_bootcapacity, car_equi_ext, car_priceday, car_carstate_id, car_usr_id)
 VALUES ('61-PO-41','Volkswagen', 'Pollo','2001','75hp','1.4TDI','Diesel','5m','FWD','5','5','100L','AC;Heated Seats;Bluetooth Radio','80','1','2');
@@ -58,7 +58,7 @@ INSERT INTO carimage (carimage_link, carimage_car_id) VALUES ('https://media.dis
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('inspection','2023-11-21',3);
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('insurance','2023-11-10',3);
 
-INSERT INTO rent(rent_data_inicio, rent_data_final, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-07-20','2023-08-12',3,6,1);
+INSERT INTO rent(rent_data_inicio, rent_data_final,rent_price, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-07-20','2023-08-12','(1840€)',3,6,1);
 
 INSERT INTO car (car_licenseplate, car_brand, car_model, car_year, car_bhp, car_engine, car_fuel, car_gearbox, car_drivetrain, car_doors, car_seats, car_bootcapacity, car_equi_ext, car_priceday, car_carstate_id, car_usr_id)
 VALUES ('23-45-AB','Audi', 'A1','2019','95hp','25TFSI','Petrol','5m','FWD','5','5','335L','AC;Heated Seats;Bluetooth Radio; Led Headlights;Cruise Controll','120','1','2');
@@ -68,7 +68,7 @@ INSERT INTO carimage (carimage_link, carimage_car_id) VALUES ('https://media.dis
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('inspection','2023-10-04',4);
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('insurance','2023-10-25',4);
 
-INSERT INTO rent(rent_data_inicio, rent_data_final, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-07-25','2023-07-31',4,7,1);
+INSERT INTO rent(rent_data_inicio, rent_data_final,rent_price, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-07-25','2023-07-31','(840€)',4,7,1);
 
 INSERT INTO car (car_licenseplate, car_brand, car_model, car_year, car_bhp, car_engine, car_fuel, car_gearbox, car_drivetrain, car_doors, car_seats, car_bootcapacity, car_equi_ext, car_priceday, car_carstate_id, car_usr_id)
 VALUES ('85-IT-23','Ford', 'Smax','2012','140hp','2.0TDCi','Diesel','6m','FWD','5','5','465L','AC;Heated Seats;Bluetooth Radio; Led Headlights;Cruise Controll','80','1','2');

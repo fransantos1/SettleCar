@@ -6,6 +6,7 @@ window.onload = async function () {
         if (result.err) {  throw result.err; }
         window.user = user;
         result = await isOccupied();
+        if (result.err) {  throw result.err; }
         occupied = result.user.occupied;
 
       switch(user.type){
@@ -26,7 +27,7 @@ window.onload = async function () {
     } 
    
       populatUserInfo();
-   // populateRentInfo();
+      populateRentInfo();
   
 }
 
@@ -96,43 +97,88 @@ async function populatUserInfo(){
     <input type="submit" value="See All" class="btn"  >
   </section> */
 async function populateRentInfo(){
-  
-  //populate user information to profile
+  let rent;
+  if(occupied){
+    let result = await getScheduledRent();
+    if (result.err) {  throw result.err; }
+    rent = result.rents;
+  }  
   let coluna = document.getElementById("coluna");
 
   let section = document.createElement("section");
   section.setAttribute("class", "box");
 
   let h3 = document.createElement("h3");
-  h3.innerText = "Personal Information";
+  h3.innerText = "Rental History";
   section.appendChild(h3);
-  let ul = document.createElement("ul");
 
+  let h4 = document.createElement("h3");
+  if(occupied){
+    h3.innerText = "Current Rent:";
+  }else{h3.innerText = "Last Rent:";}
+  section.appendChild(h4);
+
+  let ul = document.createElement("ul");
+  
   let li = document.createElement("li");
   let strong = document.createElement("strong");
-  strong.innerText = "Name: ";
-  li.innerText = strong.innerText+user.name;
+  strong.innerText = "Vehicle: ";
+  
+  li.innerText = strong.innerText+rent.vehicle;
   ul.appendChild(li);
 
   li = document.createElement("li");
   strong = document.createElement("strong");
-  strong.innerText = "Email: ";
-  li.innerText = strong.innerText+user.email;
+  strong.innerText = "Start Date: ";
+  let start_date = new Date(rent.start_date);
+  li.innerText = strong.innerText+start_date.getDay()+"-"+start_date.getMonth()+"-"+start_date.getFullYear();
   ul.appendChild(li);
 
   li = document.createElement("li");
   strong = document.createElement("strong");
-  strong.innerText = "Phone: ";
-  li.innerText = strong.innerText+user.phone;
+  strong.innerText = "End Date: ";
+  end_date = new Date(rent.end_date);
+  li.innerText = strong.innerText+end_date.getDay()+"-"+end_date.getMonth()+"-"+end_date.getFullYear();
   ul.appendChild(li);
 
+  li = document.createElement("li");
+  strong = document.createElement("strong");
+  strong.innerText = "Price: ";
+  li.innerText = strong.innerText+rent.price;
+  ul.appendChild(li);
+
+  li = document.createElement("li");
+  strong = document.createElement("strong");
+  strong.innerText = "Status: ";
+  li.innerText = strong.innerText+rent.status;
+  ul.appendChild(li);
   section.appendChild(ul);
+  if(rent.status == "Scheduled"){
+    let submit = document.createElement("input");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("value", "Cancel Rent");
+    submit.setAttribute("class","btn");
+    submit.style.marginRight = "20px";
+    submit.onclick = ()=>{
+      CancelRent(rent.id); 
+  };
+    section.appendChild(submit);
+  }
+
+  let submit = document.createElement("input");
+  submit.setAttribute("type", "submit");
+  submit.setAttribute("value", "see ALL");
+  submit.setAttribute("class","btn");
+
+  section.appendChild(submit);
   coluna.appendChild(section);
  
 }
 
 
-
+async function CancelRent(rentid){
+  console.log(rentid);
+}
 
 
 

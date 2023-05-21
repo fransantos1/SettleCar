@@ -354,6 +354,32 @@ class Rent{
             return { status: 500, result: err };
         }
     }
+    static async getScheduledRent(userId) {
+        try {
+            let dbResult = await pool.query(`select * from rent inner join car on rent_car_id = car_id inner join rentstate on rent_rentstate_id = rentstate_id
+                                            where rent_rentstate_id != 3
+                                            and rent_usr_id = $1`, [userId]);                                            
+            let dbRent = dbResult.rows[0];
+            if (!dbRent)
+                return {
+                    status: 404, result: [{
+                        msg: "Something went wrong"
+                    }]
+                }
+            let rent = {};
+            rent.vehicle = dbRent.car_brand + " "+ dbRent.car_model + " (" +dbRent.car_year+")";
+            rent.id = dbRent.rent_id;
+            rent.start_date = dbRent.rent_data_inicio;
+            rent.end_date = dbRent.rent_data_final;
+            rent.price = dbRent.rent_price;
+            rent.status = dbRent.rentstate_state;
+            return { status: 200, result: rent} ;
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
+
 
 }
 

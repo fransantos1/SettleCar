@@ -21,8 +21,19 @@ router.post('/auth',auth.verifyAuth, async function (req, res, next) {
         res.status(500).send(err);
     }
 });
-
-
+router.get('/auth/getScheduled/',auth.verifyAuth,  async function (req, res, next) {
+    try {
+        let result = await Rent.getScheduledRent(req.user.id);
+        if (result.status != 200) {
+            res.status(result.status).send(result.result);
+            return;
+        }
+        res.status(result.status).send(result.result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 
 router.get('/auth/getCourseOwner/:rentId/:date',auth.verifyAuth,  async function (req, res, next) {
     try {
