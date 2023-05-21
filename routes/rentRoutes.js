@@ -36,9 +36,9 @@ router.get('/auth/getCourseOwner/:rentId/:date',auth.verifyAuth,  async function
     }
 });
 
-router.get('/auth/fromCar/:carid',auth.verifyAuth,  async function (req, res, next) {
+router.get('/auth/history/fromCar/:carid',auth.verifyAuth,  async function (req, res, next) {
     try {
-        let result = await Rent.getRentsFromCar(req.params.carid);
+        let result = await Rent.getRentsHistoryFromCar(req.params.carid);
         if (result.status != 200) {
             res.status(result.status).send(result.result);
             return;
@@ -49,9 +49,22 @@ router.get('/auth/fromCar/:carid',auth.verifyAuth,  async function (req, res, ne
         res.status(500).send(err);
     }
 });
-router.get('/fromUser/:userid',auth.verifyAuth,  async function (req, res, next) {
+router.get('/auth/history/fromUser/',auth.verifyAuth,  async function (req, res, next) {
     try {
-        let result = await Rent.getRentsFromCar(req.user.id);
+        let result = await Rent.getRentsHistoryFromUser(req.user.id);
+        if (result.status != 200) {
+            res.status(result.status).send(result.result);
+            return;
+        }
+        res.status(result.status).send(result.result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+router.get('/auth/scheduled/fromCar/:carid',auth.verifyAuth,  async function (req, res, next) {
+    try {
+        let result = await Rent.getscheduledRentsfromcar(req.params.carid);
         if (result.status != 200) {
             res.status(result.status).send(result.result);
             return;

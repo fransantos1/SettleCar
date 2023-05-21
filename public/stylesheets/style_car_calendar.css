@@ -50,7 +50,7 @@ td {
 .today{
   background-color: rgb(255, 0, 0);
 }
-.past{
+.invalid{
   background-color: rgba(148, 148, 148, 1);
 }
 .occupied{

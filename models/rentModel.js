@@ -269,12 +269,44 @@ class Rent{
     }
     static async deleteRent(){}
 
+    static async getscheduledRentsfromcar(carid) {
+        try {
+            let dbResult = await pool.query("select * From rent where rent_car_id = $1 and rent_rentstate_id = 1", [carid]);
+            let dbRents = dbResult.rows;
+            if (!dbRents.length)
+                return {
+                    status: 400, result: [{
+                        location: "body", param: "rents",
+                        msg: "This car has no registered rents"
+                    }]
+                }
+            let rents = [];
+            for (let dbRent of dbRents) {
+                let rent = new Rent();
+                rent.id = dbRent.rent_id;
+                rent.beginning = dbRent.rent_data_inicio;
+                rent.end = dbRent.rent_data_final;
+                rent.usr = dbRent.usr_name;
+                rent.price = dbRent.rent_price+"+"+dbRent.rent_penalty;
+                rents.push(rent);           
+            }
+            return { status: 200, result: rents} ;
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
 
-    static async getRentsFromCar(carId) {
+
+
+
+
+    static async getRentsHistoryFromCar(carId) {
         try {
             let dbResult = await pool.query(`select rent_id, rent_data_inicio::date, rent_data_final::date, usr_name, 
              rent_usr_id, rent_price,rent_penalty, rent_rentstate_id from rent inner join usr on usr_id = rent_usr_id where rent_car_id = $1 and rent_rentstate_id = 3`, [carId]);
             let dbRents = dbResult.rows;
+            console.log(dbRents);
             if (!dbRents.length)
                 return {
                     status: 400, result: [{
@@ -299,7 +331,7 @@ class Rent{
         }
     }
 
-    static async getRentsFromUser(userId) {
+    static async getRentsHistoryFromUser(userId) {
         try {
             let dbResult = await pool.query("SELECT * FROM rent INNER JOIN users ON rent_user_id = users_id WHERE rent_user_id=$1", [userId]);
             let dbRents = dbResult.rows;

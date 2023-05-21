@@ -9,7 +9,6 @@ window.onload = async function () {
         table_header.prepend(title);
         //get car id
         if(!sessionStorage.getItem("carid")){
-            console.log("HELLO");
             window.alert("an error occurred");
             changePage("index.html");
         }
@@ -32,7 +31,7 @@ async function populateList_owner(carid) {
     let rentList = document.getElementById("table_body");
     rentList.innerHTML ="";
     try {
-        let result = await requestRentsFromCar(carid);
+        let result = await requestRentsHistoryFromCar(carid);
         console.log(result);
 
         if (!result.successful || result.err)

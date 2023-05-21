@@ -41,17 +41,7 @@ async function requestRentCourseOwner(rentid, day) {
 }
 
 
-async function requestRentsFromUser(userid) {
-    try {
-        const response = await fetch(`/api/rent/fromUser/${userid}`);
-        var result = await response.json();
-        return { successful: response.status == 200,
-                 rents: result};
-    } catch (err) {
-        console.log(err);
-        return {err: err};
-    }
-}
+
 async function verifyRent(rentid){
     try {
         const response = await fetch(`/api/rent/auth/verify`,{
@@ -72,9 +62,31 @@ async function verifyRent(rentid){
         return {err: err};
     }
 }
+async function requestRentsHistoryFromUser(userid) {
+    try {
+        const response = await fetch(`/api/rent/fromUser/${userid}`);
+        var result = await response.json();
+        return { successful: response.status == 200,
+                 rents: result};
+    } catch (err) {
+        console.log(err);
+        return {err: err};
+    }
+}
+async function requestRentsHistoryFromCar(carid) {
+    try {
+        const response = await fetch(`/api/rent/auth/history/fromCar/${carid}`);
+        var result = await response.json();
+        return { successful: response.status == 200,
+                 rents: result};
+    } catch (err) {
+        console.log(err);
+        return {err: err};
+    }
+}
 async function requestRentsFromCar(carid) {
     try {
-        const response = await fetch(`/api/rent/auth/fromCar/${carid}`);
+        const response = await fetch(`/api/rent/auth/scheduled/fromCar/${carid}`);
         var result = await response.json();
         return { successful: response.status == 200,
                  rents: result};
