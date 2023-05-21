@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+
+
+* {
+  font-family: 'Poppins', sans-serif;
+  margin : 0px;
+  padding: 0px;
+  
+}
+
+body {
+  display: none;
+}
+
+
+main{
+  padding: 50px 100px; 
+  width: 100%;
+  height: 900px;
+  background: url("../imagens/car_background1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+main .page-center {
+  display: flex;
+  margin: auto;
+  flex: 1;
+  padding-top: 2.5%;
+  width: 100%;
+  height: fit-content;
+  
+}
+
+main .page-center .main-list {
+  display: flex;
+  flex-direction:column;
+  padding-left: 0;
+  width: 10%;
+  padding-top: 2.5%;
+  font-size: 20px;
+  font-weight: normal;
+  list-style: none;
+  color: white;
+}
+
+#services-container{
+  width: 75%;
+  height: 50px;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  
+} 
+
+#services-container .services-header{
+  background-color: white;
+} 
+
+#services-container .item:hover{
+  cursor:pointer;
+  background-color: gray;
+  
+  
+}
+#services-container .item .toggleable{
+  visibility: hidden;
+}
+#services-container > * th {
+  border-bottom-style: outset;
+  font-size: 25px;
+
+}
+#services-container tr:nth-child(odd) {
+  background-color: white;
+
+}
+#services-container tr:nth-child(even) {
+  border-bottom-style: outset;
+  font-size: 25px;
+  background-color: lightgray;
+
+}
+
+
+#services-container > * td h3 {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+#services-container > * td img {
+  display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30px; 
+    height: 30px;
+}
+
+body {
+  overflow: hidden; /* Hide scrollbars */
+}
+
+
