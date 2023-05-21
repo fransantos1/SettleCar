@@ -34,6 +34,19 @@ router.get('/auth',auth.verifyAuth,  async function (req, res,next) {
         res.status(500).send(err);
     }
 });
+router.get('/auth/avaliability/:carid' ,auth.verifyAuth,  async function (req, res,next) {
+    try {
+        let result = await Car.get_caravaliability(req.params.carid);
+        if (result.status != 200) {
+            res.status(result.status).send(result.result);
+            return;
+        }
+        res.status(result.status).send(result.result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 router.get('/auth/:carid',auth.verifyAuth,  async function (req, res,next) {
     try {
         let result = await Car.getCar_owner(req.user.id, req.params.carid);
@@ -91,7 +104,6 @@ router.get('/:id',  async function (req, res) {
         res.status(500).send(err);
     }
 });
-module.exports = router;
 router.get('',  async function (req, res) {
     try {
         let result = await Car.getByAvaliability();

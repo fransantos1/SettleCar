@@ -20,14 +20,14 @@ INSERT INTO carstate VALUES (3,'workshop');
 INSERT INTO carstate VALUES (4,'unavailable');
 
 --password:1234
-INSERT INTO usr VALUES (1,'driver','123456', 'driver','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
-INSERT INTO usr VALUES (2,'admin','234512541', 'admin','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'2');
-INSERT INTO usr VALUES (3,'mech','234512541', 'mech','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'3');
-INSERT INTO usr VALUES (4,'rent0','234512541', 'rent0','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
-INSERT INTO usr VALUES (5,'rent1','234512541', 'rent1','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
-INSERT INTO usr VALUES (6,'rent2','234512541', 'rent2','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
-INSERT INTO usr VALUES (7,'rent3','234512541', 'rent3','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
-INSERT INTO usr VALUES (8,'rent4','234512541', 'rent4','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id) VALUES ('driver','123456', 'driver','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id) VALUES ('admin','234512541', 'admin','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'2');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id) VALUES ('mech','234512541', 'mech','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'3');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id)  VALUES ('rent0','234512541', 'rent0','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id)  VALUES ('rent1','234512541', 'rent1','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id)  VALUES ('rent2','234512541', 'rent2','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id)  VALUES ('rent3','234512541', 'rent3','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
+INSERT INTO usr (usr_name, usr_phone, usr_email, usr_pass,usr_token, usr_type_id)  VALUES ('rent4','234512541', 'rent4','$2b$10$Tp7f5YzlN4f3bH/.4hWbU.jmb7wPxmQ0luFpV/io.FnBxaMzIj3Zi',null,'1');
 --car & images
 INSERT INTO car (car_licenseplate, car_brand, car_model, car_year, car_bhp, car_engine, car_fuel, car_gearbox, car_drivetrain, car_doors, car_seats, car_bootcapacity, car_equi_ext, car_priceday, car_carstate_id, car_usr_id)
 VALUES ('54-23-AV','Volkswagen', 'Passat','2001','130hp','1.9TDI','Diesel','5M','FWD','5','5','495L','AC;Heated Seats;Bluetooth Radio','120','1','2');

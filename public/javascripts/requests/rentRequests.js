@@ -1,5 +1,4 @@
 async function CreateRent(beginning, end,car_id) {
-    console.log(beginning);
     try {
         const response = await fetch(`/api/rent/auth`, 
         {

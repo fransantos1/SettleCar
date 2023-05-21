@@ -190,7 +190,7 @@ class Car{
                         select * from car where car_id in (
                             select carservices_car_id from carservices
                                 where carservices_due > $2
-                                group by carservices_car_id) and car_carstate_id = 1 
+                                group by carservices_car_id) and car_carstate_id != 4
                                 
                         intersect 	
                             select * from car 
@@ -312,6 +312,56 @@ class Car{
             return { status: 500, result: err };
         }
     }
+    static async get_caravaliability(carid){
+        try{
+            let dbResults = await pool.query("select * from carservices where carservices_car_id = $1", [carid]);
+            let response = dbResults.rows;
+            if(!response.length){
+                return {
+                    status: 500
+                }
+            }
+            let max = response[0].carservices_due;// this max means that is the maximum date the car can be rented, so we are going to get the closest date 
+            for(let service of response){
+                if(service.carservices_due < max ){
+                max = service.carservices_due;
+                } 
+            }
+            let result = {};
+            let dbResult = await pool.query("select * From rent where rent_car_id = $1 and rent_rentstate_id = 1", [carid]);
+            let dbRents = dbResult.rows;
+            if (!dbRents.length)
+                return {
+                    status: 400, result: [{
+                        location: "body", param: "rents",
+                        msg: "This car has no registered rents"
+                    }]
+                }
+            let rents = [];
+            for (let dbRent of dbRents) {
+                let rent = {};
+                rent.id = dbRent.rent_id;
+                rent.beginning = dbRent.rent_data_inicio;
+                rent.end = dbRent.rent_data_final;
+                rent.usr = dbRent.usr_name;
+                rent.price = dbRent.rent_price+"+"+dbRent.rent_penalty;
+                rents.push(rent);           
+            }
+        
+            result.rents = rents;
+            result.max = max;
+            return { status: 200, result: result};
+        }catch(err){
+            console.log(err);
+            return { status: 500, result:err};
+        }
+    }
+
+
+
+
+
+
     //Add a car
     static async addCar(usr_id,car) {
         try{

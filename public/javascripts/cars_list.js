@@ -21,6 +21,7 @@ async function populateList() {
     let carList = document.getElementById("result");
     start_date = sessionStorage.getItem("start");
     return_date = sessionStorage.getItem("return");
+
     try {
         if(start_date === ""){
             result = await requestCars();
@@ -210,7 +211,7 @@ async function turnOnOverlay(car){
         button.innerHTML = "See avaliability";
         button_div.appendChild(button);
         button.onclick = ()=>{
-            //!SHOW CALENDAR
+           changetoCalendar(car.id);
         };
 
     }else{
@@ -248,4 +249,8 @@ async function startrent(carid){
     throw result.err || { err: "Not successfull" }
     changePage("profile.html");
 
+}
+function changetoCalendar(carid){
+    sessionStorage.setItem("carid", carid);
+    changePage("car_calendar.html");
 }
