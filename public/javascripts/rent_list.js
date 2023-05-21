@@ -1,7 +1,7 @@
 window.onload = async function () {
     let result = await checkAuthenticated(true);
     if(!result.authenthicated || user.type == 3){
-        //changePage("index.html");
+        changePage("index.html");
     }else if(user.type === 2){
         let table_header = document.getElementById("table-header");
         let title = document.createElement("th");
@@ -37,7 +37,7 @@ async function populateList_owner(carid) {
         if (!result.successful || result.err)
             throw result.err || { err: "Not successfull" }
 /*          <tr>
-                <td>Toyota Camry</td>
+                <td>Jef</td>
                 <td>2023-04-01</td>
                 <td>2023-04-04</td>
                 <td>$150</td>
@@ -51,12 +51,14 @@ async function populateList_owner(carid) {
             td.textContent = rent.usr;
             tr.appendChild(td);
 
+            let beginning_date = new Date(rent.beginning);
             td = document.createElement("td");
-            td.textContent = rent.beginning;
+            td.textContent = beginning_date.getDate()+"-"+beginning_date.getMonth()+"-"+beginning_date.getFullYear();
             tr.appendChild(td);
 
+            let end_date = new Date(rent.end);
             td = document.createElement("td");
-            td.textContent = rent.end;
+            td.textContent = end_date.getDate()+"-"+end_date.getMonth()+"-"+end_date.getFullYear() ;
             tr.appendChild(td);
 
             td = document.createElement("td");
@@ -85,9 +87,11 @@ async function populateList_owner(carid) {
 async function populateList_User() {
     let rentList = document.getElementById("table_body");
     try {
-        let result = await requestRentsFromUser(user.id);
-        //if (!result.successful || result.err)
-          //  throw result.err || { err: "Not successfull" }
+        let result = await requestRentsHistoryFromUser();
+        if (!result.successful || result.err)
+           throw result.err || { err: "Not successfull" }
+           console.log(result);
+        let rents = result.rents;
         //document.getElementById("remove_link").style.visibility ="visible";
 /*          <tr>
                 <td>Toyota Camry</td>
@@ -97,33 +101,41 @@ async function populateList_User() {
                 <td><img src="imagens/googlemaps.png"></td>
             </tr>*/
 
-        for (let rent of result.rents) {
-            let tr = document.createElement("tr");
+            for (let rent of result.rents) {
+                let tr = document.createElement("tr");
+    
+                let td = document.createElement("td");
+                td.textContent = rent.vehicle;
+                tr.appendChild(td);
+                
+                let beginning_date = new Date(rent.beginning);
+                td = document.createElement("td");
+                td.textContent = beginning_date.getDate()+"-"+beginning_date.getMonth()+"-"+beginning_date.getFullYear();
+                tr.appendChild(td);
 
-            let td = document.createElement("td");
-            td.textContent = rent.vehicle;
-            tr.appendChild(td);
-
-            td = document.createElement("td");
-            td.textContent = rent.date;
-            tr.appendChild(td);
-
-            td = document.createElement("td");
-            td.textContent = rent.price;
-            tr.appendChild(td);
-
-            td = document.createElement("td");
-            td.textContent = rent.owner;
-            tr.appendChild(td);
-
-            td = document.createElement("td");
-            td.textContent = rent.status;
-            tr.appendChild(td);
-
-            td = document.createElement("td");
-            td.textContent = rent.id;
-            tr.appendChild(td);
-        }
+                let end_date = new Date(rent.end);
+                td = document.createElement("td");
+                td.textContent = end_date.getDate()+"-"+end_date.getMonth()+"-"+end_date.getFullYear() ;
+                tr.appendChild(td);
+    
+                td = document.createElement("td");
+                td.textContent = rent.price;
+                td.onclick =()=>{
+                 updatePrice(rent.id, carid);
+                };
+                tr.appendChild(td);
+    
+                td = document.createElement("td");
+                let img = document.createElement("img");
+                img.src = "imagens/googlemaps.png";
+                img.onclick =()=>{
+                    openMap(rent);
+                };
+                td.appendChild(img);
+                tr.appendChild(td);
+    
+                rentList.appendChild(tr);
+            }
     } catch(err) {
         console.log(err);
     }

@@ -61,9 +61,9 @@ async function verifyRent(rentid){
         return {err: err};
     }
 }
-async function requestRentsHistoryFromUser(userid) {
+async function requestRentsHistoryFromUser() {
     try {
-        const response = await fetch(`/api/rent/fromUser/${userid}`);
+        const response = await fetch(`/api/rent/auth/history/fromUser/`);
         var result = await response.json();
         return { successful: response.status == 200,
                  rents: result};
@@ -100,6 +100,27 @@ async function getScheduledRent() {
         var result = await response.json();
         return { successful: response.status == 200,
                  rents: result};
+    } catch (err) {
+        console.log(err);
+        return {err: err};
+    }
+}
+
+async function deleteRent(rentid) {
+    try {
+        const response = await fetch(`/api/rent/auth/delete/`,
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+          method: "DELETE",
+          body: JSON.stringify({
+              rentid: rentid
+          })
+        });
+        let msg = await response.json();
+        return { successful: response.status == 200, msg: msg.msg};
     } catch (err) {
         console.log(err);
         return {err: err};

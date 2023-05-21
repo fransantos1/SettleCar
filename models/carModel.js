@@ -330,13 +330,6 @@ class Car{
             let result = {};
             let dbResult = await pool.query("select * From rent where rent_car_id = $1 and rent_rentstate_id = 1", [carid]);
             let dbRents = dbResult.rows;
-            if (!dbRents.length)
-                return {
-                    status: 400, result: [{
-                        location: "body", param: "rents",
-                        msg: "This car has no registered rents"
-                    }]
-                }
             let rents = [];
             for (let dbRent of dbRents) {
                 let rent = {};

@@ -20,14 +20,17 @@ window.onload = async function () {
     let response = await requestCarAvaliability(carid);
     if (!result.successful || result.err)
     throw result.err || { err: "Not successfull" }
+    console.log(response.car);
     max = new Date(response.car.max);
-    for(let rent of response.car.rents){
-        //inserts all the dates into the array
-        delete rent.id;
-        delete rent.price;
-        rent.beginning = new Date(rent.beginning);
-        rent.end = new Date(rent.end);
-        rents.push(rent);
+    if(response.car.rents.length){
+        for(let rent of response.car.rents){
+            //inserts all the dates into the array
+            delete rent.id;
+            delete rent.price;
+            rent.beginning = new Date(rent.beginning);
+            rent.end = new Date(rent.end);
+            rents.push(rent);
+        }
     }
 
     if(user.type == 2){

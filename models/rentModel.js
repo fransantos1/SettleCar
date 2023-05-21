@@ -268,7 +268,33 @@ class Rent{
     static async UpdateRents(rent_id){
 
     }
-    static async deleteRent(){}
+    static async CancelRent(rentid){
+        try {   
+            let dbResult = await pool.query("select * from rent where rent_id = $1", [rentid]);
+            let dbRent = dbResult.rows[0];
+            if (!dbRent)
+            return {
+                status: 404, result: [{
+                    location: "body", param: "rents",
+                    msg: "This rent doesnt exist"
+                }]
+            }   
+            if(dbRent.rent_rentstate_id != 1){
+                return {
+                    status: 405, result: [{
+                        location: "body", param: "rents",
+                        msg: "This rent doesnt exist"
+                    }]
+                }
+            }
+
+            dbResult = await pool.query("delete from rent where rent_id = $1",[rentid])
+            return{status:200, msg:"rent deleted sucessfully"}
+        }catch(err){
+            console.log(err);
+            return {status:500, result:err};
+        }
+    }
 
     static async getscheduledRentsfromcar(carid) {
         try {
@@ -334,9 +360,12 @@ class Rent{
 
     static async getRentsHistoryFromUser(userId) {
         try {
-            let dbResult = await pool.query("SELECT * FROM rent INNER JOIN users ON rent_user_id = users_id WHERE rent_user_id=$1", [userId]);
+            let dbResult = await pool.query(`
+                SELECT * FROM rent 
+                    INNER JOIN car on car_id = rent_car_id
+                    WHERE rent_usr_id=$1`, [userId]);
             let dbRents = dbResult.rows;
-            if (!dbCars.length)
+            if (!dbRents.length)
                 return {
                     status: 400, result: [{
                         location: "body", param: "rents",
@@ -345,7 +374,12 @@ class Rent{
                 }
             let rents = [];
             for (let dbRent of dbRents) {
-                let rent = dbRentToObjRent(dbRent);
+                let rent = new Rent();
+                rent.id = dbRent.rent_id;
+                rent.beginning = dbRent.rent_data_inicio;
+                rent.end = dbRent.rent_data_final;
+                rent.vehicle = dbRent.car_brand + " "+ dbRent.car_model+" ("+dbRent.car_year+")";;
+                rent.price = dbRent.rent_price+"+"+dbRent.rent_penalty;
                 rents.push(rent);             
             }
             return { status: 200, result: rents} ;
@@ -356,9 +390,13 @@ class Rent{
     }
     static async getScheduledRent(userId) {
         try {
-            let dbResult = await pool.query(`select * from rent inner join car on rent_car_id = car_id inner join rentstate on rent_rentstate_id = rentstate_id
-                                            where rent_rentstate_id != 3
-                                            and rent_usr_id = $1`, [userId]);                                            
+            let dbResult = await pool.query(`select * 
+            from rent 
+            inner join car on rent_car_id = car_id 
+            inner join rentstate on rent_rentstate_id = rentstate_id
+            
+            where rent_usr_id = $1
+            and rent_data_inicio = (select Max(rent_data_inicio) from rent where rent_usr_id = $1)`, [userId]);                                            
             let dbRent = dbResult.rows[0];
             if (!dbRent)
                 return {
@@ -371,7 +409,9 @@ class Rent{
             rent.id = dbRent.rent_id;
             rent.start_date = dbRent.rent_data_inicio;
             rent.end_date = dbRent.rent_data_final;
-            rent.price = dbRent.rent_price;
+            if(dbRent.rent_penalty == null){
+            rent.price = dbRent.rent_price;}
+            else { rent.price = dbRent.rent_price+"+"+dbRent.rent_penalty}
             rent.status = dbRent.rentstate_state;
             return { status: 200, result: rent} ;
         } catch (err) {

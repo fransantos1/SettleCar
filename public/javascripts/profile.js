@@ -14,20 +14,21 @@ window.onload = async function () {
             let navbar = document.querySelector('.navbar');
             navbar.innerHTML = '<ul> <li><a href="index.html">Home</a></li> <li><a href="javascript:logout()">Logout</a></li> </ul>';
             document.body.style.display ="block";
+            populatUserInfo();
+            populateRentInfo();
             break;
 
         case 2:
           let navbar1 = document.querySelector('.navbar');
           navbar1.innerHTML = '<ul> <li><a href="dono.html">Cars</a></li> <li><a href="javascript:logout()">Logout</a></li> </ul>';
           document.body.style.display ="block";
+            populatUserInfo();
             break;
     }
      } catch (err) {
         console.log(err);
     } 
-   
-      populatUserInfo();
-      populateRentInfo();
+
   
 }
 
@@ -98,11 +99,10 @@ async function populatUserInfo(){
   </section> */
 async function populateRentInfo(){
   let rent;
-  if(occupied){
-    let result = await getScheduledRent();
-    if (result.err) {  throw result.err; }
-    rent = result.rents;
-  }  
+  let result = await getScheduledRent();
+  if (result.err) {  throw result.err; }
+  rent = result.rents;
+ 
   let coluna = document.getElementById("coluna");
 
   let section = document.createElement("section");
@@ -169,28 +169,31 @@ async function populateRentInfo(){
   submit.setAttribute("type", "submit");
   submit.setAttribute("value", "see ALL");
   submit.setAttribute("class","btn");
+  submit.onclick = ()=>{
+    changetoRenthistory(); 
+};
 
   section.appendChild(submit);
   coluna.appendChild(section);
  
 }
-
-
-async function CancelRent(rentid){
-  console.log(rentid);
+function changetoRenthistory(){
+  changePage("rent_list.html");
 }
+async function CancelRent(rentid){
+  let result = await deleteRent(rentid);
+  if (result.err) {  throw result.err; }
+  if(result.successful) {
+    window.alert("Rent Cancelled successfully");
+    let coluna = document.getElementById("coluna");
+    while(coluna.firstChild){
+      coluna.removeChild(coluna.firstChild);
+    }
+    populatUserInfo();
+    populateRentInfo();
 
-
-
-
-
-
-
-
-
-
-
-
+  }
+}
 
 async function logout() {
     try {

@@ -34,7 +34,19 @@ router.get('/auth/getScheduled/',auth.verifyAuth,  async function (req, res, nex
         res.status(500).send(err);
     }
 });
-
+router.delete('/auth/delete/',auth.verifyAuth,  async function (req, res, next) {
+    try {
+        let result = await Rent.CancelRent(req.body.rentid);
+        if (result.status != 200) {
+            res.status(result.status).send(result);
+            return;
+        }
+        res.status(result.status).send(result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 router.get('/auth/getCourseOwner/:rentId/:date',auth.verifyAuth,  async function (req, res, next) {
     try {
         let result = await Rent.getRentCourse_owner(req.params.rentId, req.params.date,req.user);
