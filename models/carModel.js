@@ -153,7 +153,7 @@ class Car{
         //TODO GETBYAVALIABILITY NEEDS TO MAKE SURE NONE OF THE CARS ARE NOT LATE
     static async getByAvaliability() {
         try {
-            let dbResult = await pool.query("Select * from car inner join carstate on carstate_id = car_carstate_id where carstate_state = 'available' ");
+            let dbResult = await pool.query("Select * from car inner join carstate on carstate_id = car_carstate_id where carstate_state != 'unavailable' ");
             let dbCars = dbResult.rows;
             let cars = [];
             for(let car of dbCars){
@@ -333,11 +333,8 @@ class Car{
             let rents = [];
             for (let dbRent of dbRents) {
                 let rent = {};
-                rent.id = dbRent.rent_id;
                 rent.beginning = dbRent.rent_data_inicio;
                 rent.end = dbRent.rent_data_final;
-                rent.usr = dbRent.usr_name;
-                rent.price = dbRent.rent_price+"+"+dbRent.rent_penalty;
                 rents.push(rent);           
             }
         
