@@ -181,8 +181,9 @@ class Car{
             }
             let start = new Date(start_date);
             let finish = new Date(return_date);
-            start_date = start.getFullYear()+"-"+start.getMonth()+"-"+start.getDate();
-            return_date =  finish.getFullYear()+"-"+finish.getMonth()+"-"+finish.getDate();
+            start_date = start.getFullYear()+"-"+(start.getMonth()+1)+"-"+start.getDate();
+            return_date =  finish.getFullYear()+"-"+(finish.getMonth()+1)+"-"+finish.getDate();
+            console.log(start_date);
             let dbResult = await pool.query("Select * from rent where rent_rentstate_id = 1 or rent_rentstate_id =2");
             let dbrents = dbResult.rows;
 
@@ -202,9 +203,7 @@ class Car{
                                                 $1 <= rent_data_final and rent_data_final <= $2 or
                                                 rent_data_inicio <=$1 and $2 <= rent_data_final))`,[start_date, return_date]);
             dbcars = dbResult.rows;
-            console.log(start_date, return_date);
 
-            console.log(dbcars);
       
             if(!dbcars.length)
                 return {

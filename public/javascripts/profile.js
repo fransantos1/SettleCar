@@ -103,7 +103,7 @@ async function populateRentInfo(){
   if (result.err) {  throw result.err; }
   rent = result.rents;
   console.log(rent);
-  if(!rent.length){
+  if(!rent.vehicle){
     return;
   }
  
