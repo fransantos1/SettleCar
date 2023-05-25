@@ -32,8 +32,6 @@ async function populateList_owner(carid) {
     rentList.innerHTML ="";
     try {
         let result = await requestRentsHistoryFromCar(carid);
-        console.log(result);
-
         if (!result.successful || result.err)
             throw result.err || { err: "Not successfull" }
 /*          <tr>
@@ -90,7 +88,6 @@ async function populateList_User() {
         let result = await requestRentsHistoryFromUser();
         if (!result.successful || result.err)
            throw result.err || { err: "Not successfull" }
-           console.log(result);
         let rents = result.rents;
         //document.getElementById("remove_link").style.visibility ="visible";
 /*          <tr>

@@ -102,11 +102,9 @@ async function populateRentInfo(){
   let result = await getScheduledRent();
   if (result.err) {  throw result.err; }
   rent = result.rents;
-  console.log(rent);
-  if(!rent.vehicle){
+  if(!rent.length){
     return;
   }
- 
   let coluna = document.getElementById("coluna");
 
   let section = document.createElement("section");

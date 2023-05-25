@@ -20,7 +20,7 @@ router.post('/auth',auth.verifyAuth,  async function (req, res,next) {
     }
 });
 
-
+//get owner's cars function
 router.get('/auth',auth.verifyAuth,  async function (req, res,next) {
     try {
         let result = await Car.getCars_owner(req.user.id);
@@ -34,6 +34,8 @@ router.get('/auth',auth.verifyAuth,  async function (req, res,next) {
         res.status(500).send(err);
     }
 });
+
+//returns info about the car avaliability for the calendar
 router.get('/auth/avaliability/:carid' ,auth.verifyAuth,  async function (req, res,next) {
     try {
         let result = await Car.get_caravaliability(req.params.carid);
@@ -47,6 +49,8 @@ router.get('/auth/avaliability/:carid' ,auth.verifyAuth,  async function (req, r
         res.status(500).send(err);
     }
 });
+
+//GET all the info about the car (only Owner)
 router.get('/auth/:carid',auth.verifyAuth,  async function (req, res,next) {
     try {
         let result = await Car.getCar_owner(req.user.id, req.params.carid);
@@ -61,6 +65,7 @@ router.get('/auth/:carid',auth.verifyAuth,  async function (req, res,next) {
         res.status(500).send(err);
     }
 });
+//searches for the cars available in the dates
 router.get('/search/:start_date/:return_date',  async function (req, res,next) {
     try {
         let result = await Car.getBySearch(req.params.start_date, req.params.return_date);
@@ -75,7 +80,7 @@ router.get('/search/:start_date/:return_date',  async function (req, res,next) {
     }
 });
 
-//! NEED TO VERIFY IF THE CAR HAS ACTIVE RENTS AND WARN THE OWNER BEFORE DELETING AND CAN ONLY DELETE IF THE CAR IS available or unavailable at the time
+//deletes a car
 router.delete('/auth', auth.verifyAuth, async function(req,res,next){
     try{
         let result = await Car.DeleteCar(req.body.licenseplate,req.user.id);
@@ -90,6 +95,8 @@ router.delete('/auth', auth.verifyAuth, async function(req,res,next){
         res.status(500).send(err);
     }
 });
+
+//get information about a car, no authenthicatio required
 router.get('/:id',  async function (req, res) {
     try {
         let result = await Car.getByid(req.params.id);
@@ -104,6 +111,8 @@ router.get('/:id',  async function (req, res) {
         res.status(500).send(err);
     }
 });
+
+//returns all the cars that are available
 router.get('',  async function (req, res) {
     try {
         let result = await Car.getByAvaliability();
@@ -115,4 +124,5 @@ router.get('',  async function (req, res) {
         res.status(500).send(err);
     }
 });
+
 module.exports = router;
