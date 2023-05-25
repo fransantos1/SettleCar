@@ -254,7 +254,7 @@ class Rent{
             }
             if(infractions > 0){
                 dbResult = await pool.query(`update rent set rent_penalty = $1 where rent_id = $2`,[infractions, rentid]);
-                return {status:200,result:{"msg": "User has to pay an addicionl "+infractions}};
+                return {status:200,result:{"msg": "User has to pay an addicional "+infractions}};
             }
             return {status:200, result:{"msg":"No penaltys found"}};
         }catch(err){
@@ -269,23 +269,24 @@ class Rent{
 
     }
     static async CancelRent(rentid){
-        try {   
+        try {  
             let dbResult = await pool.query("select * from rent where rent_id = $1", [rentid]);
             let dbRent = dbResult.rows[0];
-            if (!dbRent)
-            return {
-                status: 404, result: [{
-                    location: "body", param: "rents",
-                    msg: "This rent doesnt exist"
-                }]
-            }   
-            if(dbRent.rent_rentstate_id != 1){
+            if (!dbRent){
                 return {
-                    status: 405, result: [{
+                    status: 404, result: [{
                         location: "body", param: "rents",
                         msg: "This rent doesnt exist"
                     }]
-                }
+                }   
+            }
+            if(dbRent.rent_rentstate_id != 1){
+                return {
+                    status: 403, result: [{
+                        location: "body", param: "rents",
+                        msg: "You cant cancel a rent that has already started"
+                    }]
+                }  
             }
 
             dbResult = await pool.query("delete from rent where rent_id = $1",[rentid])
@@ -330,17 +331,10 @@ class Rent{
 
     static async getRentsHistoryFromCar(carId) {
         try {
+            //Todo verifying that the car belongs to the user doing the request
             let dbResult = await pool.query(`select rent_id, rent_data_inicio::date, rent_data_final::date, usr_name, 
              rent_usr_id, rent_price,rent_penalty, rent_rentstate_id from rent inner join usr on usr_id = rent_usr_id where rent_car_id = $1 and rent_rentstate_id = 3`, [carId]);
             let dbRents = dbResult.rows;
-            console.log(dbRents);
-            if (!dbRents.length)
-                return {
-                    status: 400, result: [{
-                        location: "body", param: "rents",
-                        msg: "This car has no registered rents"
-                    }]
-                }
             let rents = [];
             for (let dbRent of dbRents){
                 let rent = new Rent();
@@ -365,13 +359,6 @@ class Rent{
                     INNER JOIN car on car_id = rent_car_id
                     WHERE rent_usr_id=$1`, [userId]);
             let dbRents = dbResult.rows;
-            if (!dbRents.length)
-                return {
-                    status: 400, result: [{
-                        location: "body", param: "rents",
-                        msg: "This user has no registered rents"
-                    }]
-                }
             let rents = [];
             for (let dbRent of dbRents) {
                 let rent = new Rent();
@@ -394,7 +381,6 @@ class Rent{
             from rent 
             inner join car on rent_car_id = car_id 
             inner join rentstate on rent_rentstate_id = rentstate_id
-            
             where rent_usr_id = $1
             and rent_data_inicio = (select Max(rent_data_inicio) from rent where rent_usr_id = $1)`, [userId]);                                            
             let dbRent = dbResult.rows[0];
