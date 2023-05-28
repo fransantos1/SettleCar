@@ -125,4 +125,31 @@ router.get('',  async function (req, res) {
     }
 });
 
+//! a way to make this secure, has the car location will be updated by a exterior gps device, the car should have a sort of password or encrypted id.
+router.patch('/updateloc/:carid',async function(req, res, next){
+    try {
+        let result = await Car.updateLoc(req.params.carid, req.body.loc);
+        if (result.status != 200) 
+            res.status(result.status).send(result.result);
+        res.status(result.status).send(result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+router.patch('/auth/updateservice/:carid', auth.verifyAuth, async function (req, res,next) {
+    try {
+        console.log(req.body.service);
+        let result = await Car.updadeService(req.user.id, req.params.carid, req.body.service); //user id vem do utilizador que esta autenticado
+        if (result.status != 200) {
+            console.log(result);
+            res.status(result.status).send(result.result);
+            return;
+        }
+        res.status(result.status).send(result.result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 module.exports = router;

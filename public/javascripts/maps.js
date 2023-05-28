@@ -180,7 +180,7 @@ async function populateMap(){
     map.data.remove(feature); 
   });
   try {
-    let result = await requestRentCourseOwner(5,date.current.getDate()  + "-" + (date.current.getMonth()+1) + "-" + date.current.getFullYear() );
+    let result = await requestRentCourse(5,date.current.getDate()  + "-" + (date.current.getMonth()+1) + "-" + date.current.getFullYear() );
     if(!result.successful){
       return;
     }

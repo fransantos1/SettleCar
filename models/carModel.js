@@ -45,7 +45,74 @@ class Car{
         this.state = state;
         this.user_id = user_id;
     }
-    //TODO get calendar 
+    // verificar se a data nova é depois da data antiga 
+// verificar se a data nova é um ano depois da data atual
+static async updadeService(userid, carid, service) {
+    try { 
+        console.log(service.name);
+        if (service.name != "inspection" && service.name != "insurance") // verifica se o valor que cliente quer é valido, so pode ser insp ou insu
+            return {
+                status: 400, result: [{
+                    location: "body", param: "service name",
+                    msg: "Service name not valid"
+                }]
+            }
+        let dbResult = await pool.query("select * from car where car_id = $1", [carid]); 
+        let dbservices = dbResult.rows[0];
+
+        if (userid != dbservices.car_usr_id) // verifica o id do dono carro corresponde ao id do utilizador a que pertence o carro
+            return {
+                status: 400, result: [{
+                    location: "body", param: "userid",
+                    msg: "Car does not belong to user"
+                }]
+            }
+        dbResult = await pool.query("select * from carservices where carservices_car_id = $1 and carservices_type = $2", [carid, service.name]); //verificando o id da linha que o cliente quer mudar
+        console.log(carid);
+        dbservices = dbResult.rows[0];
+        service.date = new Date(service.date);
+        let date = service.date.getFullYear()+"-"+(service.date.getMonth()+1)+"-"+service.date.getDate(); //converte a data para inserir no postgres
+        console.log(dbservices);
+        dbResult = await pool.query("update carservices set carservices_due = $1 where carservices_id = $2",[date, dbservices.carservices_id]);
+        return {
+            status:200, msg: "Car service updated successfully"
+        }
+    } catch (err) {
+        console.log(err);
+        return { status: 500, result: err };
+    }
+} 
+
+    static async updateLoc(carid, location){
+        try{
+            if(!carid || !location){
+                return {
+                    status: 400, result: [{
+                        msg: "Params Missing"
+                    }]
+                }
+            }
+            //verify if the car is in a rent
+            let dbresult = await pool.query("select * from rent where rent_car_id = $1 and rent_rentstate_id = 2",[carid]);
+            let dbrows = dbresult.rows[0];
+            //if yes update the car_loc table and, insert a new point on the rent_route table
+            //if no update only the car_loc table
+            let loc = "SRID=4326;POINT("+location.lon+" "+location.lat+")";
+            //! I Wanted to call a Rent function but javascript doesnt let me cause, it creates a "loop"
+            if(!dbrows){
+                let dbResult = await pool.query(`INSERT INTO rentroute (rr_geom,rr_time, rr_rent_id) VALUES  
+                (ST_GeographyFromText($1),now()::timestamp(0),
+                 $2);`,[loc, dbrows.rent_id])
+            }
+            dbresult = await pool.query("update carloc set cl_geom = $1 where cl_car_id = $2",[loc, carid]);            
+            return { status: 200, msg: "updated successfully" };
+        }catch(err){
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
+
+
     //TODO MAKE UNAVAILABLE
     static async getByid(carid) {
         try{
@@ -70,6 +137,7 @@ class Car{
             return { status: 200, result: car} ;
         } catch (err) {
             console.log(err);
+            return { status: 500, result: err };
         }       
 
     }
@@ -126,10 +194,8 @@ class Car{
             console.log(err);
             return { status: 500, result: err };
         }
-    }
-
-    
-//!WIP
+    }    
+    //!WIP
     static async OwnerChangeState(carid,usrid) {
         try {
             let dbResult = await pool.query("Select * from car where car_id = $1", [carid]);
@@ -149,8 +215,7 @@ class Car{
             return { status: 500, result: err };
         }
     }
-        //!IN BOTH GETBYSEARCH AND GETBYAVALIABILITY NEEDS TO VERIFY IF THE CARS DONT HAVE ANY SERVICES DUE BEFORE 
-        //TODO GETBYAVALIABILITY NEEDS TO MAKE SURE NONE OF THE CARS ARE NOT LATE
+    //!IN BOTH GETBYSEARCH AND GETBYAVALIABILITY NEEDS TO VERIFY IF THE CARS DONT HAVE ANY SERVICES DUE BEFORE 
     static async getByAvaliability() {
         try {
             let dbResult = await pool.query("Select * from car inner join carstate on carstate_id = car_carstate_id where carstate_state != 'unavailable' ");
@@ -173,7 +238,6 @@ class Car{
             return { status: 500, result: err };
         }
     }
-
     static async getBySearch(start_date, return_date) {
         try {
             if(!start_date instanceof Date && !return_date instanceof Date){
@@ -252,7 +316,6 @@ class Car{
             return { status: 500, result: err };
         }
     }
-
     //! this feature is not working at the moment because of spatial tables on data base
     //just deletes everything about that car
     static async DeleteCar(LicensePlate, usr_id) {
@@ -299,6 +362,7 @@ class Car{
             if(dbRent.length){
                 let result = await pool.query("delete from rentroute where rr_rent_id = $1",[dbRent[0].rent_id]);
             }
+            let result4 = await pool.query("delete from carloc where cl_car_id = $1",[dbCars.car_id]);
             let result3 = await pool.query("delete from rent where rent_car_id = $1",[dbCars.car_id]);
             let Result2 = await pool.query("Delete from carservices carservices where carservices_car_id = $1", [dbCars.car_id]);
             let Result1 = await pool.query("Delete from carimage carimage where carimage_car_id = $1", [dbCars.car_id]);
@@ -345,12 +409,6 @@ class Car{
             return { status: 500, result:err};
         }
     }
-
-
-
-
-
-
     //Add a car
     static async addCar(usr_id,car) {
         try{
@@ -574,8 +632,8 @@ class Car{
             dbResult = await pool.query(`
             INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('insurance',$2,$1);`,
             [car_id,car.services.insurance]);
-            return{status:200}
-            
+            dbResult = await pool.query(`insert into carloc(cl_geom, cl_car_id) values ('SRID=4326;POINT(0 0)', $1)`,[car_id]);
+            return{status:200, result:{msg:"car added successfully"}} 
         }catch(err){
             console.log(err);
             return { status: 500, result: err };

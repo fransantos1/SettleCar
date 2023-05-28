@@ -4,7 +4,6 @@ window.onload = async function () {
         changePage("index.html");
     }
     document.getElementById("username").textContent = user.name;
-    populateList();
     document.body.style.display ="block";
 }
 
@@ -57,6 +56,7 @@ async function add_car(){
         window.alert(result.msg.msg);
         return;
     }
+    console.log(result);
     if(result.successful){
         window.alert("Registado com sucesso!");
         changePage("index.html");

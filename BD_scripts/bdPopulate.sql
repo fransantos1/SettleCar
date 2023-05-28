@@ -1,4 +1,4 @@
-
+--! Only user with an history is the driver and with one car. that is the only history yet
 
 
 
@@ -36,6 +36,7 @@ INSERT INTO carimage (carimage_link, carimage_car_id) VALUES ('https://media.dis
 
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('inspection','2023-12-04',1);
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('insurance','2023-12-25',1);
+insert into carloc(cl_geom, cl_car_id) values ('SRID=4326;POINT(0 0)', 1);
 
 INSERT INTO rent(rent_data_inicio, rent_data_final,rent_price, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-08-3','2023-08-12','(1080€)',1,4,1);
 
@@ -47,6 +48,7 @@ INSERT INTO carimage (carimage_link, carimage_car_id) VALUES ('https://media.dis
 
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('inspection','2024-04-13',2);
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('insurance','2024-03-25',2);
+insert into carloc(cl_geom, cl_car_id) values ('SRID=4326;POINT(0 0)', 2);
 
 INSERT INTO rent(rent_data_inicio, rent_data_final,rent_price, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-07-20','2023-08-5','(4000€)',2,5,1);
 
@@ -57,6 +59,7 @@ INSERT INTO carimage (carimage_link, carimage_car_id) VALUES ('https://media.dis
 
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('inspection','2023-11-21',3);
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('insurance','2023-11-10',3);
+insert into carloc(cl_geom, cl_car_id) values ('SRID=4326;POINT(0 0)', 3);
 
 INSERT INTO rent(rent_data_inicio, rent_data_final,rent_price, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-07-20','2023-08-12','(1840€)',3,6,1);
 
@@ -67,6 +70,7 @@ INSERT INTO carimage (carimage_link, carimage_car_id) VALUES ('https://media.dis
 
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('inspection','2023-10-04',4);
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('insurance','2023-10-25',4);
+insert into carloc(cl_geom, cl_car_id) values ('SRID=4326;POINT(0 0)', 4);
 
 INSERT INTO rent(rent_data_inicio, rent_data_final,rent_price, rent_car_id, rent_usr_id, rent_rentstate_id) VALUES ('2023-07-25','2023-07-31','(840€)',4,7,1);
 
@@ -75,10 +79,9 @@ VALUES ('85-IT-23','Ford', 'Smax','2012','140hp','2.0TDCi','Diesel','6m','FWD','
 INSERT INTO carimage (carimage_link, carimage_car_id) VALUES ('https://media.discordapp.net/attachments/1094210400469397614/1095442367668035644/ford_Smax2.jpg?width=1246&height=701',5);
 INSERT INTO carimage (carimage_link, carimage_car_id) VALUES ('https://media.discordapp.net/attachments/1094210400469397614/1095442368116838511/ford_Smax1.jpg?width=1246&height=701',5);
 
-
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('inspection','2023-09-12',5);
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('insurance','2023-09-13',5);
-
+insert into carloc(cl_geom, cl_car_id) values ('SRID=4326;POINT(0 0)', 5);
 
 
 INSERT INTO car (car_licenseplate, car_brand, car_model, car_year, car_bhp, car_engine, car_fuel, car_gearbox, car_drivetrain, car_doors, car_seats, car_bootcapacity, car_equi_ext, car_priceday, car_carstate_id, car_usr_id)
@@ -88,7 +91,7 @@ INSERT INTO carimage (carimage_link, carimage_car_id) VALUES ('https://media.dis
 
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('inspection','2023-07-25',6);
 INSERT INTO carservices(carservices_type, carservices_due,carservices_car_id) VALUES ('insurance','2023-07-25',6);
-
+insert into carloc(cl_geom, cl_car_id) values ('SRID=4326;POINT(0 0)', 6);
 
 
 --FINISHED RENTS

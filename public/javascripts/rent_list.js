@@ -117,9 +117,6 @@ async function populateList_User() {
     
                 td = document.createElement("td");
                 td.textContent = rent.price;
-                td.onclick =()=>{
-                 updatePrice(rent.id, carid);
-                };
                 tr.appendChild(td);
     
                 td = document.createElement("td");

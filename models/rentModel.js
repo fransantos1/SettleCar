@@ -4,13 +4,6 @@ const User = require("../models/usersModel");
 const Car = require("../models/carModel");
 
 
-
-
-
-
-
-
-
 class Rent{
     constructor(id, beginning, end, car, usr, rent_state,price){
         this.id = id;
@@ -80,17 +73,9 @@ class Rent{
     }
     //update da localização do carro
     // acabar rent
-    static async getRentCourse_owner(rentId, date,usr){
+    static async getRentCourse(rentId, date,usr){
     //verifications
     try{
-      if(usr.type != 2){
-        return {
-            status: 401, result: [{
-                location: "usr", param: "type",
-                msg: "Wrong user type"
-            }]
-        }
-    }
     let geojson = {
         "type": "FeatureCollection",
         "features": [
@@ -204,10 +189,9 @@ class Rent{
         return { status: 500, result: err };
     }
     }
-    static async insert_point(){
+    static async insert_point(point, rentid){
         
     }
-
     //Verify rent
     static async verifyRent(rentid){
         try{
@@ -261,9 +245,7 @@ class Rent{
             console.log(err);
             return { status: 500, result: err };
         }
-    }
-
-    
+    } 
     //this will compare the current time to the time in the rent and changes the state depending on that
     static async UpdateRents(rent_id){
 
@@ -296,7 +278,6 @@ class Rent{
             return {status:500, result:err};
         }
     }
-
     static async getscheduledRentsfromcar(carid) {
         try {
             let dbResult = await pool.query("select * From rent where rent_car_id = $1 and rent_rentstate_id = 1", [carid]);
@@ -324,11 +305,6 @@ class Rent{
             return { status: 500, result: err };
         }
     }
-
-
-
-
-
     static async getRentsHistoryFromCar(carId) {
         try {
             //Todo verifying that the car belongs to the user doing the request
@@ -351,7 +327,6 @@ class Rent{
             return { status: 500, result: err };
         }
     }
-
     static async getRentsHistoryFromUser(userId) {
         try {
             let dbResult = await pool.query(`
@@ -403,8 +378,6 @@ class Rent{
             return { status: 500, result: err };
         }
     }
-
-
 }
 
 module.exports = Rent;

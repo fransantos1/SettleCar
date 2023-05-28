@@ -22,7 +22,6 @@ async function requestOwnerCar(carid) {
 }
 async function AddCar(Car) {
     try {
-        console.log(Car);
         const response = await fetch(`/api/car/auth`,{
             headers: {
                 'Accept': 'application/json',
@@ -33,6 +32,7 @@ async function AddCar(Car) {
               car:Car
           })
         });
+        
         let result = await response.json();
         return { successful: response.status == 200, msg: result};
     } catch (err) {

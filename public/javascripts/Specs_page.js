@@ -118,5 +118,28 @@ function stateButton(){
  
  }
  function calendarButton(){
- 
+    
  }
+ async function updateinsp() {
+    let currentdate = new Date();
+    let date = document.getElementById("inspection").value;
+    date = new Date(date);
+    if(date.getTime()< currentdate.getTime()){window.alert("Please select a valid date");return;};
+    let service = {};
+    service.date = date;
+    service.name = "insurance";
+    let result = await updateservice(car.id, service);
+        if(result.err) throw result.err;
+ }
+ async function updateinsurance(){
+    let currentdate = new Date();
+    let date = document.getElementById("insurance").value;
+    date = new Date(date);
+    if(date.getTime()< currentdate.getTime()){window.alert("Please select a valid date");return;};
+    let service = {};
+    service.date = date;
+    service.name = "inspection";
+    let result = await updateservice(car.id, service);
+        if(result.err) throw result.err;
+}
+

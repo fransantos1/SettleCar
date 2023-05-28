@@ -10,6 +10,7 @@
   <script src="./javascripts/utils/verifications.js"></script>
   <script src="./javascripts/requests/usersRequests.js"></script>
   <script src="./javascripts/requests/ownerRequests.js"></script>
+  <script src="./javascripts/requests/carsRequests.js"></script>
   <script src="./javascripts/Specs_page.js"></script>
 
 </head>
@@ -37,9 +38,11 @@
       </section>
     </section>
     <section id = "left">
-      <button type="button" id = "repair">Calendar</button>
+      <input type="date" id="inspection" name="pickup"> 
+      <button type="button" onclick = updateinsp()>Update Inspection</button>
+      <input type="date" id="insurance" name="pickup"> 
+      <button type="button" onclick = updateinsurance()>Update Insurance</button>
       <button type="button" id = "rent_history" onclick = historyButton()>Rent History</button>
-      <button type="button" id = "repair_history" >Repair History</button>
       <button type="button" id="Unavailable" onclick = stateButton()>Make Unavailable</button>
     </section>
     <section id = "right">

@@ -50,9 +50,9 @@ router.delete('/auth/delete/',auth.verifyAuth,  async function (req, res, next) 
     }
 });
 //returns the course made on a rent can only be used by the owner
-router.get('/auth/getCourseOwner/:rentId/:date',auth.verifyAuth,  async function (req, res, next) {
+router.get('/auth/getCourse/:rentId/:date',auth.verifyAuth,  async function (req, res, next) {
     try {
-        let result = await Rent.getRentCourse_owner(req.params.rentId, req.params.date,req.user);
+        let result = await Rent.getRentCourse(req.params.rentId, req.params.date,req.user);
         if (result.status != 200) {
             res.status(result.status).send(result.result);
             return;
